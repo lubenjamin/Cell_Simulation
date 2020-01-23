@@ -3,11 +3,17 @@
 
 ### High level design
 
-For our implementation we would create a general game element class 
-from which the various rock, paper etc.. elements could be created. Each
-element would receive its own name and description from the text file. In 
-this way, new game modes could be added easily. Furthermore, we would 
-create both a game logic class to do the comparisons between game elements
-and a general game runner. 
+As we think more about the text file, we want to abstract the reading of
+the file from the other game classes and implementation. This way, the text
+file structure could change without impacting other classes. 
+
+The game runner would make a call to the reader inorder to print "weapon"
+options. As far as comparing the two selected objects, we came up with two
+options. the first would be creating weapon objects which contain the list
+of what that object beats. However we realized this is not much functionality
+and is maybe not deserving of a class. So the second option is using 
+maps, for example, with a key being the weapon, and the value being a 
+list of what the "weapon" beats. Then we have a comparator method which 
+determines the winner. 
 
 
