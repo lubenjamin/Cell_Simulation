@@ -17,3 +17,50 @@ list of what the "weapon" beats. Then we have a comparator method which
 determines the winner. 
 
 
+public class ReadTextFile(){
+
+private String textFile;
+
+public ReadTextFile(String textToRead)
+
+public Collection<Strings> getWeaponsList()
+
+public Collection<Strings> whatWinsList(int weaponNumber)
+
+}
+
+public class Weapon(){
+
+public Weapon(int weaponNumber)
+
+public Collection<Strings> getWinsList()
+
+
+}
+
+public class Player(){
+
+public Player()
+
+public int getScore()
+
+public int setScore()
+
+public Weapon getWeapon()
+
+public void setWeapon(Weapon newWeapon)
+
+}
+
+
+public class Runner(){
+
+public Runner()
+
+public int comparator(Weapon w1, Weapon w2)
+
+public void gameLoop()
+
+}
+
+
