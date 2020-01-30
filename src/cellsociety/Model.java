@@ -7,7 +7,7 @@ public class Model {
 
   }
 
-  public Cell getCell(int x, int y){
+  public Cell getCell(double x, double y){
 
   }
 
