@@ -1,6 +1,8 @@
 package cellsociety;
 
+import cellsociety.View.View;
 import javafx.scene.Group;
+
 
 public class Controller {
   private Model currentModel;
@@ -22,7 +24,7 @@ public class Controller {
 
   }
   private void updateView(){
-    
+
   }
 
 

@@ -1,13 +1,17 @@
 package cellsociety;
 
-import java.awt.Color;
+import javafx.scene.paint.Paint;
+
+
+
 
 public class Cell {
   private String currentState;
   private String nextState;
-  private Color displayColor;
 
-  public Cell(String initialState, Color initialColor){
+  private Paint displayColor;
+  public Cell(String initialState, Paint initialColor){
+
     currentState = initialState;
     displayColor = initialColor;
   }
@@ -16,7 +20,7 @@ public class Cell {
     return nextState;
   }
 
-  public Color getDisplayColor() {
+  public Paint getDisplayColor() {
     return displayColor;
   }
 
@@ -32,7 +36,7 @@ public class Cell {
     this.nextState = nextState;
   }
 
-  public void setDisplayColor(Color displayColor) {
+  public void setDisplayColor(Paint displayColor) {
     this.displayColor = displayColor;
   }
 }
