@@ -2,7 +2,14 @@ package cellsociety;
 
 import java.util.ArrayList;
 
+/*
+-Make grid
+-Get cells
+-getNeighborhood
+ */
+
 public class Model {
+  
   public Model(int widthCells, int heightCells){
 
   }
