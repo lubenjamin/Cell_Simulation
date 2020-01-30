@@ -38,16 +38,16 @@ public class View {
   private void initCellView(Model grid, int size) {
     for (int i = 0; i < size; i++) {
       for (int j = 0; j < size; j++) {
-        Rectangle rectangle = new Rectangle(i*10, j*10, displayState(grid.getCell(i, j)));
-        rectangle.setX(i);
-        rectangle.setY(j);
-        myVisuals.add(rectangle);
+        //Rectangle rectangle = new Rectangle(i*10, j*10, displayState(grid.getCell(i, j)));
+        //rectangle.setX(i);
+        //rectangle.setY(j);
+        //myVisuals.add(rectangle);
       }
     }
   }
   private void addAndUpdateVisual(Group viewGroup, Model grid) {
     for (Rectangle r: myVisuals) {
-      r.setFill(displayState(grid.getCell(r.getX(), r.getY())));
+      //r.setFill(displayState(grid.getCell(r.getX(), r.getY())));
       viewGroup.getChildren().add(r);
     }
   }
