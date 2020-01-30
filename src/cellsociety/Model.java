@@ -3,7 +3,7 @@ package cellsociety;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Model {  
+public class Model {
 
   private ArrayList<List<Cell>> grid = new ArrayList<List<Cell>>();
   private ArrayList<Cell> neighborhood = new ArrayList<Cell>();
