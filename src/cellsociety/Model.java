@@ -7,8 +7,12 @@ public class Model {
 
   private ArrayList<List<Cell>> grid = new ArrayList<List<Cell>>();
   private ArrayList<Cell> neighborhood = new ArrayList<Cell>();
+  private int rows;
+  private int columns;
 
   public Model(int widthCells, int heightCells){
+    rows = heightCells;
+    columns = widthCells;
   }
 
   public Cell getCell(int x, int y){
