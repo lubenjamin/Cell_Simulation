@@ -2,23 +2,17 @@ package View;
 
 import cellsociety.Cell;
 import cellsociety.Model;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.scene.Group;
 import javafx.scene.paint.Paint;
-
 import java.util.ArrayList;
 
 public class View {
-  private KeyFrame myFrame;
-  private Timeline animation = new Timeline();
-  private double MILLISECOND_DELAY = 1000.0;
-  private double SECOND_DELAY = 100.0;
-  //  private ArrayList<Rectangle> myVisuals = new ArrayList<>();
   private ArrayList<CellVisual> myVisuals = new ArrayList<>();
-  //private Scene myScene;
+  private final int SPACING = 6;
+  private final int VISUAL_WIDTH = 5;
+  private final int VISUAL_HEIGHT = 5;
 
-  public View(Group viewGroup, double widthCells, double heightCells, Model currentModel){
+  public View(Group viewGroup, double widthCells, double heightCells, Model currentModel) {
     initCellView(currentModel, widthCells);
     addAndUpdateVisual(viewGroup, currentModel);
   }
@@ -29,24 +23,14 @@ public class View {
   private void initCellView(Model grid, double size) {
     for (int i = 0; i < 75; i++) {
       for (int j = 0; j < 75; j++) {
-//        Rectangle rectangle = new Rectangle(5, 5, displayState(grid.getCell(i, j)));
-//        rectangle.setX(i);
-//        rectangle.setY(j);
-//        myVisuals.add(rectangle);
-        CellVisual cv = new CellVisual(5, 5, displayState(grid.getCell(i, j)), i, j);
-        cv.setX(i*6);
-        cv.setY(j*6);
+        CellVisual cv = new CellVisual(VISUAL_WIDTH, VISUAL_HEIGHT, displayState(grid.getCell(i, j)), i, j);
+        cv.setX(i * SPACING);
+        cv.setY(j * SPACING);
         myVisuals.add(cv);
       }
     }
   }
   private void addAndUpdateVisual(Group viewGroup, Model grid) {
-//    for (Rectangle r: myVisuals) {
-//      r.setFill(displayState(grid.getCell(r.getX(), r.getY())));
-
-//      viewGroup.getChildren().add(r);
-
-//    }
     for (CellVisual cv : myVisuals) {
       cv.setFill(displayState(grid.getCell((int) cv.getXPos(), (int) cv.getYPos())));
       viewGroup.getChildren().add(cv);
@@ -55,5 +39,4 @@ public class View {
   private Paint displayState(Cell cell) {
     return cell.getDisplayColor();
   }
-
 }
