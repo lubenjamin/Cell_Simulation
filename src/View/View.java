@@ -17,14 +17,14 @@ public class View {
   public View(Group viewGroup, double widthCells, double heightCells, Model currentModel) {
     this.myModel = currentModel;
     this.myViewGroup = viewGroup;
-    initCellView(currentModel, widthCells);
+    initCellView(currentModel, widthCells, heightCells);
     addAndUpdateVisual(viewGroup, currentModel);
   }
   public void updateAllCells() {
     myViewGroup.getChildren().clear();
     addAndUpdateVisual(myViewGroup, myModel);
   }
-  private void initCellView(Model grid, double size) {
+  private void initCellView(Model grid, double width, double height) {
     for (int i = 0; i < 75; i++) {
       for (int j = 0; j < 75; j++) {
         CellVisual cv = new CellVisual(VISUAL_WIDTH, VISUAL_HEIGHT, displayState(grid.getCell(i, j)), i, j);
