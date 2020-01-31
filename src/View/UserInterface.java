@@ -22,16 +22,21 @@ public class UserInterface {
     private static final String TITLE = "Simulation_Team05";
     private static final int HEIGHT = 300; // temp
     private static final int WIDTH = 300; //temp
+
     private static final String RESOURCES = "resources";
     public static final String DEFAULT_RESOURCE_PACKAGE = RESOURCES + ".";
     public static final String DEFAULT_RESOURCE_FOLDER = "/" + RESOURCES + "/";
     public static final String STYLESHEET = "resources/default.css";
     public static final String BLANK = " ";
+
     private ResourceBundle myResources;
+
     private Button myPauseButton = new Button();
     private Button myPlayButton = new Button();
     private Button myResetButton = new Button();
     private Button myStepButton = new Button();
+
+    public boolean isPaused;
 
     public UserInterface(Stage stage, String language) {
         stage.setTitle(TITLE);
@@ -48,10 +53,10 @@ public class UserInterface {
     private Node initControls() {
         VBox v = new VBox();
         HBox h = new HBox();
-        myPlayButton = makeButton("PLAYCOMMAND", event -> stop());
-        myPauseButton = makeButton("PAUSECOMMAND", event -> stop());
-        myResetButton = makeButton("RESETCOMMAND", event -> stop());
-        myStepButton = makeButton("UPDATECOMMAND", event -> stop());
+        myPlayButton = makeButton("PLAYCOMMAND", event -> checkPlay());
+        myPauseButton = makeButton("PAUSECOMMAND", event -> checkPause());
+        myResetButton = makeButton("RESETCOMMAND", event -> checkReset());
+        myStepButton = makeButton("UPDATECOMMAND", event -> checkUpdate());
         v.getChildren().add(myPlayButton);
         v.getChildren().add(myPauseButton);
         v.getChildren().add(myStepButton);
@@ -86,6 +91,14 @@ public class UserInterface {
         result.setOnAction(handler);
         return result;
     }
-    private void stop() {
+    private void checkPause() {
+        this.isPaused = true;
+    }
+    private void checkPlay() {
+        this.isPaused = false;
+    }
+    private void checkReset() {
+    }
+    private void checkUpdate() {
     }
 }
