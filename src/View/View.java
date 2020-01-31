@@ -11,14 +11,18 @@ public class View {
   private final int SPACING = 6;
   private final int VISUAL_WIDTH = 5;
   private final int VISUAL_HEIGHT = 5;
+  private Model myModel;
+  private Group myViewGroup;
 
   public View(Group viewGroup, double widthCells, double heightCells, Model currentModel) {
+    this.myModel = currentModel;
+    this.myViewGroup = viewGroup;
     initCellView(currentModel, widthCells);
     addAndUpdateVisual(viewGroup, currentModel);
   }
-  public void updateAllCells(Group viewGroup, Model grid, double time) {
-    viewGroup.getChildren().clear();
-    addAndUpdateVisual(viewGroup, grid);
+  public void updateAllCells() {
+    myViewGroup.getChildren().clear();
+    addAndUpdateVisual(myViewGroup, myModel);
   }
   private void initCellView(Model grid, double size) {
     for (int i = 0; i < 75; i++) {
@@ -32,7 +36,7 @@ public class View {
   }
   private void addAndUpdateVisual(Group viewGroup, Model grid) {
     for (CellVisual cv : myVisuals) {
-      cv.setFill(displayState(grid.getCell((int) cv.getXPos(), (int) cv.getYPos())));
+      cv.setFill(displayState(grid.getCell(cv.getXPos(), cv.getYPos())));
       viewGroup.getChildren().add(cv);
     }
   }

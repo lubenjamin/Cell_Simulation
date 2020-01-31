@@ -34,7 +34,6 @@ public class Main extends Application {
     stage.setScene(UI.setupUI(viewGroup));
     stage.show();
     Controller currentController = new Controller(viewGroup);
-    
     KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step());
     Timeline animation = new Timeline();
     animation.setCycleCount(Timeline.INDEFINITE);
