@@ -42,8 +42,6 @@ public class UserInterface {
         bp.setCenter(viewGroup);
         bp.setBottom(initControls());
         Scene myScene = new Scene(bp, 600, 600);
-        Model m = new Model(WIDTH, HEIGHT);
-        View view = new View(viewGroup, WIDTH, HEIGHT, m);
         myScene.getStylesheets().add(STYLESHEET);
         return myScene;
     }

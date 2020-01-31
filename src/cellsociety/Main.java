@@ -1,33 +1,50 @@
 package cellsociety;
 
-import View.UserInterface;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+
+import View.UserInterface;
+
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
- * Feel free to completely change this code or delete it entirely. 
+ * Feel free to completely change this code or delete it entirely.
  */
 public class Main extends Application {
-    /**
-     * Start of the program.
-     */
-    private KeyFrame myFrame;
-    private Timeline animation = new Timeline();
-    private double MILLISECOND_DELAY = 1000.0;
-    private double SECOND_DELAY = 100.0;
 
-    public static void main (String[] args) {
-        launch(args);
-    }
+  private static final int FRAMES_PER_SECOND = 100;
+  private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
+  private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 
-    @Override
-    public void start(Stage stage) throws Exception {
-        Group viewGroup = new Group();
-        UserInterface UI = new UserInterface(stage, "English");
-        stage.setScene(UI.setupUI(viewGroup));
-        stage.show();
-    }
+  /**
+   * Start of the program.
+   */
+  public static void main(String[] args) {
+    launch(args);
+  }
+
+  @Override
+  public void start(Stage stage) throws Exception {
+    Group viewGroup = new Group();
+    UserInterface UI = new UserInterface(stage, "English");
+    stage.setScene(UI.setupUI(viewGroup));
+    stage.show();
+    Controller currentController = new Controller(viewGroup);
+    
+    KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step());
+    Timeline animation = new Timeline();
+    animation.setCycleCount(Timeline.INDEFINITE);
+    animation.getKeyFrames().add(frame);
+    animation.play();
+
+  }
+
+  private void step() {
+
+  }
+
 }
