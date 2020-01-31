@@ -1,6 +1,8 @@
 package cellsociety;
 
 
+import ControllerPackage.Controller;
+import ControllerPackage.PercolationController;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 
@@ -16,7 +18,7 @@ import javafx.util.Duration;
  */
 public class Main extends Application {
 
-  private static final int FRAMES_PER_SECOND = 2;
+  private static final int FRAMES_PER_SECOND = 24t;
   private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
   private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
   private Controller currentController;
@@ -34,7 +36,7 @@ public class Main extends Application {
     UserInterface UI = new UserInterface(stage, "English");
     stage.setScene(UI.setupUI(viewGroup));
     stage.show();
-    currentController = new Controller(viewGroup);
+    currentController = new PercolationController(viewGroup);
 
     KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step());
     Timeline animation = new Timeline();
