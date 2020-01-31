@@ -34,7 +34,13 @@ public class Controller {
     Cell current = currentModel.getCell(x,y);
 
     current.setNextState(current.getCurrentState());
-    current.setDisplayColor(Color.rgb(255,0,0));
+    if(current.getDisplayColor()==Color.RED){
+      current.setDisplayColor(Color.BLUE);
+    }
+    else if(current.getDisplayColor()==Color.BLUE){
+      current.setDisplayColor(Color.RED);
+    }
+
 
 
   }
