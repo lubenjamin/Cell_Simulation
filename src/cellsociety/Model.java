@@ -17,7 +17,7 @@ public class Model {
   private void initializeGrid() {
     for(int x = 0; x < grid.length; x++){
       for(int y = 0; y<grid[0].length; y++){
-        grid [x][y] = new Cell("", Color.rgb(0,0,100));
+        grid [x][y] = new Cell("", Color.RED);
       }
     }
   }
