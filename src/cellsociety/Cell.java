@@ -8,7 +8,6 @@ import javafx.scene.paint.Paint;
 public class Cell {
   private String currentState;
   private String nextState;
-
   private Paint displayColor;
   public Cell(String initialState, Paint initialColor){
 

@@ -16,9 +16,10 @@ import javafx.util.Duration;
  */
 public class Main extends Application {
 
-  private static final int FRAMES_PER_SECOND = 100;
+  private static final int FRAMES_PER_SECOND = 2;
   private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
   private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
+  private Controller currentController;
 
   /**
    * Start of the program.
@@ -33,7 +34,8 @@ public class Main extends Application {
     UserInterface UI = new UserInterface(stage, "English");
     stage.setScene(UI.setupUI(viewGroup));
     stage.show();
-    Controller currentController = new Controller(viewGroup);
+    currentController = new Controller(viewGroup);
+
     KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step());
     Timeline animation = new Timeline();
     animation.setCycleCount(Timeline.INDEFINITE);
@@ -43,6 +45,7 @@ public class Main extends Application {
   }
 
   private void step() {
+    currentController.updateSim();
 
   }
 
