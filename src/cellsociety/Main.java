@@ -2,6 +2,7 @@ package cellsociety;
 
 import cellsociety.View.UserInterface;
 import javafx.application.Application;
+import javafx.scene.Group;
 import javafx.stage.Stage;
 
 /**
@@ -17,6 +18,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        UserInterface UI = new UserInterface(stage);
+        Group viewGroup = new Group();
+        UserInterface UI = new UserInterface(stage, viewGroup, "English");
     }
 }
