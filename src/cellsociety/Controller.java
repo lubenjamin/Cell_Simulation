@@ -33,12 +33,15 @@ public class Controller {
   private void updateCell(int x, int y) {
     Cell current = currentModel.getCell(x,y);
 
+
     current.setNextState(current.getCurrentState());
-    if(current.getDisplayColor()==Color.RED){
+    if(current.getCurrentState().equals("RED")){
       current.setDisplayColor(Color.BLUE);
+      current.setNextState("BLUE");
     }
-    else if(current.getDisplayColor()==Color.BLUE){
+    else if(current.getCurrentState().equals("BLUE")){
       current.setDisplayColor(Color.RED);
+      current.setNextState("RED");
     }
 
 
