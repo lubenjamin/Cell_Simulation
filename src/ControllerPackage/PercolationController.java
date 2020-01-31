@@ -21,7 +21,6 @@ public class PercolationController extends Controller{
     }
   }
 
-
   @Override
   protected void updateGrid(){
     for(int i = 0; i < WIDTH_CELLS*HEIGHT_CELLS; i++){

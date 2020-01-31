@@ -4,13 +4,12 @@ import View.View;
 import cellsociety.Cell;
 import cellsociety.Model;
 import javafx.scene.Group;
-import javafx.scene.paint.Color;
+
 
 
 public abstract class Controller {
   protected Model currentModel;
   protected View currentView;
-
   protected final static int WIDTH_CELLS = 100;
   protected final static int HEIGHT_CELLS = 100;
 
@@ -20,18 +19,11 @@ public abstract class Controller {
     initializeModel();
   }
 
-  protected abstract void initializeModel();
-
   public void updateSim(){
     updateGrid();
     switchGridStates();
-    updateView();
+    currentView.updateAllCells();
   }
-
-
-  protected abstract void updateGrid();
-
-  protected abstract void updateCell(int x, int y);
 
   private void switchGridStates(){
     for(int i = 0; i < WIDTH_CELLS*HEIGHT_CELLS; i++){
@@ -41,14 +33,14 @@ public abstract class Controller {
       current.setCurrentState(current.getNextState());
       calcNewDisplay(current);
     }
-
   }
+
+  protected abstract void initializeModel();
+
+  protected abstract void updateGrid();
+
+  protected abstract void updateCell(int x, int y);
 
   protected abstract void calcNewDisplay(Cell cell);
-
-  private void updateView(){
-    currentView.updateAllCells();
-  }
-
 
 }
