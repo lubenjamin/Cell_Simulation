@@ -7,7 +7,9 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -35,6 +37,8 @@ public class UserInterface {
     private Button myPlayButton = new Button();
     private Button myResetButton = new Button();
     private Button myStepButton = new Button();
+    private ComboBox<String> myDropDown = new ComboBox();
+    private String[] s = new String[2];
 
     public boolean isPaused;
 
@@ -44,6 +48,8 @@ public class UserInterface {
     }
     public Scene setupUI(Group viewGroup) {
         BorderPane bp = new BorderPane();
+        initSimSelect(event -> setSim());
+        bp.setTop(myDropDown);
         bp.setCenter(viewGroup);
         bp.setBottom(initControls());
         Scene myScene = new Scene(bp, 600, 600);
@@ -76,6 +82,17 @@ public class UserInterface {
         mySlider.setMinorTickCount(5);
         mySlider.setBlockIncrement(10);
         return mySlider;
+    }
+    private void initSimSelect(EventHandler<ActionEvent> handler) {
+        myDropDown.setOnAction(handler);
+        s[0] = "perc";
+        s[1] = "fire";
+        myDropDown.getItems().add(s[0]);
+        myDropDown.getItems().add(s[1]);
+    }
+    private void setSim() {
+        String st = myDropDown.getValue();
+        System.out.println(st);
     }
     private Button makeButton (String property, EventHandler<ActionEvent> handler) {
         // represent all supported image suffixes

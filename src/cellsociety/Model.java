@@ -2,7 +2,6 @@ package cellsociety;
 
 import java.util.ArrayList;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 
 public class Model {
 
