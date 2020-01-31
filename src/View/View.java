@@ -1,17 +1,12 @@
-package cellsociety.View;
+package View;
 
 import cellsociety.Cell;
 import cellsociety.Model;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Rectangle;
-import javafx.util.Duration;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 public class View {
@@ -24,12 +19,8 @@ public class View {
   //private Scene myScene;
 
   public View(Group viewGroup, double widthCells, double heightCells, Model currentModel){
-//    this.myFrame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e-> this.updateAllCells(viewGroup, currentModel, SECOND_DELAY));
-//    this.animation.setCycleCount(Timeline.INDEFINITE);
-//    this.animation.getKeyFrames().add(myFrame);
     initCellView(currentModel, widthCells);
     addAndUpdateVisual(viewGroup, currentModel);
-    //this.myScene = new Scene(viewGroup, widthCells, heightCells);
   }
   public void updateAllCells(Group viewGroup, Model grid, double time) {
     viewGroup.getChildren().clear();
