@@ -20,8 +20,8 @@ import java.util.ResourceBundle;
 
 public class UserInterface {
     private static final String TITLE = "Simulation_Team05";
-    private static final double HEIGHT = 300; // temp
-    private static final double WIDTH = 300; //temp
+    private static final int HEIGHT = 300; // temp
+    private static final int WIDTH = 300; //temp
     private static final String RESOURCES = "resources";
     public static final String DEFAULT_RESOURCE_PACKAGE = RESOURCES + ".";
     public static final String DEFAULT_RESOURCE_FOLDER = "/" + RESOURCES + "/";
