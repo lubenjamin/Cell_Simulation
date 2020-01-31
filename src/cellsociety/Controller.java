@@ -2,6 +2,7 @@ package cellsociety;
 
 import View.View;
 import javafx.scene.Group;
+import javafx.scene.paint.Color;
 
 
 public class Controller {
@@ -33,6 +34,7 @@ public class Controller {
     Cell current = currentModel.getCell(x,y);
 
     current.setNextState(current.getCurrentState());
+    current.setDisplayColor(Color.rgb(255,0,0));
 
 
   }
@@ -46,9 +48,9 @@ public class Controller {
     }
 
   }
-  private void updateView(){
-    
 
+  private void updateView(){
+    currentView.updateAllCells();
   }
 
 
