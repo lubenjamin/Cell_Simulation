@@ -27,7 +27,6 @@ public class Controller {
       int y = i/WIDTH_CELLS;
       updateCell(x,y);
     }
-
   }
 
   private void updateCell(int x, int y) {
