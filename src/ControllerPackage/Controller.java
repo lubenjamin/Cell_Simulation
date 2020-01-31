@@ -17,7 +17,10 @@ public abstract class Controller {
   public Controller (Group simGroup){
     currentModel = new Model(WIDTH_CELLS,HEIGHT_CELLS);
     currentView = new View(simGroup, WIDTH_CELLS, HEIGHT_CELLS, currentModel);
+    initializeModel();
   }
+
+  protected abstract void initializeModel();
 
   public void updateSim(){
     updateGrid();
@@ -36,9 +39,12 @@ public abstract class Controller {
       int y = i/WIDTH_CELLS;
       Cell current = currentModel.getCell(x,y);
       current.setCurrentState(current.getNextState());
+      calcNewDisplay(current);
     }
 
   }
+
+  protected abstract void calcNewDisplay(Cell cell);
 
   private void updateView(){
     currentView.updateAllCells();

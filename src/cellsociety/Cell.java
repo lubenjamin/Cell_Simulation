@@ -9,10 +9,10 @@ public class Cell {
   private String currentState;
   private String nextState;
   private Paint displayColor;
-  public Cell(String initialState, Paint initialColor){
+  public Cell(){
+    currentState = "";
+    nextState = "";
 
-    currentState = initialState;
-    displayColor = initialColor;
   }
 
   public String getNextState() {
