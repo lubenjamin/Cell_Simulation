@@ -9,7 +9,7 @@ public class Cell {
   private Paint displayColor;
   public Cell(String initialState, Paint initialColor){
     currentState = initialState;
-    displayColor = initialColor;
+    this.displayColor = initialColor;
   }
 
   public String getNextState() {
