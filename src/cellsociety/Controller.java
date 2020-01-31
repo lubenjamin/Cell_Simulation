@@ -1,6 +1,6 @@
 package cellsociety;
 
-import cellsociety.View.View;
+import View.View;
 import javafx.scene.Group;
 
 
