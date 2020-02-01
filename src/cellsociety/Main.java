@@ -13,6 +13,8 @@ import javafx.scene.Group;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.util.ArrayList;
+
 /**
  * Feel free to completely change this code or delete it entirely.
  */
@@ -23,8 +25,8 @@ public class Main extends Application {
   private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
   private Controller currentController;
   private UserInterface UI;
-  private String mySim;
-  private String[] simNames;
+  private int mySim;
+  private ArrayList<String> simNames;
   /**
    * Start of the program.
    */
@@ -35,9 +37,9 @@ public class Main extends Application {
   @Override
   public void start(Stage stage) throws Exception {
     Group viewGroup = new Group();
-    simNames = new String[2];
-    simNames[0] = "fire";
-    simNames[1] = "perc";
+    simNames = new ArrayList<>();
+    simNames.add("fire");
+    simNames.add("perc");
     Timeline myAnimation = new Timeline();
     UI = new UserInterface(stage, "English", simNames, myAnimation);
     stage.setScene(UI.setupUI(viewGroup));
@@ -54,8 +56,13 @@ public class Main extends Application {
   }
 
   private void step() {
-    if (! UI.isPaused) {
+    if (! UI.isPaused || (UI.isPaused && UI.isStep)) {
       currentController.updateSim();
+      UI.isStep=false;
+    }
+    if (UI.isReset) {
+      currentController.resetSim();
+      UI.isReset=false;
     }
 
   }

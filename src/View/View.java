@@ -3,6 +3,7 @@ package View;
 import cellsociety.Cell;
 import cellsociety.Model;
 import javafx.scene.Group;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import java.util.ArrayList;
 
@@ -23,6 +24,11 @@ public class View {
   public void updateAllCells() {
     for (CellVisual cv : myVisuals) {
       cv.setFill(displayState(myModel.getCell(cv.getXPos(), cv.getYPos())));
+    }
+  }
+  public void resetView() {
+    for (CellVisual cv: myVisuals) {
+      cv.setFill(Color.WHITE);
     }
   }
   private void initCellView(Model grid, double width, double height) {

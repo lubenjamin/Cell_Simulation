@@ -25,6 +25,10 @@ public abstract class Controller {
     currentView.updateAllCells();
   }
 
+  public void resetSim(){
+    currentView.resetView();
+  }
+
   private void switchGridStates(){
     for(int i = 0; i < WIDTH_CELLS*HEIGHT_CELLS; i++){
       int x = i % WIDTH_CELLS;

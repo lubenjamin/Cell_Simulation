@@ -1,7 +1,5 @@
 package View;
 
-import cellsociety.Main;
-import cellsociety.Model;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -11,11 +9,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Slider;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -23,18 +18,19 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class UserInterface {
-    private static final String TITLE = "Simulation_Team05";
     private static final int HEIGHT = 300; // temp
     private static final int WIDTH = 300; //temp
 
+    private static final String TITLE = "Simulation_Team05";
     private static final String RESOURCES = "resources";
-    public static final String DEFAULT_RESOURCE_PACKAGE = RESOURCES + ".";
-    public static final String DEFAULT_RESOURCE_FOLDER = "/" + RESOURCES + "/";
-    public static final String STYLESHEET = "resources/default.css";
-    public static final String BLANK = " ";
+    private static final String DEFAULT_RESOURCE_PACKAGE = RESOURCES + ".";
+    private static final String DEFAULT_RESOURCE_FOLDER = "/" + RESOURCES + "/";
+    private static final String STYLESHEET = "resources/default.css";
+    private static final String BLANK = " ";
 
     private ResourceBundle myResources;
 
@@ -45,13 +41,15 @@ public class UserInterface {
     private Slider mySlider = new Slider();
     private ComboBox<String> myDropDown = new ComboBox();
 
-    private String[] mySims;
+    private ArrayList<String> mySims;
     private Timeline myAnimation;
 
     public boolean isPaused;
     public boolean isReset;
+    public boolean isPlayed;
+    public boolean isStep;
 
-    public UserInterface(Stage stage, String language, String[] simNames, Timeline animation) {
+    public UserInterface(Stage stage, String language, ArrayList<String> simNames, Timeline animation) {
         stage.setTitle(TITLE);
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
         this.mySims = simNames;
@@ -100,16 +98,17 @@ public class UserInterface {
     private void handleSlider() {
         myAnimation.setRate(mySlider.getValue());
     }
-    private void initSimSelect(EventHandler<ActionEvent> handler, String[] simNames) {
+    private void initSimSelect(EventHandler<ActionEvent> handler, ArrayList<String> simNames) {
         myDropDown.setOnAction(handler);
         for (String s : simNames) {
             myDropDown.getItems().add(s);
         }
     }
-    public String setSim() {
+    public int setSim() {
         String st = myDropDown.getValue();
-        System.out.println(st);
-        return st;
+        int ret = mySims.indexOf(st);
+        System.out.println(ret);
+        return ret;
     }
 
     private Button makeButton (String property, EventHandler<ActionEvent> handler) {
@@ -134,7 +133,8 @@ public class UserInterface {
     }
     private void checkReset() {
         this.isReset = true;
+        this.isPaused = true;
     }
-    private void checkUpdate() {
+    private void checkUpdate() { this.isStep = true;
     }
 }
