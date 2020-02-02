@@ -10,7 +10,22 @@ import javafx.scene.paint.Color;
 
 public class GameOfLifeController extends Controller {
 
-  private final static double initialLive = .5;
+  private final static double initialLive = .3;
+
+  private class State{
+    public String state;
+    public State(String state){
+      this.state = state;
+    }
+    public String getState(){
+      return state;
+    }
+    @Override
+    public boolean equals(Object a ){
+      String s = (String) a;
+      return s.equals(state);
+    }
+  }
 
   public GameOfLifeController(Group simGroup, FileReader reader) {
     super(simGroup, reader);
@@ -26,11 +41,11 @@ public class GameOfLifeController extends Controller {
 
       Cell cell = currentModel.getCell(x, y);
       double stateSelect = a.nextDouble();
-      if(stateSelect>initialLive){
-        cell.setCurrentState("ALIVE");
+      if(stateSelect<initialLive){
+        cell.setCurrentState(new State("ALIVE"));
       }
-      if(stateSelect<=initialLive){
-        cell.setCurrentState("DEAD");
+      if(stateSelect>=initialLive){
+        cell.setCurrentState(new State("DEAD"));
       }
       calcNewDisplay(cell);
     }
@@ -60,18 +75,18 @@ public class GameOfLifeController extends Controller {
 
     if(current.getCurrentState().equals("ALIVE")){
       if (numAlive==2 || numAlive ==3){
-        current.setNextState("ALIVE");
+        current.setNextState(new State("ALIVE"));
       }
       else{
-        current.setNextState("DEAD");
+        current.setNextState(new State("DEAD"));
       }
     }
     else{
       if(numAlive == 3){
-        current.setNextState("ALIVE");
+        current.setNextState(new State("ALIVE"));
       }
       else{
-        current.setNextState("DEAD");
+        current.setNextState(new State("DEAD"));
       }
     }
 
@@ -81,7 +96,7 @@ public class GameOfLifeController extends Controller {
 
   @Override
   protected void calcNewDisplay(Cell cell) {
-    switch (cell.getCurrentState()){
+    switch ( ((State) cell.getCurrentState()).getState()){
       case "DEAD":
         cell.setDisplayColor(Color.WHITE);
         break;

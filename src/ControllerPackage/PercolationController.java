@@ -12,6 +12,21 @@ public class PercolationController extends Controller {
 
   private static final double PERCENT_BLOCKED = .575;
 
+  private class State{
+    private String state;
+    public State(String state){
+      this.state = state;
+    }
+    public String getState(){
+      return state;
+    }
+    @Override
+    public boolean equals(Object a ){
+      String s = (String) a;
+      return s.equals(state);
+    }
+  }
+
 
   public PercolationController(Group simGroup, FileReader reader) {
     super(simGroup, reader);
@@ -29,11 +44,11 @@ public class PercolationController extends Controller {
 
 
       if(stateSelect> PERCENT_BLOCKED){
-        cell.setCurrentState("OPEN");
+        cell.setCurrentState(new State("OPEN"));
       }
 
       if(stateSelect<= PERCENT_BLOCKED){
-        cell.setCurrentState("CLOSED");
+        cell.setCurrentState(new State("CLOSED"));
       }
       calcNewDisplay(cell);
     }
@@ -52,18 +67,18 @@ public class PercolationController extends Controller {
   protected void updateCell(int x, int y) {
     Cell current = currentModel.getCell(x, y);
     if (current.getCurrentState().equals("CLOSED")){
-      current.setNextState("CLOSED");
+      current.setNextState(new State("CLOSED"));
       return;
     }
     if (y == 0 && current.getCurrentState().equals("OPEN")) {
-      current.setNextState("PERC");
+      current.setNextState(new State("PERC"));
       return;
     }
 
 
     for (Cell c : currentModel.getMooreNeighborhood(x, y)) {
       if (c.getCurrentState().equals("PERC")) {
-        current.setNextState("PERC");
+        current.setNextState(new State("PERC"));
         return;
       }
     }
@@ -73,7 +88,7 @@ public class PercolationController extends Controller {
 
   @Override
   protected void calcNewDisplay(Cell cell) {
-    switch (cell.getCurrentState()){
+    switch (((State)cell.getCurrentState()).getState()){
       case "OPEN":
         cell.setDisplayColor(Color.WHITE);
         break;
