@@ -12,13 +12,13 @@ import javafx.scene.paint.Color;
 public class SegregationController extends Controller {
 
 
-  private final static double percentOccupied = .7;
+  private final static double percentOccupied = .9;
   private final static double percentMajority = .75;
-  private final static double satisfiedLevel = .9;
+  private final static double satisfiedLevel = .6;
 
   private ArrayList<Cell> emptySpots;
   private ArrayList<Cell> needMove;
-  
+
 
   public SegregationController(Group simGroup, FileReader reader) {
     super(simGroup, reader);
