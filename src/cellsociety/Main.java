@@ -50,14 +50,10 @@ public class Main extends Application {
 
     mySim = UI.setSim();
 
-    FileReader reader = new FileReader("segregation.xml");
+    FileReader reader = new FileReader("percolation.xml");
 
-    if (reader.getSimType()!=null && reader.getSimType().equals("Segregation")){
-      currentController = new PercolationController(viewGroup, reader);
-    }
-    else{
-      currentController = new PercolationController(viewGroup, reader);
-    }
+    currentController = new PercolationController(viewGroup, reader);
+
 
     KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step());
     myAnimation.setCycleCount(Timeline.INDEFINITE);

@@ -34,7 +34,7 @@ public abstract class Controller {
 
     initializeModel();
     currentView.updateAllCells();
-    
+
   }
 
   private void switchGridStates(){
