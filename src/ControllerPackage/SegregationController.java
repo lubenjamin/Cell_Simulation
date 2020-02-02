@@ -12,12 +12,12 @@ import javafx.scene.paint.Color;
 public class SegregationController extends Controller {
 
 
-  private final static double percentOccupied = .9;
-  private final static double ratio = .7;
-  private final static double satisfiedLevel = .3;
+  private final static double percentOccupied = .7;
+  private final static double percentMajority = .75;
+  private final static double satisfiedLevel = .9;
 
   private ArrayList<Cell> emptySpots;
-  private ArrayList<Cell> nextEmpty;
+  private ArrayList<Cell> needMove;
 
 
   private class State {
@@ -58,30 +58,33 @@ public class SegregationController extends Controller {
         cell.setCurrentState(new State("EMPTY"));
       }
       if (stateSelect <= percentOccupied) {
-        if (a.nextDouble() < ratio) {
-          cell.setCurrentState(new State("AGENT0"));
+        if (a.nextDouble() < percentMajority) {
+          cell.setCurrentState(new State("MAJORITY"));
         } else {
-          cell.setCurrentState(new State("AGENT1"));
+          cell.setCurrentState(new State("MINORITY"));
         }
       }
       calcNewDisplay(cell);
     }
-    emptySpots = getEmptySpots("EMPTY");
-    nextEmpty = new ArrayList<>();
+
 
   }
 
   @Override
   protected void updateGrid() {
+    needMove = new ArrayList<>();
+    emptySpots = getEmptySpots("EMPTY");
     ArrayList<Cell> trial = new ArrayList<>(emptySpots);
     for (int i = 0; i < WIDTH_CELLS * HEIGHT_CELLS; i++) {
       int x = i % WIDTH_CELLS;
       int y = i / WIDTH_CELLS;
       updateCell(x, y);
     }
-    emptySpots.addAll(nextEmpty);
-    nextEmpty.clear();
+    moveUnHappy();
+
   }
+
+
 
   @Override
   protected void updateCell(int x, int y) {
@@ -109,20 +112,8 @@ public class SegregationController extends Controller {
       }
     }
 
-    if (totalNeigh > 0 && similar / totalNeigh < satisfiedLevel && emptySpots.size() > 0) {
-
-      Random r = new Random();
-      int index = r.nextInt(emptySpots.size());
-      Cell cellReplace = emptySpots.get(index);
-
-      cellReplace.setNextState(new State(currentState));
-
-      current.setNextState(new State("EMPTY"));
-
-      emptySpots.remove(cellReplace);
-
-      nextEmpty.add(current);
-      return;
+    if (totalNeigh > 0 && similar / totalNeigh < satisfiedLevel) {
+      needMove.add(current);
     }
 
     current.setNextState(current.getCurrentState());
@@ -135,10 +126,10 @@ public class SegregationController extends Controller {
       case "EMPTY":
         cell.setDisplayColor(Color.LIGHTGRAY);
         break;
-      case "AGENT0":
+      case "MAJORITY":
         cell.setDisplayColor(Color.DARKBLUE);
         break;
-      case "AGENT1":
+      case "MINORITY":
         cell.setDisplayColor(Color.DARKGOLDENROD);
         break;
 
@@ -157,4 +148,30 @@ public class SegregationController extends Controller {
     }
     return ret;
   }
+
+  /**
+   * This method picks a random cell that needs moving
+   * and a random empty spot. This is because at the beginning
+   * there are not enough empty spots to relocate cells, so
+   * it needs to be random
+   */
+  private void moveUnHappy() {
+    Random r = new Random();
+    while(emptySpots.size()!=0 && needMove.size()!=0){
+      int indexTo = r.nextInt(emptySpots.size());
+      int indexFrom = r.nextInt(needMove.size());
+      Cell cellReplace = emptySpots.get(indexTo);
+      Cell current = needMove.get(indexFrom);
+      cellReplace.setNextState(new State(((State)current.getCurrentState()).getState()));
+      current.setNextState(new State("EMPTY"));
+      emptySpots.remove(cellReplace);
+      needMove.remove(current);
+    }
+
+  }
+
+
 }
+
+
+
