@@ -53,13 +53,14 @@ public class PercolationController extends Controller {
       return;
     }
 
-    /*
+
     for (Cell c : currentModel.getNeighborhood(x, y)) {
       if (c.getCurrentState().equals("PERC")) {
         current.setNextState("PERC");
         return;
       }
-    }*/
+    }
+
     current.setNextState(current.getCurrentState());
   }
 
