@@ -12,22 +12,6 @@ public class PercolationController extends Controller {
 
   private static final double PERCENT_BLOCKED = .575;
 
-  private class State{
-    private String state;
-    public State(String state){
-      this.state = state;
-    }
-    public String getState(){
-      return state;
-    }
-    @Override
-    public boolean equals(Object a ){
-      String s = (String) a;
-      return s.equals(state);
-    }
-  }
-
-
   public PercolationController(Group simGroup, FileReader reader) {
     super(simGroup, reader);
   }
@@ -54,14 +38,6 @@ public class PercolationController extends Controller {
     }
   }
 
-  @Override
-  protected void updateGrid() {
-    for (int i = 0; i < WIDTH_CELLS * HEIGHT_CELLS; i++) {
-      int x = i % WIDTH_CELLS;
-      int y = i / WIDTH_CELLS;
-      updateCell(x, y);
-    }
-  }
 
   @Override
   protected void updateCell(int x, int y) {

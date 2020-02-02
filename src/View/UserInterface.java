@@ -109,7 +109,6 @@ public class UserInterface {
     public int setSim() {
         String st = myDropDown.getValue();
         int ret = mySims.indexOf(st);
-        System.out.println(ret);
         this.isSimLoaded=true;
         return ret;
     }

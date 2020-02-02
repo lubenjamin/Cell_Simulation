@@ -5,6 +5,7 @@ import ControllerPackage.Controller;
 import ControllerPackage.FireController;
 import ControllerPackage.GameOfLifeController;
 import ControllerPackage.PercolationController;
+import ControllerPackage.SegregationController;
 import View.UserInterface;
 import java.util.ArrayList;
 import javafx.animation.KeyFrame;
@@ -50,7 +51,7 @@ public class Main extends Application {
 
     FileReader reader = new FileReader("percolation.xml");
     
-    currentController = new FireController(viewGroup, reader);
+    currentController = new SegregationController(viewGroup, reader);
 
     KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step());
     myAnimation.setCycleCount(Timeline.INDEFINITE);
