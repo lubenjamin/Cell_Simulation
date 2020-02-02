@@ -18,7 +18,7 @@ public class PercolationController extends Controller {
     for (int i = 0; i < WIDTH_CELLS * HEIGHT_CELLS; i++) {
       int x = i / WIDTH_CELLS;
       int y = i % WIDTH_CELLS;
-      Cell cell = currentModel.getCell(x, y);
+      Cell cell = currentModel.getCell(x, y);d
       cell.setCurrentState("OPEN");
       calcNewDisplay(cell);
     }
@@ -45,12 +45,13 @@ public class PercolationController extends Controller {
       return;
     }
 
+    /*
     for (Cell c : currentModel.getNeighborhood(x, y)) {
       if (c.getCurrentState().equals("PERC")) {
         current.setNextState("PERC");
         return;
       }
-    }
+    }*/
     current.setNextState(current.getCurrentState());
   }
 
