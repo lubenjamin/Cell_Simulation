@@ -11,8 +11,10 @@ import javafx.scene.Group;
 public abstract class Controller {
   protected Model currentModel;
   protected View currentView;
+
   protected int WIDTH_CELLS;
   protected int HEIGHT_CELLS;
+
 
   public Controller(Group simGroup, FileReader reader){
     WIDTH_CELLS = reader.getColumns();
@@ -26,6 +28,10 @@ public abstract class Controller {
     updateGrid();
     switchGridStates();
     currentView.updateAllCells();
+  }
+
+  public void resetSim(){
+    currentView.resetView();
   }
 
   private void switchGridStates(){

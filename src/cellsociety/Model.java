@@ -2,7 +2,6 @@ package cellsociety;
 
 import java.util.ArrayList;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 
 public class Model {
 
@@ -26,11 +25,13 @@ public class Model {
     return grid[y][x];
   }
 
-  public ArrayList<Cell> getNeighborhood(int x, int y){
-    neighborhood.add(grid[x][y + 1]);
-    neighborhood.add(grid[x][y - 1]);
-    neighborhood.add(grid[x + 1][y]);
-    neighborhood.add(grid[x - 1][y]);
-    return neighborhood;
+  public ArrayList<Cell> getNeighborhood(int x, int y) {
+    if (x >= 1 && y >= 1 && x <= 73 && y <= 73) {
+      neighborhood.add(grid[x][y + 1]);
+      neighborhood.add(grid[x][y - 1]);
+      neighborhood.add(grid[x + 1][y]);
+      neighborhood.add(grid[x - 1][y]);
+    }
+      return neighborhood;
   }
 }
