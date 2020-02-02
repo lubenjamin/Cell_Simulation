@@ -2,6 +2,7 @@ package ControllerPackage;
 
 import cellsociety.Cell;
 import cellsociety.FileReader;
+import java.util.Random;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 
@@ -15,11 +16,18 @@ public class PercolationController extends Controller {
 
   @Override
   protected void initializeModel() {
+    Random a = new Random();
     for (int i = 0; i < WIDTH_CELLS * HEIGHT_CELLS; i++) {
       int x = i / WIDTH_CELLS;
       int y = i % WIDTH_CELLS;
       Cell cell = currentModel.getCell(x, y);
-      cell.setCurrentState("OPEN");
+      int stateSelect = a.nextInt(2);
+      if(stateSelect==0){
+        cell.setCurrentState("OPEN");
+      }
+      if(stateSelect==1){
+        cell.setCurrentState("CLOSED");
+      }
       calcNewDisplay(cell);
     }
   }
@@ -57,10 +65,16 @@ public class PercolationController extends Controller {
 
   @Override
   protected void calcNewDisplay(Cell cell) {
-    if (cell.getCurrentState().equals("OPEN")) {
-      cell.setDisplayColor(Color.WHITE);
-    } else if (cell.getCurrentState().equals("PERC")) {
-      cell.setDisplayColor(Color.BLUE);
+    switch (cell.getCurrentState()){
+      case "OPEN":
+        cell.setDisplayColor(Color.WHITE);
+        break;
+      case "CLOSED":
+        cell.setDisplayColor(Color.BLACK);
+        break;
+      case "PERC":
+        cell.setDisplayColor(Color.BLUE);
+        break;
     }
   }
 }
