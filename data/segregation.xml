@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <simulation>
     <type>Segregation</type>
-    <rows>75</rows>
-    <columns>75</columns>
+    <rows>2</rows>
+    <columns>2</columns>
 </simulation>
 
