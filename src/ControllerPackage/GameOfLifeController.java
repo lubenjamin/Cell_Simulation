@@ -2,7 +2,6 @@ package ControllerPackage;
 
 import cellsociety.Cell;
 import cellsociety.FileReader;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 import javafx.scene.Group;
@@ -49,7 +48,7 @@ public class GameOfLifeController extends Controller {
   @Override
   protected void updateCell(int x, int y) {
     Cell current = currentModel.getCell(x,y);
-    ArrayList<Cell> neigh = currentModel.getNeighborhood(x,y);
+    ArrayList<Cell> neigh = currentModel.getMooreNeighborhood(x,y);
 
     int numAlive =0;
 

@@ -2,6 +2,7 @@ package cellsociety;
 
 
 import ControllerPackage.Controller;
+import ControllerPackage.FireController;
 import ControllerPackage.GameOfLifeController;
 import ControllerPackage.PercolationController;
 import View.UserInterface;
@@ -49,7 +50,7 @@ public class Main extends Application {
 
     FileReader reader = new FileReader("percolation.xml");
     
-    currentController = new GameOfLifeController(viewGroup, reader);
+    currentController = new FireController(viewGroup, reader);
 
 
 

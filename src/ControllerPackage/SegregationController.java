@@ -56,7 +56,7 @@ public class SegregationController extends Controller {
     }
 
 
-    for (Cell c : currentModel.getNeighborhood(x, y)) {
+    for (Cell c : currentModel.getMooreNeighborhood(x, y)) {
       if (c.getCurrentState().equals("PERC")) {
         current.setNextState("PERC");
         return;
