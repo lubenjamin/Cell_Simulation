@@ -23,7 +23,7 @@ public class Model {
   }
 
   public Cell getCell(int x, int y){
-    return grid[x][y];
+    return grid[y][x];
   }
 
   public ArrayList<Cell> getNeighborhood(int x, int y){

@@ -14,8 +14,8 @@ public class SegregationController extends Controller {
   @Override
   protected void initializeModel() {
     for (int i = 0; i < WIDTH_CELLS * HEIGHT_CELLS; i++) {
-      int x = i / WIDTH_CELLS;
-      int y = i % WIDTH_CELLS;
+      int x = i % WIDTH_CELLS;
+      int y = i / WIDTH_CELLS;
       Cell cell = currentModel.getCell(x, y);
       cell.setDisplayColor(Color.RED);
       cell.setCurrentState("RED");
