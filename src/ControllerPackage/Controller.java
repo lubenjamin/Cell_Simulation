@@ -31,7 +31,8 @@ public abstract class Controller {
   }
 
   public void resetSim(){
-    currentView.resetView();
+    initializeModel();
+    currentView.updateAllCells();
   }
 
   private void switchGridStates(){

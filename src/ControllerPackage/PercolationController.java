@@ -21,11 +21,11 @@ public class PercolationController extends Controller {
       int x = i / WIDTH_CELLS;
       int y = i % WIDTH_CELLS;
       Cell cell = currentModel.getCell(x, y);
-      int stateSelect = a.nextInt(2);
-      if(stateSelect==0){
+      int stateSelect = a.nextInt(10);
+      if(stateSelect<4){
         cell.setCurrentState("OPEN");
       }
-      if(stateSelect==1){
+      if(stateSelect>=4){
         cell.setCurrentState("CLOSED");
       }
       calcNewDisplay(cell);
@@ -74,7 +74,7 @@ public class PercolationController extends Controller {
         cell.setDisplayColor(Color.BLACK);
         break;
       case "PERC":
-        cell.setDisplayColor(Color.BLUE);
+        cell.setDisplayColor(Color.LIGHTBLUE);
         break;
     }
   }
