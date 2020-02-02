@@ -52,7 +52,11 @@ public class Main extends Application {
 
     FileReader reader = new FileReader("percolation.xml");
     
-    currentController = new PredPreyController(viewGroup, reader);
+    currentController = new FireController(viewGroup, reader);
+//    currentController = new GameOfLifeController(viewGroup, reader);
+//    currentController = new PercolationController(viewGroup, reader);
+//    currentController = new PredPreyController(viewGroup, reader);
+//    currentController = new SegregationController(viewGroup, reader);
 
     KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step());
     myAnimation.setCycleCount(Timeline.INDEFINITE);

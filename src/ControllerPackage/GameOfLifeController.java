@@ -12,28 +12,32 @@ public class GameOfLifeController extends Controller {
 
   private final static double initialLive = .3;
 
+  //DEAD = 0 : ALIVE = 1
+
   public GameOfLifeController(Group simGroup, FileReader reader) {
     super(simGroup, reader);
   }
 
   @Override
-  protected void initializeModel() {
-    Random a = new Random();
-    for (int i = 0; i < WIDTH_CELLS * HEIGHT_CELLS; i++) {
-      int x = i / WIDTH_CELLS;
-      int y = i % WIDTH_CELLS;
-
-
-      Cell cell = currentModel.getCell(x, y);
-      double stateSelect = a.nextDouble();
-      if(stateSelect<initialLive){
-        cell.setCurrentState(new State("ALIVE"));
-      }
-      if(stateSelect>=initialLive){
-        cell.setCurrentState(new State("DEAD"));
-      }
-      calcNewDisplay(cell);
+  protected void initializeCellState(Cell current, Random r){
+    double stateSelect = r.nextDouble();
+    if(stateSelect<initialLive){
+      current.setCurrentState(new State(1));
     }
+    if(stateSelect>=initialLive){
+      current.setCurrentState(new State(0));
+    }
+
+  }
+
+
+  @Override
+  protected void setColors() {
+    state0Color =Color.WHITE;
+    state1Color = Color.BLACK;
+
+    //not
+    state2Color = Color.WHITE;
   }
 
 
@@ -46,42 +50,26 @@ public class GameOfLifeController extends Controller {
     int numAlive =0;
 
     for (Cell c : neigh){
-      if (c.getCurrentState().equals("ALIVE")){
+      if (c.getCurrentState().getState()==1){
         numAlive++;
       }
     }
 
-    if(current.getCurrentState().equals("ALIVE")){
+    if(current.getCurrentState().getState()==1){
       if (numAlive==2 || numAlive ==3){
-        current.setNextState(new State("ALIVE"));
+        current.setNextState(new State(1));
       }
       else{
-        current.setNextState(new State("DEAD"));
+        current.setNextState(new State(0));
       }
     }
     else{
       if(numAlive == 3){
-        current.setNextState(new State("ALIVE"));
+        current.setNextState(new State(1));
       }
       else{
-        current.setNextState(new State("DEAD"));
+        current.setNextState(new State(0));
       }
-    }
-
-
-
-  }
-
-  @Override
-  protected void calcNewDisplay(Cell cell) {
-    switch ( cell.getCurrentState().getState()){
-      case "DEAD":
-        cell.setDisplayColor(Color.WHITE);
-        break;
-      case "ALIVE":
-        cell.setDisplayColor(Color.BLACK);
-        break;
-
     }
   }
 }

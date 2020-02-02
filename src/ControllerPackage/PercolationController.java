@@ -12,68 +12,50 @@ public class PercolationController extends Controller {
 
   private static final double PERCENT_BLOCKED = .575;
 
+  //EMPTY = 0 : PERC = 1 : BLOCKED : 2;
   public PercolationController(Group simGroup, FileReader reader) {
     super(simGroup, reader);
   }
 
+
   @Override
-  protected void initializeModel() {
-    Random a = new Random();
-    for (int i = 0; i < WIDTH_CELLS * HEIGHT_CELLS; i++) {
-      int x = i / WIDTH_CELLS;
-      int y = i % WIDTH_CELLS;
-      Cell cell = currentModel.getCell(x, y);
-
-      double stateSelect = a.nextDouble();
-
-
-      if(stateSelect> PERCENT_BLOCKED){
-        cell.setCurrentState(new State("OPEN"));
-      }
-
-      if(stateSelect<= PERCENT_BLOCKED){
-        cell.setCurrentState(new State("CLOSED"));
-      }
-      calcNewDisplay(cell);
+  protected void initializeCellState(Cell current, Random r){
+    double stateSelect = r.nextDouble();
+    if(stateSelect> PERCENT_BLOCKED){
+      current.setCurrentState(new State(0));
     }
+    if(stateSelect<= PERCENT_BLOCKED){
+      current.setCurrentState(new State(2));
+    }
+  }
+  @Override
+  protected void setColors() {
+    state0Color =Color.WHITE;
+    state1Color = Color.LIGHTBLUE;
+    state2Color = Color.SLATEGREY;
   }
 
 
   @Override
   protected void updateCell(int x, int y) {
     Cell current = currentModel.getCell(x, y);
-    if (current.getCurrentState().equals("CLOSED")){
-      current.setNextState(new State("CLOSED"));
+    if (current.getCurrentState().getState()==2){
+      current.setNextState(new State(2));
       return;
     }
-    if (y == 0 && current.getCurrentState().equals("OPEN")) {
-      current.setNextState(new State("PERC"));
+    if (y == 0 && current.getCurrentState().getState()==0) {
+      current.setNextState(new State(1));
       return;
     }
 
 
     for (Cell c : currentModel.getMooreNeighborhood(x, y)) {
-      if (c.getCurrentState().equals("PERC")) {
-        current.setNextState(new State("PERC"));
+      if (c.getCurrentState().getState()==1) {
+        current.setNextState(new State(1));
         return;
       }
     }
 
     current.setNextState(current.getCurrentState());
-  }
-
-  @Override
-  protected void calcNewDisplay(Cell cell) {
-    switch (cell.getCurrentState().getState()){
-      case "OPEN":
-        cell.setDisplayColor(Color.WHITE);
-        break;
-      case "CLOSED":
-        cell.setDisplayColor(Color.BLACK);
-        break;
-      case "PERC":
-        cell.setDisplayColor(Color.LIGHTBLUE);
-        break;
-    }
   }
 }

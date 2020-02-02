@@ -12,49 +12,44 @@ import javafx.scene.paint.Color;
 public class SegregationController extends Controller {
 
 
-  private final static double percentOccupied = .9;
-  private final static double percentMajority = .75;
-  private final static double satisfiedLevel = .6;
+  private final static double percentOccupied = .945;
+  private final static double percentMajority = .5;
+  private final static double satisfiedLevel = .73;
 
   private ArrayList<Cell> emptySpots;
   private ArrayList<Cell> needMove;
 
-
+  //EMPTY = 0 : MAJORITY = 1 : MINORITY : 2;
   public SegregationController(Group simGroup, FileReader reader) {
     super(simGroup, reader);
   }
 
   @Override
-  protected void initializeModel() {
-    Random a = new Random();
-    for (int i = 0; i < WIDTH_CELLS * HEIGHT_CELLS; i++) {
-      int x = i / WIDTH_CELLS;
-      int y = i % WIDTH_CELLS;
-
-      Cell cell = currentModel.getCell(x, y);
-
-      double stateSelect = a.nextDouble();
-
-      if (stateSelect > percentOccupied) {
-        cell.setCurrentState(new State("EMPTY"));
+  protected void initializeCellState(Cell current, Random r){
+    double stateSelect = r.nextDouble();
+    if (stateSelect > percentOccupied) {
+      current.setCurrentState(new State(0));
+    }
+    if (stateSelect <= percentOccupied) {
+      if (r.nextDouble() < percentMajority) {
+        current.setCurrentState(new State(1));
+      } else {
+        current.setCurrentState(new State(2));
       }
-      if (stateSelect <= percentOccupied) {
-        if (a.nextDouble() < percentMajority) {
-          cell.setCurrentState(new State("MAJORITY"));
-        } else {
-          cell.setCurrentState(new State("MINORITY"));
-        }
-      }
-      calcNewDisplay(cell);
     }
 
-
+  }
+  @Override
+  protected void setColors() {
+    state0Color =Color.LIGHTGRAY;
+    state1Color = Color.DARKBLUE;
+    state2Color = Color.DARKGOLDENROD;
   }
 
   @Override
   protected void updateGrid() {
     needMove = new ArrayList<>();
-    emptySpots = getEmptySpots("EMPTY");
+    emptySpots = getEmptySpots(0);
     super.updateGrid();
     moveUnHappy();
   }
@@ -64,22 +59,22 @@ public class SegregationController extends Controller {
   @Override
   protected void updateCell(int x, int y) {
     Cell current = currentModel.getCell(x, y);
-    if (current.getCurrentState().equals("EMPTY")) {
-      current.setNextState(new State("EMPTY"));
+    if (current.getCurrentState().getState()==0) {
+      current.setNextState(new State(0));
       return;
     }
 
-    String currentState = current.getCurrentState().getState();
+    int currentState = current.getCurrentState().getState();
 
     ArrayList<Cell> neigh = currentModel.getMooreNeighborhood(x, y);
     double totalNeigh = 0;
     double similar = 0;
 
     for (Cell c : neigh) {
-      if (c.getCurrentState().equals(currentState)) {
+      if (c.getCurrentState().getState()==currentState) {
         similar++;
       }
-      if (!c.getCurrentState().equals("EMPTY")) {
+      if (c.getCurrentState().getState()!=0) {
         totalNeigh++;
       }
     }
@@ -91,30 +86,16 @@ public class SegregationController extends Controller {
     current.setNextState(current.getCurrentState());
   }
 
-  @Override
-  protected void calcNewDisplay(Cell cell) {
 
-    switch (cell.getCurrentState().getState()) {
-      case "EMPTY":
-        cell.setDisplayColor(Color.LIGHTGRAY);
-        break;
-      case "MAJORITY":
-        cell.setDisplayColor(Color.DARKBLUE);
-        break;
-      case "MINORITY":
-        cell.setDisplayColor(Color.DARKGOLDENROD);
-        break;
 
-    }
-  }
 
-  private ArrayList<Cell> getEmptySpots(String state) {
+  private ArrayList<Cell> getEmptySpots(int state) {
     ArrayList<Cell> ret = new ArrayList<>();
 
     for (int i = 0; i < WIDTH_CELLS * HEIGHT_CELLS; i++) {
       int x = i % WIDTH_CELLS;
       int y = i / WIDTH_CELLS;
-      if (currentModel.getCell(x, y).getCurrentState().equals(state)) {
+      if (currentModel.getCell(x, y).getCurrentState().getState()==state) {
         ret.add(currentModel.getCell(x, y));
       }
     }
@@ -135,7 +116,7 @@ public class SegregationController extends Controller {
       Cell cellReplace = emptySpots.get(indexTo);
       Cell current = needMove.get(indexFrom);
       cellReplace.setNextState(new State(current.getCurrentState().getState()));
-      current.setNextState(new State("EMPTY"));
+      current.setNextState(new State(0));
       emptySpots.remove(cellReplace);
       needMove.remove(current);
     }
