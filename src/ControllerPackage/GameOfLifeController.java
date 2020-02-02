@@ -74,7 +74,7 @@ public class GameOfLifeController extends Controller {
 
   @Override
   protected void calcNewDisplay(Cell cell) {
-    switch ( ((State) cell.getCurrentState()).getState()){
+    switch ( cell.getCurrentState().getState()){
       case "DEAD":
         cell.setDisplayColor(Color.WHITE);
         break;

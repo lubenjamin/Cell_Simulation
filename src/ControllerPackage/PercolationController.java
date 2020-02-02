@@ -64,7 +64,7 @@ public class PercolationController extends Controller {
 
   @Override
   protected void calcNewDisplay(Cell cell) {
-    switch (((State)cell.getCurrentState()).getState()){
+    switch (cell.getCurrentState().getState()){
       case "OPEN":
         cell.setDisplayColor(Color.WHITE);
         break;

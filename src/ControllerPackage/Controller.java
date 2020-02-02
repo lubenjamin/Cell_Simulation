@@ -15,26 +15,6 @@ public abstract class Controller {
   protected int WIDTH_CELLS;
   protected int HEIGHT_CELLS;
 
-  protected class State {
-
-    private String state;
-
-    public State(String state) {
-      this.state = state;
-    }
-
-    public String getState() {
-      return state;
-    }
-
-    @Override
-    public boolean equals(Object a) {
-      String s = a.toString();
-      return s.equals(state);
-    }
-  }
-
-
   public Controller(Group simGroup, FileReader reader){
     WIDTH_CELLS = reader.getColumns();
     HEIGHT_CELLS = reader.getRows();
@@ -61,6 +41,7 @@ public abstract class Controller {
       int x = i % WIDTH_CELLS;
       int y = i/WIDTH_CELLS;
       Cell current = currentModel.getCell(x,y);
+
       current.setCurrentState(current.getNextState());
       current.setNextState(null);
       calcNewDisplay(current);

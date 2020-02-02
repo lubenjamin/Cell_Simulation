@@ -64,15 +64,12 @@ public class SegregationController extends Controller {
   @Override
   protected void updateCell(int x, int y) {
     Cell current = currentModel.getCell(x, y);
-    if (current.getNextState() != null) {
-      return;
-    }
     if (current.getCurrentState().equals("EMPTY")) {
       current.setNextState(new State("EMPTY"));
       return;
     }
 
-    String currentState = ((State) current.getCurrentState()).getState();
+    String currentState = current.getCurrentState().getState();
 
     ArrayList<Cell> neigh = currentModel.getMooreNeighborhood(x, y);
     double totalNeigh = 0;
@@ -97,7 +94,7 @@ public class SegregationController extends Controller {
   @Override
   protected void calcNewDisplay(Cell cell) {
 
-    switch (((State) cell.getCurrentState()).getState()) {
+    switch (cell.getCurrentState().getState()) {
       case "EMPTY":
         cell.setDisplayColor(Color.LIGHTGRAY);
         break;
@@ -137,7 +134,7 @@ public class SegregationController extends Controller {
       int indexFrom = r.nextInt(needMove.size());
       Cell cellReplace = emptySpots.get(indexTo);
       Cell current = needMove.get(indexFrom);
-      cellReplace.setNextState(new State(((State)current.getCurrentState()).getState()));
+      cellReplace.setNextState(new State(current.getCurrentState().getState()));
       current.setNextState(new State("EMPTY"));
       emptySpots.remove(cellReplace);
       needMove.remove(current);

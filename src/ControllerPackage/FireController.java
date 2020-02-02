@@ -91,7 +91,7 @@ public class FireController extends Controller {
 
   @Override
   protected void calcNewDisplay(Cell cell) {
-    switch (((State)cell.getCurrentState()).getState()){
+    switch (cell.getCurrentState().getState()){
       case "BURNING":
         cell.setDisplayColor(Color.RED);
         break;
