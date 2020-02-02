@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <simulation>
-    <type>Segregation</type>
+    <type>GameOfLife</type>
     <rows>10</rows>
     <columns>10</columns>
+    <initialLive>0.3</initialLive>
 </simulation>
 
