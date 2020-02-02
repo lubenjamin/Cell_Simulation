@@ -2,17 +2,18 @@ package ControllerPackage;
 
 import cellsociety.Cell;
 import cellsociety.FileReader;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Random;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 
 
+public class GameOfLifeController extends Controller {
 
-public class PercolationController extends Controller {
+  private final static double initialLive = .5;
 
-  private final static double percentBlocked = .58;
-
-  public PercolationController(Group simGroup, FileReader reader) {
+  public GameOfLifeController(Group simGroup, FileReader reader) {
     super(simGroup, reader);
   }
 
@@ -22,13 +23,15 @@ public class PercolationController extends Controller {
     for (int i = 0; i < WIDTH_CELLS * HEIGHT_CELLS; i++) {
       int x = i / WIDTH_CELLS;
       int y = i % WIDTH_CELLS;
+
+
       Cell cell = currentModel.getCell(x, y);
       double stateSelect = a.nextDouble();
-      if(stateSelect>percentBlocked){
-        cell.setCurrentState("OPEN");
+      if(stateSelect>initialLive){
+        cell.setCurrentState("ALIVE");
       }
-      if(stateSelect<=percentBlocked){
-        cell.setCurrentState("CLOSED");
+      if(stateSelect<=initialLive){
+        cell.setCurrentState("DEAD");
       }
       calcNewDisplay(cell);
     }
@@ -45,39 +48,48 @@ public class PercolationController extends Controller {
 
   @Override
   protected void updateCell(int x, int y) {
-    Cell current = currentModel.getCell(x, y);
-    if (current.getCurrentState().equals("CLOSED")){
-      current.setNextState("CLOSED");
-      return;
-    }
-    if (y == 0 && current.getCurrentState().equals("OPEN")) {
-      current.setNextState("PERC");
-      return;
-    }
+    Cell current = currentModel.getCell(x,y);
+    ArrayList<Cell> neigh = currentModel.getNeighborhood(x,y);
 
+    int numAlive =0;
 
-    for (Cell c : currentModel.getNeighborhood(x, y)) {
-      if (c.getCurrentState().equals("PERC")) {
-        current.setNextState("PERC");
-        return;
+    for (Cell c : neigh){
+      if (c.getCurrentState().equals("ALIVE")){
+        numAlive++;
       }
     }
 
-    current.setNextState(current.getCurrentState());
+    if(current.getCurrentState().equals("ALIVE")){
+      if (numAlive==2 || numAlive ==3){
+        current.setNextState("ALIVE");
+      }
+      else{
+        current.setNextState("DEAD");
+      }
+    }
+    else{
+      if(numAlive == 3){
+        current.setNextState("ALIVE");
+      }
+      else{
+        current.setNextState("DEAD");
+      }
+    }
+
+
+
   }
 
   @Override
   protected void calcNewDisplay(Cell cell) {
     switch (cell.getCurrentState()){
-      case "OPEN":
+      case "DEAD":
         cell.setDisplayColor(Color.WHITE);
         break;
-      case "CLOSED":
+      case "ALIVE":
         cell.setDisplayColor(Color.BLACK);
         break;
-      case "PERC":
-        cell.setDisplayColor(Color.LIGHTBLUE);
-        break;
+
     }
   }
 }

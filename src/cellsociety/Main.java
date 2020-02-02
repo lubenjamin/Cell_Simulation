@@ -2,19 +2,16 @@ package cellsociety;
 
 
 import ControllerPackage.Controller;
+import ControllerPackage.GameOfLifeController;
 import ControllerPackage.PercolationController;
-import ControllerPackage.SegregationController;
+import View.UserInterface;
+import java.util.ArrayList;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-
-import View.UserInterface;
-
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
-import java.util.ArrayList;
 
 /**
  * Feel free to completely change this code or delete it entirely.
@@ -52,12 +49,9 @@ public class Main extends Application {
 
     FileReader reader = new FileReader("segregation.xml");
 
-    if(reader.getSimType()!=null && reader.getSimType().equals("Segregation")){
-      currentController = new PercolationController(viewGroup, reader);
-    }
-    else{
-      currentController = new PercolationController(viewGroup, reader);
-    }
+    currentController = new GameOfLifeController(viewGroup, reader);
+
+
 
     KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step());
     myAnimation.setCycleCount(Timeline.INDEFINITE);
@@ -68,7 +62,7 @@ public class Main extends Application {
 
   private void step() {
     if (UI.isSimLoaded) {
-      if (!UI.isPaused || (UI.isPaused && UI.isStep)) {
+      if (!UI.isPaused || UI.isStep) {
         currentController.updateSim();
         UI.isStep = false;
       }
