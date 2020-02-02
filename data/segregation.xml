@@ -3,5 +3,8 @@
     <type>Segregation</type>
     <rows>10</rows>
     <columns>10</columns>
+    <percentOccupied>0.9</percentOccupied>
+    <percentMajority>0.75</percentMajority>
+    <satisfiedLevel>0.6</satisfiedLevel>
 </simulation>
 

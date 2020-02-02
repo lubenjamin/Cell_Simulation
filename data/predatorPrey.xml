@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <simulation>
-    <type>Segregation</type>
+    <type>PredPrey</type>
     <rows>10</rows>
     <columns>10</columns>
+    <sharkBreed>20</sharkBreed>
+    <fishBreed>6</fishBreed>
+    <fishEnergy>3</fishEnergy>
+    <sharkStarve>5</sharkStarve>
+    <percentOccupied>0.6</percentOccupied>
+    <percentFish>0.95</percentFish>
 </simulation>
 
