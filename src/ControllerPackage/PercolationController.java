@@ -2,12 +2,13 @@ package ControllerPackage;
 
 import cellsociety.Cell;
 import cellsociety.FileReader;
+import java.util.Random;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 
-import java.util.Random;
 
-public class PercolationController extends Controller{
+
+public class PercolationController extends Controller {
 
   public PercolationController(Group simGroup, FileReader reader) {
     super(simGroup, reader);
@@ -15,47 +16,66 @@ public class PercolationController extends Controller{
 
   @Override
   protected void initializeModel() {
-    for(int i = 0; i < WIDTH_CELLS*HEIGHT_CELLS; i++) {
+    Random a = new Random();
+    for (int i = 0; i < WIDTH_CELLS * HEIGHT_CELLS; i++) {
       int x = i / WIDTH_CELLS;
       int y = i % WIDTH_CELLS;
-      Cell cell = currentModel.getCell(x,y);
-      cell.setDisplayColor(Color.BLACK);
-      cell.setCurrentState("BLACK");
+      Cell cell = currentModel.getCell(x, y);
+      int stateSelect = a.nextInt(2);
+      if(stateSelect==0){
+        cell.setCurrentState("OPEN");
+      }
+      if(stateSelect==1){
+        cell.setCurrentState("CLOSED");
+      }
+      calcNewDisplay(cell);
     }
   }
 
   @Override
-  protected void updateGrid(){
-    for(int i = 0; i < WIDTH_CELLS*HEIGHT_CELLS; i++){
+  protected void updateGrid() {
+    for (int i = 0; i < WIDTH_CELLS * HEIGHT_CELLS; i++) {
       int x = i % WIDTH_CELLS;
-      int y = i/WIDTH_CELLS;
-      updateCell(x,y);
+      int y = i / WIDTH_CELLS;
+      updateCell(x, y);
     }
   }
 
   @Override
   protected void updateCell(int x, int y) {
-    Random u = new Random();
-    int a = u.nextInt(WIDTH_CELLS);
-    int b = u.nextInt(WIDTH_CELLS);
-    Cell current = currentModel.getCell(a,b);
-    current.setNextState(current.getCurrentState());
-    if(current.getCurrentState().equals("BLACK")){
-      current.setNextState("BLUE");
+    Cell current = currentModel.getCell(x, y);
+    if (current.getCurrentState().equals("CLOSED")){
+      current.setNextState("CLOSED");
+      return;
     }
-    else if(current.getCurrentState().equals("BLUE")){
-      current.setNextState("BLACK");
+    if (y == 0 && current.getCurrentState().equals("OPEN")) {
+      current.setNextState("PERC");
+      return;
     }
 
+
+    for (Cell c : currentModel.getNeighborhood(x, y)) {
+      if (c.getCurrentState().equals("PERC")) {
+        current.setNextState("PERC");
+        return;
+      }
+    }
+
+    current.setNextState(current.getCurrentState());
   }
 
   @Override
   protected void calcNewDisplay(Cell cell) {
-    if(cell.getCurrentState().equals("BLACK")){
-      cell.setDisplayColor(Color.BLUE);
-    }
-    else if(cell.getCurrentState().equals("BLUE")){
-      cell.setDisplayColor(Color.BLACK);
+    switch (cell.getCurrentState()){
+      case "OPEN":
+        cell.setDisplayColor(Color.WHITE);
+        break;
+      case "CLOSED":
+        cell.setDisplayColor(Color.BLACK);
+        break;
+      case "PERC":
+        cell.setDisplayColor(Color.BLUE);
+        break;
     }
   }
 }

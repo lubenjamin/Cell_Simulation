@@ -17,8 +17,8 @@ public class SegregationController extends Controller {
       int x = i % WIDTH_CELLS;
       int y = i / WIDTH_CELLS;
       Cell cell = currentModel.getCell(x, y);
-      cell.setDisplayColor(Color.RED);
       cell.setCurrentState("RED");
+      calcNewDisplay(cell);
     }
   }
 
