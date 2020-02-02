@@ -28,7 +28,7 @@ public class FileReader{
         Document doc = dBuilder.parse(simulation);
         doc.getDocumentElement().normalize();
 
-        NodeList nodes = doc.getElementsByTagName("stock");
+        NodeList nodes = doc.getElementsByTagName("simulation");
         for (int i = 0; i < nodes.getLength(); i++) {
             Node node = nodes.item(i);
             if (node.getNodeType() == Node.ELEMENT_NODE) {

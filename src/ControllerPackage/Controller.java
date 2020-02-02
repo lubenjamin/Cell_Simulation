@@ -2,6 +2,7 @@ package ControllerPackage;
 
 import View.View;
 import cellsociety.Cell;
+import cellsociety.FileReader;
 import cellsociety.Model;
 import javafx.scene.Group;
 
@@ -10,10 +11,12 @@ import javafx.scene.Group;
 public abstract class Controller {
   protected Model currentModel;
   protected View currentView;
-  protected final static int WIDTH_CELLS = 100;
-  protected final static int HEIGHT_CELLS = 100;
+  protected int WIDTH_CELLS;
+  protected int HEIGHT_CELLS;
 
-  public Controller (Group simGroup){
+  public Controller(Group simGroup, FileReader reader){
+    WIDTH_CELLS = reader.getColumns();
+    HEIGHT_CELLS = reader.getRows();
     currentModel = new Model(WIDTH_CELLS,HEIGHT_CELLS);
     currentView = new View(simGroup, WIDTH_CELLS, HEIGHT_CELLS, currentModel);
     initializeModel();

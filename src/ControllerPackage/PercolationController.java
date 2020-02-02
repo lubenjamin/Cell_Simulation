@@ -1,13 +1,14 @@
 package ControllerPackage;
 
 import cellsociety.Cell;
+import cellsociety.FileReader;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 
 public class PercolationController extends Controller{
 
-  public PercolationController(Group simGroup) {
-    super(simGroup);
+  public PercolationController(Group simGroup, FileReader reader) {
+    super(simGroup, reader);
   }
 
   @Override
