@@ -52,7 +52,7 @@ public class Main extends Application {
 
     FileReader reader = new FileReader("segregation.xml");
 
-    if(reader.getSimType()!=null && reader.getSimType().equals("Segregation")){
+    if (reader.getSimType()!=null && reader.getSimType().equals("Segregation")){
       currentController = new PercolationController(viewGroup, reader);
     }
     else{
