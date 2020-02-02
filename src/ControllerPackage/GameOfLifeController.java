@@ -20,11 +20,10 @@ public class GameOfLifeController extends Controller {
 
   @Override
   protected void initializeCellState(Cell current, Random r){
-    double stateSelect = r.nextDouble();
-    if(stateSelect<initialLive){
+    if(probabilityChecker(initialLive)){
       current.setCurrentState(new State(1));
     }
-    if(stateSelect>=initialLive){
+    else{
       current.setCurrentState(new State(0));
     }
 
@@ -36,7 +35,7 @@ public class GameOfLifeController extends Controller {
     state0Color =Color.WHITE;
     state1Color = Color.BLACK;
 
-    //not
+    //not used
     state2Color = Color.WHITE;
   }
 
@@ -45,31 +44,24 @@ public class GameOfLifeController extends Controller {
   @Override
   protected void updateCell(int x, int y) {
     Cell current = currentModel.getCell(x,y);
-    ArrayList<Cell> neigh = currentModel.getMooreNeighborhood(x,y);
 
+    int numAlive = getNumAlive(current);
+    if((current.getCurrentState().getState()==1 && numAlive==2) || numAlive == 3){
+        current.setNextState(new State(1));
+    }
+    else{
+      current.setNextState(new State(0));
+    }
+  }
+
+  private int getNumAlive(Cell current) {
     int numAlive =0;
-
+    ArrayList<Cell> neigh = currentModel.getMooreNeighborhood(current.getX(),current.getY());
     for (Cell c : neigh){
       if (c.getCurrentState().getState()==1){
         numAlive++;
       }
     }
-
-    if(current.getCurrentState().getState()==1){
-      if (numAlive==2 || numAlive ==3){
-        current.setNextState(new State(1));
-      }
-      else{
-        current.setNextState(new State(0));
-      }
-    }
-    else{
-      if(numAlive == 3){
-        current.setNextState(new State(1));
-      }
-      else{
-        current.setNextState(new State(0));
-      }
-    }
+    return numAlive;
   }
 }

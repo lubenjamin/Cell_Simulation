@@ -20,12 +20,11 @@ public class PercolationController extends Controller {
 
   @Override
   protected void initializeCellState(Cell current, Random r){
-    double stateSelect = r.nextDouble();
-    if(stateSelect> PERCENT_BLOCKED){
-      current.setCurrentState(new State(0));
-    }
-    if(stateSelect<= PERCENT_BLOCKED){
+    if(probabilityChecker(PERCENT_BLOCKED)){
       current.setCurrentState(new State(2));
+    }
+    else{
+      current.setCurrentState(new State(0));
     }
   }
   @Override
@@ -39,23 +38,27 @@ public class PercolationController extends Controller {
   @Override
   protected void updateCell(int x, int y) {
     Cell current = currentModel.getCell(x, y);
-    if (current.getCurrentState().getState()==2){
-      current.setNextState(new State(2));
-      return;
+
+    if (current.getCurrentState().getState()==2 || current.getCurrentState().getState()==1){
+      current.setNextState(new State(current.getCurrentState().getState()));
     }
-    if (y == 0 && current.getCurrentState().getState()==0) {
+    else if(checkWater(current)){
       current.setNextState(new State(1));
-      return;
     }
+    else{
+      current.setNextState(new State(0));
+    }
+  }
 
-
-    for (Cell c : currentModel.getMooreNeighborhood(x, y)) {
+  private boolean checkWater(Cell current) {
+    if(current.getY()==0){
+      return true;
+    }
+    for (Cell c : currentModel.getMooreNeighborhood(current.getX(), current.getY())) {
       if (c.getCurrentState().getState()==1) {
-        current.setNextState(new State(1));
-        return;
+        return true;
       }
     }
-
-    current.setNextState(current.getCurrentState());
+    return false;
   }
 }

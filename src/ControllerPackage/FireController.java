@@ -23,19 +23,17 @@ public class FireController extends Controller {
 
   @Override
   protected void initializeCellState(Cell current, Random r){
-    double stateSelect = r.nextDouble();
-    if(stateSelect>initialTree){
-      current.setCurrentState(new State(0));
-    }
-    if(stateSelect<=initialTree){
-      if(r.nextDouble()<=initialBurningTree){
+    if(probabilityChecker(initialTree)){
+      if(probabilityChecker(initialBurningTree)){
         current.setCurrentState(new State(2));
       }
       else{
         current.setCurrentState(new State(1));
       }
     }
-
+    else{
+      current.setCurrentState(new State(0));
+    }
   }
 
   @Override
@@ -54,24 +52,24 @@ public class FireController extends Controller {
       return;
     }
 
-    ArrayList<Cell> neigh = currentModel.getSimpleNeighborhood(x, y);
+    int numFire = getNumFire(current);
+    if (numFire >0 && probabilityChecker(percentCatchFire)) {
+      current.setNextState(new State(2));
+    }
+    else{
+      current.setNextState(new State(1));
+    }
+
+
+
+  }
+
+  private int getNumFire(Cell current) {
+    ArrayList<Cell> neigh = currentModel.getSimpleNeighborhood(current.getX(), current.getY());
     int numOnFire = 0;
     for (Cell c : neigh) {
       if (c.getCurrentState().getState()==2) numOnFire++;
     }
-
-    if (numOnFire == 0) {
-      current.setNextState(new State(1));
-      return;
-    }
-
-    Random a = new Random();
-    double stateSelect = a.nextDouble();
-    if (stateSelect <= percentCatchFire) {
-      current.setNextState(new State(2));
-      return;
-    }
-
-    current.setNextState(new State(1));
+    return numOnFire;
   }
 }

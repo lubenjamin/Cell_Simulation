@@ -21,8 +21,11 @@ public abstract class Controller {
   protected Color state1Color;
   protected Color state2Color;
 
+  protected Random random;
+
 
   public Controller(Group simGroup, FileReader reader){
+    random = new Random();
     setColors();
     WIDTH_CELLS = reader.getColumns();
     HEIGHT_CELLS = reader.getRows();
@@ -64,7 +67,7 @@ public abstract class Controller {
     }
   }
 
-  protected abstract void setColors();
+
 
   protected void initializeModel(){
     Random a = new Random();
@@ -76,11 +79,6 @@ public abstract class Controller {
       calcNewDisplay(cell);
     }
   }
-
-  protected abstract void initializeCellState(Cell cell, Random a);
-
-  protected abstract void updateCell(int x, int y);
-
 
   protected void calcNewDisplay(Cell cell) {
 
@@ -97,5 +95,20 @@ public abstract class Controller {
 
     }
   }
+
+  protected boolean probabilityChecker(double compareTo){
+    double stateSelect = random.nextDouble();
+    return stateSelect<compareTo;
+
+  }
+
+  protected abstract void setColors();
+
+  protected abstract void initializeCellState(Cell cell, Random a);
+
+  protected abstract void updateCell(int x, int y);
+
+
+
 
 }
