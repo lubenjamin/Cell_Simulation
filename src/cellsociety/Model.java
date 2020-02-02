@@ -17,7 +17,7 @@ public class Model {
   private void initializeGrid() {
     for(int x = 0; x < grid.length; x++){
       for(int y = 0; y<grid[0].length; y++){
-        grid [x][y] = new Cell();
+        grid[x][y] = new Cell();
       }
     }
   }
@@ -27,14 +27,56 @@ public class Model {
   }
 
   public ArrayList<Cell> getNeighborhood(int x, int y){
-    neighborhood.add(grid[x][y + 1]);
-    neighborhood.add(grid[x][y - 1]);
-    neighborhood.add(grid[x + 1][y]);
-    neighborhood.add(grid[x - 1][y]);
-    neighborhood.add(grid[x + 1][y + 1]);
-    neighborhood.add(grid[x - 1][y - 1]);
-    neighborhood.add(grid[x + 1][y - 1]);
-    neighborhood.add(grid[x - 1][y + 1]);
+    if(x == 0 && y == 0){
+      neighborhood.add(grid[x][y + 1]);
+      neighborhood.add(grid[x + 1][y]);
+      neighborhood.add(grid[x + 1][y + 1]);
+    } else if(x == grid.length && y == 0){
+      neighborhood.add(grid[x][y + 1]);
+      neighborhood.add(grid[x - 1][y]);
+      neighborhood.add(grid[x - 1][y + 1]);
+    } else if(x == grid.length && y == grid.length){
+      neighborhood.add(grid[x][y - 1]);
+      neighborhood.add(grid[x - 1][y]);
+      neighborhood.add(grid[x - 1][y - 1]);
+    } else if(x == 0 && y == grid.length){
+      neighborhood.add(grid[x][y - 1]);
+      neighborhood.add(grid[x + 1][y]);
+      neighborhood.add(grid[x + 1][y - 1]);
+    } else if(x == 0){
+      neighborhood.add(grid[x][y + 1]);
+      neighborhood.add(grid[x][y - 1]);
+      neighborhood.add(grid[x + 1][y]);
+      neighborhood.add(grid[x + 1][y + 1]);
+      neighborhood.add(grid[x + 1][y - 1]);
+    } else if(y == 0){
+      neighborhood.add(grid[x][y + 1]);
+      neighborhood.add(grid[x + 1][y]);
+      neighborhood.add(grid[x - 1][y]);
+      neighborhood.add(grid[x + 1][y + 1]);
+      neighborhood.add(grid[x - 1][y + 1]);
+    } else if(x == grid.length){
+      neighborhood.add(grid[x][y + 1]);
+      neighborhood.add(grid[x][y - 1]);
+      neighborhood.add(grid[x - 1][y]);
+      neighborhood.add(grid[x - 1][y - 1]);
+      neighborhood.add(grid[x - 1][y + 1]);
+    } else if(y == grid.length){
+      neighborhood.add(grid[x][y - 1]);
+      neighborhood.add(grid[x + 1][y]);
+      neighborhood.add(grid[x - 1][y]);
+      neighborhood.add(grid[x - 1][y - 1]);
+      neighborhood.add(grid[x + 1][y - 1]);
+    } else {
+      neighborhood.add(grid[x][y + 1]);
+      neighborhood.add(grid[x][y - 1]);
+      neighborhood.add(grid[x + 1][y]);
+      neighborhood.add(grid[x - 1][y]);
+      neighborhood.add(grid[x + 1][y + 1]);
+      neighborhood.add(grid[x - 1][y - 1]);
+      neighborhood.add(grid[x + 1][y - 1]);
+      neighborhood.add(grid[x - 1][y + 1]);
+    }
     return neighborhood;
   }
 }
