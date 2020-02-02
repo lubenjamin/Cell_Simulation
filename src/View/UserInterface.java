@@ -6,9 +6,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Slider;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -30,7 +28,6 @@ public class UserInterface {
     private static final String DEFAULT_RESOURCE_PACKAGE = RESOURCES + ".";
     private static final String DEFAULT_RESOURCE_FOLDER = "/" + RESOURCES + "/";
     private static final String STYLESHEET = "resources/default.css";
-    private static final String BLANK = " ";
 
     private ResourceBundle myResources;
 
@@ -38,11 +35,17 @@ public class UserInterface {
     private Button myPlayButton = new Button();
     private Button myResetButton = new Button();
     private Button myStepButton = new Button();
+    private Button mySegButton = new Button();
+    private Button myPercButton = new Button();
+    private Button myLifeButton = new Button();
+    private Button myFireButton = new Button();
+
     private Slider mySlider = new Slider();
     private ComboBox<String> myDropDown = new ComboBox();
 
     private ArrayList<String> mySims;
     private Timeline myAnimation;
+    Stage firstSim = new Stage();
 
     public boolean isPaused;
     public boolean isReset;
@@ -58,6 +61,7 @@ public class UserInterface {
     }
     public Scene setupUI(Group viewGroup) {
         BorderPane bp = new BorderPane();
+        initFirstSim();
         initSimSelect(event -> setSim(), mySims);
         bp.setTop(myDropDown);
         bp.setCenter(viewGroup);
@@ -65,6 +69,28 @@ public class UserInterface {
         Scene myScene = new Scene(bp, WIDTH, HEIGHT);
         myScene.getStylesheets().add(STYLESHEET);
         return myScene;
+    }
+
+    private void initFirstSim() {
+        firstSim.setTitle("Choose First Simulation");
+        VBox v = new VBox();
+        mySegButton = makeButton("SIM1", event -> pickSim(mySegButton));
+        myPercButton = makeButton("SIM2", event -> pickSim(myPercButton));
+        myLifeButton = makeButton("SIM3", event -> pickSim(myLifeButton));
+        myFireButton = makeButton("SIM4", event -> pickSim(myFireButton));
+        v.getChildren().add(mySegButton);
+        v.getChildren().add(myPercButton);
+        v.getChildren().add(myLifeButton);
+        v.getChildren().add(myFireButton);
+        firstSim.setScene(new Scene(v));
+        firstSim.showAndWait();
+    }
+
+    private void pickSim(Button b) {
+        String ret = b.getText();
+        myDropDown.setValue(ret);
+        setSim();
+        firstSim.close();
     }
     private Node initControls() {
         VBox vb = new VBox();
@@ -100,18 +126,15 @@ public class UserInterface {
     }
     private void initSimSelect(EventHandler<ActionEvent> handler, ArrayList<String> simNames) {
         String label = myResources.getString("SELECTCOMMAND");
-        myDropDown.setValue(label);
         myDropDown.setOnAction(handler);
         for (String s : simNames) {
             myDropDown.getItems().add(s);
         }
     }
-    public int setSim() {
+    public String setSim() {
         String st = myDropDown.getValue();
-        int ret = mySims.indexOf(st);
-        System.out.println(ret);
         this.isSimLoaded=true;
-        return ret;
+        return st;
     }
     private Button makeButton (String property, EventHandler<ActionEvent> handler) {
         // represent all supported image suffixes
