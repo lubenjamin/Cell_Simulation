@@ -31,6 +31,10 @@ public class Model {
     neighborhood.add(grid[x][y - 1]);
     neighborhood.add(grid[x + 1][y]);
     neighborhood.add(grid[x - 1][y]);
+    neighborhood.add(grid[x + 1][y + 1]);
+    neighborhood.add(grid[x - 1][y - 1]);
+    neighborhood.add(grid[x + 1][y - 1]);
+    neighborhood.add(grid[x - 1][y + 1]);
     return neighborhood;
   }
 }
