@@ -10,8 +10,8 @@ public class Cell {
   private Object nextState;
   private Paint displayColor;
   public Cell(){
-    currentState = "";
-    nextState = "";
+    currentState = null;
+    nextState = null;
 
   }
 

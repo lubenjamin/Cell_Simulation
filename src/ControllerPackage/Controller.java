@@ -43,6 +43,7 @@ public abstract class Controller {
       int y = i/WIDTH_CELLS;
       Cell current = currentModel.getCell(x,y);
       current.setCurrentState(current.getNextState());
+      current.setNextState(null);
       calcNewDisplay(current);
     }
   }
