@@ -31,10 +31,14 @@ public abstract class Controller {
   }
 
   public void resetSim(){
-    currentView.resetView();
-    initializeModel();
-  }
 
+    initializeModel();
+    currentView.updateAllCells();
+
+  }
+  public void clear() {
+    currentView.clear();
+  }
   private void switchGridStates(){
     for(int i = 0; i < WIDTH_CELLS*HEIGHT_CELLS; i++){
       int x = i % WIDTH_CELLS;

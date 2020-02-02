@@ -1,14 +1,11 @@
 package cellsociety;
 
 
-import ControllerPackage.Controller;
-import ControllerPackage.PercolationController;
-import ControllerPackage.SegregationController;
+import ControllerPackage.*;
+import View.UserInterface;
+import java.util.ArrayList;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-
-import View.UserInterface;
-
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.stage.Stage;
@@ -16,6 +13,7 @@ import javafx.util.Duration;
 
 import java.io.File;
 import java.util.ArrayList;
+
 
 /**
  * Feel free to completely change this code or delete it entirely.
@@ -30,9 +28,10 @@ public class Main extends Application {
 
   private Controller currentController;
   private UserInterface UI;
-  private Stage firstSim;
+  private Group viewGroup = new Group();
 
   private String mySim;
+  private String myNewSim;
   private ArrayList<String> simNames;
 
   /**
@@ -44,7 +43,6 @@ public class Main extends Application {
 
   @Override
   public void start(Stage stage) throws Exception {
-    Group viewGroup = new Group();
 
     File folder = new File("data/");
     File[] listOfFiles = folder.listFiles();
@@ -63,24 +61,46 @@ public class Main extends Application {
 
     FileReader reader = new FileReader(UI.setSim()+EXTENSION);
 
-    if (reader.getSimType()!=null && reader.getSimType().equals("Segregation")){
-      currentController = new PercolationController(viewGroup, reader);
+    mySim = reader.getSimType();
+    if (mySim.equals("Percolation")) {
+        currentController = new PercolationController(viewGroup, reader);
     }
-    else{
-      currentController = new PercolationController(viewGroup, reader);
+    else if (mySim.equals("Segregation")) {
+        currentController = new FireController(viewGroup, reader);
     }
-
-    KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step());
+    else {
+        stage.close();
+    }
+    KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> {
+        try {
+            step();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    });
     myAnimation.setCycleCount(Timeline.INDEFINITE);
     myAnimation.getKeyFrames().add(frame);
     myAnimation.play();
-
   }
 
-  private void step() {
-    mySim = UI.setSim();
+  private void step() throws Exception {
+    myNewSim = UI.setSim();
+    if (! myNewSim.equals(mySim)) {
+        currentController.clear();
+        FileReader reader = new FileReader(myNewSim+EXTENSION);
+        mySim = reader.getSimType();
+        if (mySim.equals("Percolation")) {
+            mySim = mySim.toLowerCase();
+            currentController = new PercolationController(viewGroup, reader);
+        }
+        else if (mySim.equals("Segregation")) {
+            mySim = mySim.toLowerCase();
+            currentController = new FireController(viewGroup, reader);
+        }
+    }
     if (UI.isSimLoaded && mySim != null) {
       if (!UI.isPaused || (UI.isPaused && UI.isStep)) {
+
         currentController.updateSim();
         UI.isStep = false;
       }

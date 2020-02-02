@@ -27,10 +27,8 @@ public class View {
       cv.setFill(displayState(myModel.getCell(cv.getXPos(), cv.getYPos())));
     }
   }
-  public void resetView() {
-    for (CellVisual cv: myVisuals) {
-      cv.setFill(Color.WHITE);
-    }
+  public void clear() {
+    myViewGroup.getChildren().clear();
   }
   private void initCellView(Model grid, int width, int height) {
     myVisualWidth = VIEW_BOUND/width;

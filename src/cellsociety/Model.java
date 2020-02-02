@@ -1,7 +1,6 @@
 package cellsociety;
 
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 
@@ -26,7 +25,25 @@ public class Model {
     return grid[y][x];
   }
 
-  public ArrayList<Cell> getNeighborhood(int x, int y){
+  public ArrayList<Cell> getSimpleNeighborhood(int x, int y){
+    ArrayList<Cell> ret = new ArrayList<>();
+
+
+    addIfExists(ret, x+0, y+1);
+
+
+    addIfExists(ret, x-1, y+0);
+    addIfExists(ret, x+1, y+0);
+
+
+    addIfExists(ret, x+0, y-1);
+
+
+    return ret;
+  }
+
+
+  public ArrayList<Cell> getMooreNeighborhood(int x, int y){
     ArrayList<Cell> ret = new ArrayList<>();
 
     addIfExists(ret, x-1, y+1);
