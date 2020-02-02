@@ -22,8 +22,8 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class UserInterface {
-    private static final int HEIGHT = 300; // temp
-    private static final int WIDTH = 300; //temp
+    private static final int HEIGHT = 600; // temp
+    private static final int WIDTH = 600; //temp
 
     private static final String TITLE = "Simulation_Team05";
     private static final String RESOURCES = "resources";
@@ -46,8 +46,8 @@ public class UserInterface {
 
     public boolean isPaused;
     public boolean isReset;
-    public boolean isPlayed;
     public boolean isStep;
+    public boolean isSimLoaded;
 
     public UserInterface(Stage stage, String language, ArrayList<String> simNames, Timeline animation) {
         stage.setTitle(TITLE);
@@ -62,25 +62,25 @@ public class UserInterface {
         bp.setTop(myDropDown);
         bp.setCenter(viewGroup);
         bp.setBottom(initControls());
-        Scene myScene = new Scene(bp, 600, 600);
+        Scene myScene = new Scene(bp, WIDTH, HEIGHT);
         myScene.getStylesheets().add(STYLESHEET);
         return myScene;
     }
     private Node initControls() {
-        VBox v = new VBox();
-        HBox h = new HBox();
+        VBox vb = new VBox();
+        HBox result = new HBox();
         myPlayButton = makeButton("PLAYCOMMAND", event -> checkPlay());
         myPauseButton = makeButton("PAUSECOMMAND", event -> checkPause());
         myResetButton = makeButton("RESETCOMMAND", event -> checkReset());
         myStepButton = makeButton("UPDATECOMMAND", event -> checkUpdate());
         mySlider = makeSlider(event -> handleSlider());
-        v.getChildren().add(myPlayButton);
-        v.getChildren().add(myPauseButton);
-        v.getChildren().add(myStepButton);
-        v.getChildren().add(myResetButton);
-        h.getChildren().add(v);
-        h.getChildren().add(mySlider);
-        return h;
+        vb.getChildren().add(myPlayButton);
+        vb.getChildren().add(myPauseButton);
+        vb.getChildren().add(myStepButton);
+        vb.getChildren().add(myResetButton);
+        result.getChildren().add(vb);
+        result.getChildren().add(mySlider);
+        return result;
     }
     private Slider makeSlider(EventHandler<MouseEvent> handler) {
         Slider mySlider = new Slider();
@@ -99,6 +99,8 @@ public class UserInterface {
         myAnimation.setRate(mySlider.getValue());
     }
     private void initSimSelect(EventHandler<ActionEvent> handler, ArrayList<String> simNames) {
+        String label = myResources.getString("SELECTCOMMAND");
+        myDropDown.setValue(label);
         myDropDown.setOnAction(handler);
         for (String s : simNames) {
             myDropDown.getItems().add(s);
@@ -108,9 +110,9 @@ public class UserInterface {
         String st = myDropDown.getValue();
         int ret = mySims.indexOf(st);
         System.out.println(ret);
+        this.isSimLoaded=true;
         return ret;
     }
-
     private Button makeButton (String property, EventHandler<ActionEvent> handler) {
         // represent all supported image suffixes
         final String IMAGEFILE_SUFFIXES = String.format(".*\\.(%s)", String.join("|", ImageIO.getReaderFileSuffixes()));
@@ -129,11 +131,15 @@ public class UserInterface {
         this.isPaused = true;
     }
     private void checkPlay() {
-        this.isPaused = false;
+        if (isSimLoaded) {
+            this.isPaused = false;
+        }
     }
     private void checkReset() {
-        this.isReset = true;
-        this.isPaused = true;
+        if (isSimLoaded) {
+            this.isReset = true;
+            this.isPaused = true;
+        }
     }
     private void checkUpdate() { this.isStep = true;
     }

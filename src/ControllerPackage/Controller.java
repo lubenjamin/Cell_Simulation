@@ -10,8 +10,8 @@ import javafx.scene.Group;
 public abstract class Controller {
   protected Model currentModel;
   protected View currentView;
-  protected final static int WIDTH_CELLS = 100;
-  protected final static int HEIGHT_CELLS = 100;
+  protected final static int WIDTH_CELLS = 75;
+  protected final static int HEIGHT_CELLS = 75;
 
   public Controller (Group simGroup){
     currentModel = new Model(WIDTH_CELLS,HEIGHT_CELLS);

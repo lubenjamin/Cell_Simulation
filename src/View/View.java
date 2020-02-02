@@ -32,8 +32,8 @@ public class View {
     }
   }
   private void initCellView(Model grid, double width, double height) {
-    for (int i = 0; i < 75; i++) {
-      for (int j = 0; j < 75; j++) {
+    for (int i = 0; i < width; i++) {
+      for (int j = 0; j < height; j++) {
         CellVisual cv = new CellVisual(VISUAL_WIDTH, VISUAL_HEIGHT, displayState(grid.getCell(i, j)), i, j);
         cv.setX(i * SPACING);
         cv.setY(j * SPACING);

@@ -44,9 +44,8 @@ public class Main extends Application {
     UI = new UserInterface(stage, "English", simNames, myAnimation);
     stage.setScene(UI.setupUI(viewGroup));
     stage.show();
-
-    currentController = new PercolationController(viewGroup);
     mySim = UI.setSim();
+    currentController = new PercolationController(viewGroup);
 
     KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step());
     myAnimation.setCycleCount(Timeline.INDEFINITE);
@@ -56,15 +55,16 @@ public class Main extends Application {
   }
 
   private void step() {
-    if (! UI.isPaused || (UI.isPaused && UI.isStep)) {
-      currentController.updateSim();
-      UI.isStep=false;
+    if (UI.isSimLoaded && mySim != -1) {
+      if (!UI.isPaused || (UI.isPaused && UI.isStep)) {
+        currentController.updateSim();
+        UI.isStep = false;
+      }
+      if (UI.isReset) {
+        currentController.resetSim();
+        UI.isReset = false;
+      }
     }
-    if (UI.isReset) {
-      currentController.resetSim();
-      UI.isReset=false;
-    }
-
   }
 
 }
