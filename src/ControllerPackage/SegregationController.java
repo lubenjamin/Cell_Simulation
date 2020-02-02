@@ -1,4 +1,6 @@
+
 package ControllerPackage;
+
 
 import cellsociety.Cell;
 import cellsociety.FileReader;
@@ -8,12 +10,9 @@ import javafx.scene.paint.Color;
 
 
 
-public class PercolationController extends Controller {
+public class SegregationController extends Controller {
 
-  private static final double PERCENT_BLOCKED = .575;
-
-
-  public PercolationController(Group simGroup, FileReader reader) {
+  public SegregationController(Group simGroup, FileReader reader) {
     super(simGroup, reader);
   }
 
@@ -24,15 +23,11 @@ public class PercolationController extends Controller {
       int x = i / WIDTH_CELLS;
       int y = i % WIDTH_CELLS;
       Cell cell = currentModel.getCell(x, y);
-
-      double stateSelect = a.nextDouble();
-
-
-      if(stateSelect> PERCENT_BLOCKED){
+      int stateSelect = a.nextInt(10);
+      if(stateSelect<4){
         cell.setCurrentState("OPEN");
       }
-
-      if(stateSelect<= PERCENT_BLOCKED){
+      if(stateSelect>=4){
         cell.setCurrentState("CLOSED");
       }
       calcNewDisplay(cell);

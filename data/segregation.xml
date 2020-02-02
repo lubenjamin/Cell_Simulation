@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <simulation>
     <type>Segregation</type>
-    <rows>100</rows>
-    <columns>100</columns>
+    <rows>10</rows>
+    <columns>10</columns>
 </simulation>
+

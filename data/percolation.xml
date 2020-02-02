@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<simulation>
+    <type>Percolation</type>
+    <rows>70</rows>
+    <columns>70</columns>
+</simulation>
+
