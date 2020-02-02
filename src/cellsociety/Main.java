@@ -51,7 +51,7 @@ public class Main extends Application {
 
     FileReader reader = new FileReader("percolation.xml");
     
-    currentController = new SegregationController(viewGroup, reader);
+    currentController = new PercolationController(viewGroup, reader);
 
     KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step());
     myAnimation.setCycleCount(Timeline.INDEFINITE);

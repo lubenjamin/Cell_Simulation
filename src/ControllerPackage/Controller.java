@@ -15,6 +15,25 @@ public abstract class Controller {
   protected int WIDTH_CELLS;
   protected int HEIGHT_CELLS;
 
+  protected class State {
+
+    private String state;
+
+    public State(String state) {
+      this.state = state;
+    }
+
+    public String getState() {
+      return state;
+    }
+
+    @Override
+    public boolean equals(Object a) {
+      String s = a.toString();
+      return s.equals(state);
+    }
+  }
+
 
   public Controller(Group simGroup, FileReader reader){
     WIDTH_CELLS = reader.getColumns();
@@ -48,9 +67,15 @@ public abstract class Controller {
     }
   }
 
-  protected abstract void initializeModel();
+  protected void updateGrid(){
+    for (int i = 0; i < WIDTH_CELLS * HEIGHT_CELLS; i++) {
+      int x = i % WIDTH_CELLS;
+      int y = i / WIDTH_CELLS;
+      updateCell(x, y);
+    }
+  }
 
-  protected abstract void updateGrid();
+  protected abstract void initializeModel();
 
   protected abstract void updateCell(int x, int y);
 

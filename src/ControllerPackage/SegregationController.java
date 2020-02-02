@@ -18,26 +18,7 @@ public class SegregationController extends Controller {
 
   private ArrayList<Cell> emptySpots;
   private ArrayList<Cell> needMove;
-
-
-  private class State {
-
-    private String state;
-
-    public State(String state) {
-      this.state = state;
-    }
-
-    public String getState() {
-      return state;
-    }
-
-    @Override
-    public boolean equals(Object a) {
-      String s = a.toString();
-      return s.equals(state);
-    }
-  }
+  
 
   public SegregationController(Group simGroup, FileReader reader) {
     super(simGroup, reader);
@@ -74,14 +55,8 @@ public class SegregationController extends Controller {
   protected void updateGrid() {
     needMove = new ArrayList<>();
     emptySpots = getEmptySpots("EMPTY");
-    ArrayList<Cell> trial = new ArrayList<>(emptySpots);
-    for (int i = 0; i < WIDTH_CELLS * HEIGHT_CELLS; i++) {
-      int x = i % WIDTH_CELLS;
-      int y = i / WIDTH_CELLS;
-      updateCell(x, y);
-    }
+    super.updateGrid();
     moveUnHappy();
-
   }
 
 
