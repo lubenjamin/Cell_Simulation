@@ -18,7 +18,7 @@ public class PercolationController extends Controller {
     for (int i = 0; i < WIDTH_CELLS * HEIGHT_CELLS; i++) {
       int x = i / WIDTH_CELLS;
       int y = i % WIDTH_CELLS;
-      Cell cell = currentModel.getCell(x, y);d
+      Cell cell = currentModel.getCell(x, y);
       cell.setCurrentState("OPEN");
       calcNewDisplay(cell);
     }
