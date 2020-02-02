@@ -6,8 +6,8 @@ import javafx.scene.paint.Paint;
 
 
 public class Cell {
-  private String currentState;
-  private String nextState;
+  private Object currentState;
+  private Object nextState;
   private Paint displayColor;
   public Cell(){
     currentState = "";
@@ -15,7 +15,7 @@ public class Cell {
 
   }
 
-  public String getNextState() {
+  public Object getNextState() {
     return nextState;
   }
 
@@ -23,15 +23,15 @@ public class Cell {
     return displayColor;
   }
 
-  public String getCurrentState(){
+  public Object getCurrentState(){
     return currentState;
   }
 
-  public void setCurrentState(String currentState) {
+  public void setCurrentState(Object currentState) {
     this.currentState = currentState;
   }
 
-  public void setNextState(String nextState) {
+  public void setNextState(Object nextState) {
     this.nextState = nextState;
   }
 

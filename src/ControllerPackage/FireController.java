@@ -11,9 +11,24 @@ import javafx.scene.paint.Color;
 public class FireController extends Controller {
 
 
-  private final static double initialTree = .9;
+  private final static double initialTree = .99;
   private final static double initialBurningTree = .001;
-  private final static double percentCatchFire = .6;
+  private final static double percentCatchFire = .5;
+
+  private class State{
+    private String state;
+    public State(String state){
+      this.state = state;
+    }
+    public String getState(){
+      return state;
+    }
+    @Override
+    public boolean equals(Object a ){
+      String s = (String) a;
+      return s.equals(state);
+    }
+  }
 
   public FireController(Group simGroup, FileReader reader) {
     super(simGroup, reader);
@@ -33,16 +48,16 @@ public class FireController extends Controller {
       double stateSelect = a.nextDouble();
 
       if(stateSelect>initialTree){
-        cell.setCurrentState("EMPTY");
+        cell.setCurrentState(new State("EMPTY"));
       }
 
       if(stateSelect<=initialTree){
         if(a.nextDouble()<=initialBurningTree){
-          cell.setCurrentState("BURNING");
+          cell.setCurrentState(new State("BURNING"));
           burnCheck=true;
         }
         else{
-          cell.setCurrentState("TREE");
+          cell.setCurrentState(new State("TREE"));
         }
       }
       calcNewDisplay(cell);
@@ -53,7 +68,7 @@ public class FireController extends Controller {
       int x = a.nextInt(WIDTH_CELLS);
       int y = a.nextInt(HEIGHT_CELLS);
       Cell cell = currentModel.getCell(x,y);
-      cell.setCurrentState("BURNING");
+      cell.setCurrentState(new State("BURNING"));
       calcNewDisplay(cell);
     }
   }
@@ -71,12 +86,8 @@ public class FireController extends Controller {
   protected void updateCell(int x, int y) {
     Cell current = currentModel.getCell(x, y);
 
-    if (current.getCurrentState().equals("EMPTY")) {
-      current.setNextState("EMPTY");
-      return;
-    }
-    if (current.getCurrentState().equals("BURNING")) {
-      current.setNextState("EMPTY");
+    if (current.getCurrentState().equals("EMPTY") || current.getCurrentState().equals("BURNING")) {
+      current.setNextState(new State("EMPTY"));
       return;
     }
 
@@ -87,23 +98,23 @@ public class FireController extends Controller {
     }
 
     if (numOnFire == 0) {
-      current.setNextState("TREE");
+      current.setNextState(new State("TREE"));
       return;
     }
 
     Random a = new Random();
     double stateSelect = a.nextDouble();
     if (stateSelect <= percentCatchFire) {
-      current.setNextState("BURNING");
+      current.setNextState(new State("BURNING"));
       return;
     }
 
-    current.setNextState("TREE");
+    current.setNextState(new State("TREE"));
   }
 
   @Override
   protected void calcNewDisplay(Cell cell) {
-    switch (cell.getCurrentState()){
+    switch (((State)cell.getCurrentState()).getState()){
       case "BURNING":
         cell.setDisplayColor(Color.RED);
         break;

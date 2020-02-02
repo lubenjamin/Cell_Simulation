@@ -1,3 +1,4 @@
+/*
 
 package ControllerPackage;
 
@@ -81,3 +82,4 @@ public class SegregationController extends Controller {
     }
   }
 }
+*/

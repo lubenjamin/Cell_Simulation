@@ -52,9 +52,6 @@ public class Main extends Application {
     
     currentController = new FireController(viewGroup, reader);
 
-
-
-
     KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step());
     myAnimation.setCycleCount(Timeline.INDEFINITE);
     myAnimation.getKeyFrames().add(frame);
