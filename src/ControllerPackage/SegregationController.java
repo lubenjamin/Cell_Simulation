@@ -24,36 +24,34 @@ public class SegregationController extends Controller {
   }
 
   @Override
-  protected void initializeCellState(Cell current){
+  protected void initializeCellState(Cell current) {
     if (probabilityChecker(percentOccupied)) {
       if (probabilityChecker(percentMajority)) {
         current.setCurrentState(new State(1));
       } else {
         current.setCurrentState(new State(2));
       }
-    }
-    else{
+    } else {
       current.setCurrentState(new State(0));
     }
   }
+
   @Override
   protected void setColors() {
-    state0Color =Color.LIGHTGRAY;
-    state1Color = Color.DARKBLUE;
-    state2Color = Color.DARKGOLDENROD;
+    state0Color = Color.valueOf(reader.getString("state0Color"));
+    state1Color = Color.valueOf(reader.getString("state1Color"));
+    state2Color = Color.valueOf(reader.getString("state2Color"));
   }
-
-
 
   @Override
   protected void updateCell(int x, int y) {
     Cell current = currentModel.getCell(x, y);
 
-    if (current.getCurrentState().getState()==0) {
+    if (current.getCurrentState().getState() == 0) {
       current.setNextState(new State(0));
       return;
     }
-    if (getSatisfy(current)< satisfiedLevel) {
+    if (getSatisfy(current) < satisfiedLevel) {
       needMove.add(current);
     }
     current.setNextState(current.getCurrentState());
@@ -68,14 +66,12 @@ public class SegregationController extends Controller {
   }
 
   /**
-   * This method picks a random cell that needs moving
-   * and a random empty spot. This is because at the beginning
-   * there are not enough empty spots to relocate cells, so
-   * it needs to be random
+   * This method picks a random cell that needs moving and a random empty spot. This is because at
+   * the beginning there are not enough empty spots to relocate cells, so it needs to be random
    */
   private void moveUnHappy() {
     Random r = new Random();
-    while(emptySpots.size()!=0 && needMove.size()!=0){
+    while (emptySpots.size() != 0 && needMove.size() != 0) {
       int indexTo = r.nextInt(emptySpots.size());
       int indexFrom = r.nextInt(needMove.size());
       Cell cellReplace = emptySpots.get(indexTo);
@@ -92,17 +88,17 @@ public class SegregationController extends Controller {
     double totalNeigh = 0;
     double similar = 0;
     for (Cell c : neigh) {
-      if (c.getCurrentState().getState()==current.getCurrentState().getState()) {
+      if (c.getCurrentState().getState() == current.getCurrentState().getState()) {
         similar++;
       }
-      if (c.getCurrentState().getState()!=0) {
+      if (c.getCurrentState().getState() != 0) {
         totalNeigh++;
       }
     }
-    if(totalNeigh==0){
+    if (totalNeigh == 0) {
       return 1;
     }
-    return similar/totalNeigh;
+    return similar / totalNeigh;
   }
 
   private ArrayList<Cell> getEmptySpots(int state) {
@@ -110,7 +106,7 @@ public class SegregationController extends Controller {
     for (int i = 0; i < WIDTH_CELLS * HEIGHT_CELLS; i++) {
       int x = i % WIDTH_CELLS;
       int y = i / WIDTH_CELLS;
-      if (currentModel.getCell(x, y).getCurrentState().getState()==state) {
+      if (currentModel.getCell(x, y).getCurrentState().getState() == state) {
         ret.add(currentModel.getCell(x, y));
       }
     }

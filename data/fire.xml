@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <simulation>
     <type>Fire</type>
-    <rows>10</rows>
-    <columns>10</columns>
+    <rows>75</rows>
+    <columns>75</columns>
     <initialTree>0.99</initialTree>
     <initialBurningTree>0.001</initialBurningTree>
     <percentCatchFire>0.5</percentCatchFire>
+    <state0Color>0xffffffff</state0Color>
+    <state1Color>0x008000ff</state1Color>
+    <state2Color>0xff0000ff</state2Color>
 </simulation>
 

@@ -7,12 +7,14 @@ import cellsociety.Model;
 import java.util.Random;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 
 
 public abstract class Controller {
+
   protected Model currentModel;
   protected View currentView;
+  protected Random random;
+  protected FileReader reader;
 
   protected int WIDTH_CELLS;
   protected int HEIGHT_CELLS;
@@ -21,37 +23,38 @@ public abstract class Controller {
   protected Color state1Color;
   protected Color state2Color;
 
-  protected Random random;
 
 
-  public Controller(Group simGroup, FileReader reader){
+  public Controller(Group simGroup, FileReader reader) {
+    this.reader = reader;
     random = new Random();
     setColors();
     WIDTH_CELLS = reader.getColumns();
     HEIGHT_CELLS = reader.getRows();
-    currentModel = new Model(WIDTH_CELLS,HEIGHT_CELLS);
+    currentModel = new Model(WIDTH_CELLS, HEIGHT_CELLS);
     currentView = new View(simGroup, WIDTH_CELLS, HEIGHT_CELLS, currentModel);
     initializeModel();
   }
 
-  public void updateSim(){
+  public void updateSim() {
     updateGrid();
     switchGridStates();
     currentView.updateAllCells();
   }
 
-  public void resetSim(){
+  public void resetSim() {
 
     initializeModel();
     currentView.updateAllCells();
 
   }
 
-  private void switchGridStates(){
-    for(int i = 0; i < WIDTH_CELLS*HEIGHT_CELLS; i++){
+
+  private void switchGridStates() {
+    for (int i = 0; i < WIDTH_CELLS * HEIGHT_CELLS; i++) {
       int x = i % WIDTH_CELLS;
-      int y = i/WIDTH_CELLS;
-      Cell current = currentModel.getCell(x,y);
+      int y = i / WIDTH_CELLS;
+      Cell current = currentModel.getCell(x, y);
 
       current.setCurrentState(current.getNextState());
       current.setNextState(null);
@@ -59,7 +62,7 @@ public abstract class Controller {
     }
   }
 
-  protected void updateGrid(){
+  protected void updateGrid() {
     for (int i = 0; i < WIDTH_CELLS * HEIGHT_CELLS; i++) {
       int x = i % WIDTH_CELLS;
       int y = i / WIDTH_CELLS;
@@ -67,9 +70,7 @@ public abstract class Controller {
     }
   }
 
-
-
-  protected void initializeModel(){
+  protected void initializeModel() {
     Random a = new Random();
     for (int i = 0; i < WIDTH_CELLS * HEIGHT_CELLS; i++) {
       int x = i / WIDTH_CELLS;
@@ -96,19 +97,18 @@ public abstract class Controller {
     }
   }
 
-  protected boolean probabilityChecker(double compareTo){
+  protected boolean probabilityChecker(double compareTo) {
     double stateSelect = random.nextDouble();
-    return stateSelect<compareTo;
+    return stateSelect < compareTo;
 
   }
+
 
   protected abstract void setColors();
 
   protected abstract void initializeCellState(Cell cell);
 
   protected abstract void updateCell(int x, int y);
-
-
 
 
 }

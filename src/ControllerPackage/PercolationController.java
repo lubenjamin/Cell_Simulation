@@ -6,7 +6,6 @@ import javafx.scene.Group;
 import javafx.scene.paint.Color;
 
 
-
 public class PercolationController extends Controller {
 
   private static final double PERCENT_BLOCKED = .575;
@@ -16,45 +15,42 @@ public class PercolationController extends Controller {
     super(simGroup, reader);
   }
 
-
   @Override
-  protected void initializeCellState(Cell current){
-    if(probabilityChecker(PERCENT_BLOCKED)){
+  protected void initializeCellState(Cell current) {
+    if (probabilityChecker(PERCENT_BLOCKED)) {
       current.setCurrentState(new State(2));
-    }
-    else{
+    } else {
       current.setCurrentState(new State(0));
     }
   }
+
   @Override
   protected void setColors() {
-    state0Color =Color.WHITE;
-    state1Color = Color.LIGHTBLUE;
-    state2Color = Color.SLATEGREY;
+    state0Color = Color.valueOf(reader.getString("state0Color"));
+    state1Color = Color.valueOf(reader.getString("state1Color"));
+    state2Color = Color.valueOf(reader.getString("state2Color"));
   }
-
 
   @Override
   protected void updateCell(int x, int y) {
     Cell current = currentModel.getCell(x, y);
 
-    if (current.getCurrentState().getState()==2 || current.getCurrentState().getState()==1){
+    if (current.getCurrentState().getState() == 2 || current.getCurrentState().getState() == 1) {
       current.setNextState(new State(current.getCurrentState().getState()));
-    }
-    else if(checkWater(current)){
+    } else if (checkWater(current)) {
       current.setNextState(new State(1));
-    }
-    else{
+    } else {
       current.setNextState(new State(0));
     }
   }
 
+
   private boolean checkWater(Cell current) {
-    if(current.getY()==0){
+    if (current.getY() == 0) {
       return true;
     }
     for (Cell c : currentModel.getMooreNeighborhood(current.getX(), current.getY())) {
-      if (c.getCurrentState().getState()==1) {
+      if (c.getCurrentState().getState() == 1) {
         return true;
       }
     }
