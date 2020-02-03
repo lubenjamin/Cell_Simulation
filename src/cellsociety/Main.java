@@ -51,48 +51,16 @@ public class Main extends Application {
 
   @Override
   public void start(Stage stage) throws Exception {
+    getFileNames();
 
-    File folder = new File("data/");
-    File[] listOfFiles = folder.listFiles();
-
-    simNames = new ArrayList<>();
-    for (int i = 0; i < listOfFiles.length; i++) {
-      if (listOfFiles[i].isFile() && listOfFiles[i].getName().contains(EXTENSION)) {
-        simNames.add(listOfFiles[i].getName().split(EXTENSION)[0]);
-      }
-    }
-    
     Timeline myAnimation = new Timeline();
     UI = new UserInterface(stage, "English", simNames, myAnimation);
     stage.setScene(UI.setupUI(viewGroup));
     stage.show();
 
-
-
     FileReader reader = new FileReader(UI.setSim()+EXTENSION);
-
-
-
     mySim = reader.getSimType();
-
-    if (mySim.equals("Percolation")) {
-        currentController = new PercolationController(viewGroup, reader);
-    }
-    else if (mySim.equals("Segregation")) {
-        currentController = new SegregationController(viewGroup, reader);
-    }
-    else if (mySim.equals("Fire")){
-        currentController = new FireController(viewGroup, reader);
-    }
-    else if (mySim.equals("GameOfLife")) {
-        currentController = new GameOfLifeController(viewGroup, reader);
-    }
-    else if (mySim.equals("PredatorPrey")) {
-        currentController = new PredPreyController(viewGroup, reader);
-    }
-    else {
-        stage.close();
-    }
+    checkSimName(mySim, reader,false);
 
     KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> {
         try {
@@ -101,6 +69,7 @@ public class Main extends Application {
             ex.printStackTrace();
         }
     });
+
     myAnimation.setCycleCount(Timeline.INDEFINITE);
     myAnimation.getKeyFrames().add(frame);
     myAnimation.play();
@@ -113,26 +82,7 @@ public class Main extends Application {
         UI.isPaused=true;
         FileReader reader = new FileReader(myNewSim+EXTENSION);
         mySim = reader.getSimType();
-        if (mySim.equals("Percolation")) {
-            mySim = mySim.toLowerCase();
-            currentController = new PercolationController(viewGroup, reader);
-        }
-        else if (mySim.equals("Segregation")) {
-            mySim = mySim.toLowerCase();
-            currentController = new SegregationController(viewGroup, reader);
-        }
-        else if (mySim.equals("Fire")){
-            mySim = mySim.toLowerCase();
-            currentController = new FireController(viewGroup, reader);
-        }
-        else if (mySim.equals("GameOfLife")) {
-            mySim = "gameOfLife";
-            currentController = new GameOfLifeController(viewGroup, reader);
-        }
-        else if (mySim.equals("PredatorPrey")) {
-            mySim = "predatorPrey";
-            currentController = new PredPreyController(viewGroup, reader);
-        }
+        checkSimName(mySim, reader, true);
     }
     if (UI.isSimLoaded && mySim != null) {
       if (!UI.isPaused || (UI.isPaused && UI.isStep)) {
@@ -145,6 +95,37 @@ public class Main extends Application {
         UI.isReset = false;
       }
     }
+  }
+  private void getFileNames() {
+      File folder = new File("data/");
+      File[] listOfFiles = folder.listFiles();
+      simNames = new ArrayList<>();
+      for (int i = 0; i < listOfFiles.length; i++) {
+          if (listOfFiles[i].isFile() && listOfFiles[i].getName().contains(EXTENSION)) {
+              simNames.add(listOfFiles[i].getName().split(EXTENSION)[0]);
+          }
+      }
+  }
+
+  private void checkSimName(String name, FileReader reader, boolean isUpdating) {
+      if (name.equals("Percolation")) {
+          currentController = new PercolationController(viewGroup, reader);
+      }
+      else if (name.equals("Segregation")) {
+          currentController = new SegregationController(viewGroup, reader);
+      }
+      else if (name.equals("Fire")){
+          currentController = new FireController(viewGroup, reader);
+      }
+      else if (name.equals("GameOfLife")) {
+          currentController = new GameOfLifeController(viewGroup, reader);
+      }
+      else if (name.equals("PredatorPrey")) {
+          currentController = new PredPreyController(viewGroup, reader);
+      }
+      if (isUpdating) {
+          mySim = name.toLowerCase();
+      }
   }
 
 }

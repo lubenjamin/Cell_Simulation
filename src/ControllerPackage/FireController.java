@@ -63,21 +63,6 @@ public class FireController extends Controller {
 
   }
 
-  @Override
-  protected void calcNewDisplay(Cell cell) {
-    switch (cell.getCurrentState().getState()) {
-      case "BURNING":
-        cell.setDisplayColor(Color.RED);
-        break;
-      case "EMPTY":
-        cell.setDisplayColor(Color.YELLOW);
-        break;
-      case "TREE":
-        cell.setDisplayColor(Color.GREEN);
-        break;
-    }
-  }
-
   private int getNumFire(Cell current) {
     ArrayList<Cell> neigh = currentModel.getSimpleNeighborhood(current.getX(), current.getY());
     int numOnFire = 0;

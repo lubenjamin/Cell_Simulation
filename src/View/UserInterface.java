@@ -61,8 +61,9 @@ public class UserInterface {
         this.isPaused = true;
         this.myAnimation = animation;
     }
+    BorderPane bp = new BorderPane();
     public Scene setupUI(Group viewGroup) {
-        BorderPane bp = new BorderPane();
+
         initFirstSim();
         initSimSelect(event -> setSim(), mySims);
         bp.setTop(myDropDown);
@@ -72,7 +73,10 @@ public class UserInterface {
         myScene.getStylesheets().add(STYLESHEET);
         return myScene;
     }
-
+//    public void addFireUI() {
+//        TextField t = new TextField("Ignite Percent");
+//        bp.setRight(t);
+//    }
     private void initFirstSim() {
         firstSim.setTitle("Choose First Simulation");
         VBox v = new VBox();
@@ -139,7 +143,6 @@ public class UserInterface {
     }
     public String setSim() {
         String st = myDropDown.getValue();
-
         this.isSimLoaded=true;
         return st;
     }

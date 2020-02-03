@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <simulation>
-<<<<<<< HEAD
     <type>PredatorPrey</type>
-=======
-    <type>PredPrey</type>
->>>>>>> 79e749bf5e727066552acf0e1270d3eca1abba43
     <rows>75</rows>
     <columns>75</columns>
     <sharkBreed>20</sharkBreed>

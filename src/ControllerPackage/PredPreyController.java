@@ -30,6 +30,8 @@ public class PredPreyController extends Controller {
   public PredPreyController(Group simGroup, FileReader reader) {
     super(simGroup, reader);
     myGraph = new PredPreyGraph();
+    myGraph.setLayoutX(10);
+    myGraph.setLayoutY(10);
     simGroup.getChildren().add(myGraph);
   }
 
@@ -78,7 +80,7 @@ public class PredPreyController extends Controller {
       int x = i % WIDTH_CELLS;
       int y = i / WIDTH_CELLS;
       Cell current = currentModel.getCell(x,y);
-      if(current.getCurrentState().getState().equals("FISH")){
+      if(current.getCurrentState().getState() == 1){
         count ++;
       }
     }
@@ -91,7 +93,7 @@ public class PredPreyController extends Controller {
       int x = i % WIDTH_CELLS;
       int y = i / WIDTH_CELLS;
       Cell current = currentModel.getCell(x,y);
-      if(current.getCurrentState().getState().equals("SHARK")){
+      if(current.getCurrentState().getState() == 2){
         count ++;
       }
     }
