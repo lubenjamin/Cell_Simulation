@@ -122,13 +122,14 @@ public class UserInterface {
         Slider mySlider = new Slider();
         mySlider.setOnMouseReleased(handler);
         mySlider.setMin(0);
-        mySlider.setMax(25);
-        mySlider.setValue(1);
+        mySlider.setMax(50);
+        mySlider.setValue(5);
         mySlider.setShowTickLabels(true);
         mySlider.setShowTickMarks(true);
         mySlider.setMajorTickUnit(5);
         mySlider.setMinorTickCount(1);
         mySlider.setBlockIncrement(10);
+        myAnimation.setRate(mySlider.getValue());
         return mySlider;
     }
     private void handleSlider() {
