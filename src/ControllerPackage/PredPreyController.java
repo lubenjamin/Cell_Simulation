@@ -43,9 +43,9 @@ public class PredPreyController extends Controller {
 
   @Override
   protected void setColors() {
-    state0Color = Color.LIGHTGRAY;
-    state1Color = Color.GREEN;
-    state2Color = Color.DARKGOLDENROD;
+    state0Color = Color.valueOf(reader.getString("state0Color"));
+    state1Color = Color.valueOf(reader.getString("state1Color"));
+    state2Color = Color.valueOf(reader.getString("state2Color"));
   }
 
   @Override

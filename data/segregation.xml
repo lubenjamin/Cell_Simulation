@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <simulation>
     <type>Segregation</type>
-    <rows>10</rows>
-    <columns>10</columns>
+    <rows>75</rows>
+    <columns>75</columns>
     <percentOccupied>0.9</percentOccupied>
     <percentMajority>0.75</percentMajority>
     <satisfiedLevel>0.6</satisfiedLevel>
+    <state0Color>0xd3d3d3ff</state0Color>
+    <state1Color>0x00008bff</state1Color>
+    <state2Color>0xb8860bff</state2Color>
 </simulation>
 

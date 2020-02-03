@@ -35,10 +35,9 @@ public class FireController extends Controller {
 
   @Override
   protected void setColors() {
-    System.out.println(reader.getDoubleValue("initialBurningTree"));
-    state0Color = Color.WHITE;
-    state1Color = Color.GREEN;
-    state2Color = Color.RED;
+    state0Color = Color.valueOf(reader.getString("state0Color"));
+    state1Color = Color.valueOf(reader.getString("state1Color"));
+    state2Color = Color.valueOf(reader.getString("state2Color"));
   }
 
   @Override

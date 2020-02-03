@@ -73,7 +73,10 @@ public class FileReader{
 
     public double getDoubleValue(String parameter) {
         return Double.parseDouble(getValue(parameter,simElement));
+    }
 
+    public String getString(String parameter) {
+        return getValue(parameter,simElement);
     }
 
 

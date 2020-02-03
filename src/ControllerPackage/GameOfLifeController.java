@@ -29,11 +29,9 @@ public class GameOfLifeController extends Controller {
 
   @Override
   protected void setColors() {
-    state0Color = Color.WHITE;
-    state1Color = Color.BLACK;
-
-    //not used
-    state2Color = Color.WHITE;
+    state0Color = Color.valueOf(reader.getString("state0Color"));
+    state1Color = Color.valueOf(reader.getString("state1Color"));
+    state2Color = Color.valueOf(reader.getString("state2Color"));
   }
 
   @Override
