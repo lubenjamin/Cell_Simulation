@@ -60,18 +60,7 @@ public class PredPreyController extends Controller {
     moveFish();
   }
 
-  public void countFish(){
-    int count =0;
-    for (int i = 0; i < WIDTH_CELLS * HEIGHT_CELLS; i++) {
-      int x = i % WIDTH_CELLS;
-      int y = i / WIDTH_CELLS;
-      Cell current = currentModel.getCell(x,y);
-      if(current.getCurrentState().getState()==1){
-        count ++;
-      }
-    }
-    System.out.println(count);
-  }
+
 
   @Override
   protected void updateCell(int x, int y) {
@@ -169,6 +158,19 @@ public class PredPreyController extends Controller {
     }
   }
 
+  public void countFish(){
+    int count =0;
+    for (int i = 0; i < WIDTH_CELLS * HEIGHT_CELLS; i++) {
+      int x = i % WIDTH_CELLS;
+      int y = i / WIDTH_CELLS;
+      Cell current = currentModel.getCell(x,y);
+      if(current.getCurrentState().getState()==1){
+        count ++;
+      }
+    }
+    System.out.println(count);
+  }
+
 
 
 
@@ -237,7 +239,7 @@ public class PredPreyController extends Controller {
       if(state==2)return life <= 0;
       return false;
     }
-    
+
     public void eat() {
       life = Math.min(sharkStarve, life + fishEnergy);
     }
