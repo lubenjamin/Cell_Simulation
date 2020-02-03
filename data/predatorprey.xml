@@ -3,12 +3,12 @@
     <type>PredatorPrey</type>
     <rows>80</rows>
     <columns>80</columns>
-    <sharkBreed>15</sharkBreed>
-    <fishBreed>10</fishBreed>
-    <fishEnergy>1</fishEnergy>
-    <sharkStarve>3</sharkStarve>
+    <sharkBreed>8</sharkBreed>
+    <fishBreed>4</fishBreed>
+    <fishEnergy>3</fishEnergy>
+    <sharkStarve>7</sharkStarve>
     <percentOccupied>0.8</percentOccupied>
-    <percentFish>0.95</percentFish>
+    <percentFish>0.99</percentFish>
     <state0Color>0x087240</state0Color>
     <state1Color>0x000000</state1Color>
     <state2Color>0x0000df</state2Color>

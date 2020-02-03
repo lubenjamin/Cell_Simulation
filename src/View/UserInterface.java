@@ -123,7 +123,7 @@ public class UserInterface {
         mySlider.setOnMouseReleased(handler);
         mySlider.setMin(0);
         mySlider.setMax(50);
-        mySlider.setValue(24);
+        mySlider.setValue(15);
         mySlider.setShowTickLabels(true);
         mySlider.setShowTickMarks(true);
         mySlider.setMajorTickUnit(5);

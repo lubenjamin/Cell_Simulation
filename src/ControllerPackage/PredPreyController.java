@@ -27,6 +27,7 @@ public class PredPreyController extends Controller {
   private int numFish;
   private int numShark;
 
+
   public PredPreyController(Group simGroup, FileReader reader) {
     super(simGroup, reader);
 
@@ -81,15 +82,14 @@ public class PredPreyController extends Controller {
   @Override
   protected void updateCell(int x, int y) {
     Cell current = currentModel.getCell(x, y);
-    ((PPState) current.getCurrentState()).dec();
-    if (current.getCurrentState().getState() == 0 || ((PPState) current.getCurrentState())
-        .checkLife()) {
+    if (current.getCurrentState().getState() == 0 || ((PPState) current.getCurrentState()).checkLife()) {
       current.setNextState(new PPState(0));
     } else if (current.getCurrentState().getState() == 2) {
       sharkNeedMove.add(current);
     } else {
       fishNeedMove.add(current);
     }
+    ((PPState) current.getCurrentState()).dec();
   }
 
   private void moveFish() {
@@ -263,6 +263,7 @@ public class PredPreyController extends Controller {
     }
 
     public void eat() {
+      //life = life + fishEnergy;
       life = Math.min(sharkStarve, life + fishEnergy);
     }
   }

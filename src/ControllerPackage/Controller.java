@@ -35,6 +35,7 @@ public abstract class Controller {
     currentModel = new Model(WIDTH_CELLS, HEIGHT_CELLS);
     currentView = new View(simGroup, WIDTH_CELLS, HEIGHT_CELLS, currentModel, spacing);
     initializeModel();
+    currentView.updateAllCells();
   }
 
   public void updateSim() {
