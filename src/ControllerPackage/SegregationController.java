@@ -11,9 +11,9 @@ import javafx.scene.paint.Color;
 public class SegregationController extends Controller {
 
 
-  private final static double percentOccupied = .945;
-  private final static double percentMajority = .7;
-  private final static double satisfiedLevel = .73;
+  private double percentOccupied;
+  private double percentMajority;
+  private double satisfiedLevel;
 
   private ArrayList<Cell> emptySpots;
   private ArrayList<Cell> needMove;
@@ -37,10 +37,14 @@ public class SegregationController extends Controller {
   }
 
   @Override
-  protected void setColors() {
+  protected void setSimParams() {
     state0Color = Color.valueOf(reader.getString("state0Color"));
     state1Color = Color.valueOf(reader.getString("state1Color"));
     state2Color = Color.valueOf(reader.getString("state2Color"));
+
+    percentOccupied = reader.getDoubleValue("percentOccupied");
+    percentMajority = reader.getDoubleValue("percentMajority");
+    satisfiedLevel = reader.getDoubleValue("satisfiedLevel");
   }
 
   @Override

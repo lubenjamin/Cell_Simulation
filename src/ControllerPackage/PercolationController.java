@@ -8,7 +8,7 @@ import javafx.scene.paint.Color;
 
 public class PercolationController extends Controller {
 
-  private static final double PERCENT_BLOCKED = .575;
+  private double percentBlocked;
 
   //EMPTY = 0 : PERC = 1 : BLOCKED : 2;
   public PercolationController(Group simGroup, FileReader reader) {
@@ -17,7 +17,7 @@ public class PercolationController extends Controller {
 
   @Override
   protected void initializeCellState(Cell current) {
-    if (probabilityChecker(PERCENT_BLOCKED)) {
+    if (probabilityChecker(percentBlocked)) {
       current.setCurrentState(new State(2));
     } else {
       current.setCurrentState(new State(0));
@@ -25,10 +25,12 @@ public class PercolationController extends Controller {
   }
 
   @Override
-  protected void setColors() {
+  protected void setSimParams() {
     state0Color = Color.valueOf(reader.getString("state0Color"));
     state1Color = Color.valueOf(reader.getString("state1Color"));
     state2Color = Color.valueOf(reader.getString("state2Color"));
+
+    percentBlocked = reader.getDoubleValue("percentBlocked");
   }
 
   @Override

@@ -28,7 +28,7 @@ public abstract class Controller {
   public Controller(Group simGroup, FileReader reader) {
     this.reader = reader;
     random = new Random();
-    setColors();
+    setSimParams();
     WIDTH_CELLS = reader.getColumns();
     HEIGHT_CELLS = reader.getRows();
     currentModel = new Model(WIDTH_CELLS, HEIGHT_CELLS);
@@ -104,7 +104,7 @@ public abstract class Controller {
   }
 
 
-  protected abstract void setColors();
+  protected abstract void setSimParams();
 
   protected abstract void initializeCellState(Cell cell);
 

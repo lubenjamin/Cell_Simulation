@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
 
 public class GameOfLifeController extends Controller {
 
-  private final static double initialLive = .3;
+  private double initialLive;
 
   //DEAD = 0 : ALIVE = 1
 
@@ -28,10 +28,12 @@ public class GameOfLifeController extends Controller {
   }
 
   @Override
-  protected void setColors() {
+  protected void setSimParams() {
     state0Color = Color.valueOf(reader.getString("state0Color"));
     state1Color = Color.valueOf(reader.getString("state1Color"));
     state2Color = Color.valueOf(reader.getString("state2Color"));
+
+    initialLive = reader.getDoubleValue("initialLive");
   }
 
   @Override
