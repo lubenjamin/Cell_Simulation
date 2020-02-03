@@ -75,7 +75,7 @@ public abstract class Controller {
       int x = i / WIDTH_CELLS;
       int y = i % WIDTH_CELLS;
       Cell cell = currentModel.getCell(x, y);
-      initializeCellState(cell, a);
+      initializeCellState(cell);
       calcNewDisplay(cell);
     }
   }
@@ -104,7 +104,7 @@ public abstract class Controller {
 
   protected abstract void setColors();
 
-  protected abstract void initializeCellState(Cell cell, Random a);
+  protected abstract void initializeCellState(Cell cell);
 
   protected abstract void updateCell(int x, int y);
 

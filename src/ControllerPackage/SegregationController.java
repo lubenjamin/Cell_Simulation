@@ -13,7 +13,7 @@ public class SegregationController extends Controller {
 
 
   private final static double percentOccupied = .945;
-  private final static double percentMajority = .5;
+  private final static double percentMajority = .7;
   private final static double satisfiedLevel = .73;
 
   private ArrayList<Cell> emptySpots;
@@ -25,17 +25,17 @@ public class SegregationController extends Controller {
   }
 
   @Override
-  protected void initializeCellState(Cell current, Random r){
-    double stateSelect = r.nextDouble();
-    if (stateSelect > percentOccupied) {
-      current.setCurrentState(new State(0));
-    }
-    if (stateSelect <= percentOccupied) {
-      if (r.nextDouble() < percentMajority) {
+  protected void initializeCellState(Cell current){
+
+    if (probabilityChecker(percentOccupied)) {
+      if (probabilityChecker(percentMajority)) {
         current.setCurrentState(new State(1));
       } else {
         current.setCurrentState(new State(2));
       }
+    }
+    else{
+      current.setCurrentState(new State(0));
     }
 
   }

@@ -22,7 +22,7 @@ public class FireController extends Controller {
   }
 
   @Override
-  protected void initializeCellState(Cell current, Random r){
+  protected void initializeCellState(Cell current){
     if(probabilityChecker(initialTree)){
       if(probabilityChecker(initialBurningTree)){
         current.setCurrentState(new State(2));

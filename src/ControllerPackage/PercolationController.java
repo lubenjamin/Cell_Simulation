@@ -2,7 +2,6 @@ package ControllerPackage;
 
 import cellsociety.Cell;
 import cellsociety.FileReader;
-import java.util.Random;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 
@@ -19,7 +18,7 @@ public class PercolationController extends Controller {
 
 
   @Override
-  protected void initializeCellState(Cell current, Random r){
+  protected void initializeCellState(Cell current){
     if(probabilityChecker(PERCENT_BLOCKED)){
       current.setCurrentState(new State(2));
     }

@@ -19,7 +19,7 @@ public class GameOfLifeController extends Controller {
   }
 
   @Override
-  protected void initializeCellState(Cell current, Random r){
+  protected void initializeCellState(Cell current){
     if(probabilityChecker(initialLive)){
       current.setCurrentState(new State(1));
     }
