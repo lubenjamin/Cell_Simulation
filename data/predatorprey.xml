@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <simulation>
     <type>PredatorPrey</type>
-    <rows>100</rows>
-    <columns>100</columns>
-    <sharkBreed>25</sharkBreed>
+    <rows>80</rows>
+    <columns>80</columns>
+    <sharkBreed>15</sharkBreed>
     <fishBreed>10</fishBreed>
     <fishEnergy>1</fishEnergy>
-    <sharkStarve>20</sharkStarve>
+    <sharkStarve>3</sharkStarve>
     <percentOccupied>0.8</percentOccupied>
     <percentFish>0.95</percentFish>
     <state0Color>0x087240</state0Color>

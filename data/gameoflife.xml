@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <simulation>
     <type>GameOfLife</type>
-    <rows>75</rows>
-    <columns>75</columns>
-    <initialLive>0.3</initialLive>
+    <rows>40</rows>
+    <columns>40</columns>
+    <initialLive>0.2</initialLive>
     <state0Color>0xaaaaaa</state0Color>
     <state1Color>0x0000df</state1Color>
     <state2Color>0x000000</state2Color>
