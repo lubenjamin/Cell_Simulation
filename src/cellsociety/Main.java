@@ -111,21 +111,24 @@ public class Main extends Application {
   }
 
   private void checkSimName(String name, FileReader reader, boolean isUpdating) {
-      if (name.equals("Percolation")) {
-          currentController = new PercolationController(viewGroup, reader);
-      }
-      else if (name.equals("Segregation")) {
-          currentController = new SegregationController(viewGroup, reader);
-      }
-      else if (name.equals("Fire")){
-          currentController = new FireController(viewGroup, reader);
-      }
-      else if (name.equals("GameOfLife")) {
-          currentController = new GameOfLifeController(viewGroup, reader);
-      }
-      else if (name.equals("PredatorPrey")) {
-          currentController = new PredPreyController(viewGroup, reader);
-      }
+    switch (name){
+      case "Percolation":
+        currentController = new PercolationController(viewGroup, reader);
+        break;
+      case "Segregation":
+        currentController = new SegregationController(viewGroup, reader);
+        break;
+      case "Fire":
+        currentController = new FireController(viewGroup, reader);
+        break;
+      case "GameOfLife":
+        currentController = new GameOfLifeController(viewGroup, reader);
+        break;
+      case "PredatorPrey":
+        currentController = new PredPreyController(viewGroup, reader);
+        break;
+
+    }
       if (isUpdating) {
           mySim = name.toLowerCase();
       }
