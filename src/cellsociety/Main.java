@@ -62,6 +62,7 @@ public class Main extends Application {
     mySim = reader.getSimType();
     checkSimName(mySim, reader,false);
 
+
     KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> {
         try {
             step();
@@ -69,6 +70,7 @@ public class Main extends Application {
             ex.printStackTrace();
         }
     });
+
 
     myAnimation.setCycleCount(Timeline.INDEFINITE);
     myAnimation.getKeyFrames().add(frame);

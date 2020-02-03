@@ -62,6 +62,7 @@ public class PredPreyController extends Controller {
     sharkStarve = reader.getIntValue("sharkStarve");
     percentOccupied = reader.getDoubleValue("percentOccupied");
     percentFish = reader.getDoubleValue("percentFish");
+    spacing = reader.getDoubleValue("spacing");
   }
 
   @Override

@@ -31,6 +31,7 @@ public class PercolationController extends Controller {
     state2Color = Color.valueOf(reader.getString("state2Color"));
 
     percentBlocked = reader.getDoubleValue("percentBlocked");
+    spacing = reader.getDoubleValue("spacing");
   }
 
   @Override

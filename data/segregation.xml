@@ -3,11 +3,12 @@
     <type>Segregation</type>
     <rows>75</rows>
     <columns>75</columns>
-    <percentOccupied>0.9</percentOccupied>
-    <percentMajority>0.75</percentMajority>
-    <satisfiedLevel>0.6</satisfiedLevel>
-    <state0Color>0xd3d3d3ff</state0Color>
-    <state1Color>0x00008bff</state1Color>
-    <state2Color>0xb8860bff</state2Color>
+    <percentOccupied>0.94</percentOccupied>
+    <percentMajority>0.72</percentMajority>
+    <satisfiedLevel>0.72</satisfiedLevel>
+    <state0Color>e1e4cbff</state0Color>
+    <state1Color>0x99baddff</state1Color>
+    <state2Color>0xaa6c39ff</state2Color>
+    <spacing>0</spacing>
 </simulation>
 

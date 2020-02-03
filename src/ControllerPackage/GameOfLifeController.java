@@ -24,7 +24,6 @@ public class GameOfLifeController extends Controller {
     } else {
       current.setCurrentState(new State(0));
     }
-
   }
 
   @Override
@@ -34,6 +33,7 @@ public class GameOfLifeController extends Controller {
     state2Color = Color.valueOf(reader.getString("state2Color"));
 
     initialLive = reader.getDoubleValue("initialLive");
+    spacing = reader.getDoubleValue("spacing");
   }
 
   @Override

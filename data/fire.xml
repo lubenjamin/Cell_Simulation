@@ -9,5 +9,6 @@
     <state0Color>0xffffffff</state0Color>
     <state1Color>0x008000ff</state1Color>
     <state2Color>0xff0000ff</state2Color>
+    <spacing>0.01</spacing>
 </simulation>
 
