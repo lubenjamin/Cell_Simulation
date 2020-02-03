@@ -18,6 +18,7 @@ public abstract class Controller {
 
   protected int WIDTH_CELLS;
   protected int HEIGHT_CELLS;
+  protected double spacing;
 
   protected Color state0Color;
   protected Color state1Color;
@@ -32,7 +33,7 @@ public abstract class Controller {
     WIDTH_CELLS = reader.getColumns();
     HEIGHT_CELLS = reader.getRows();
     currentModel = new Model(WIDTH_CELLS, HEIGHT_CELLS);
-    currentView = new View(simGroup, WIDTH_CELLS, HEIGHT_CELLS, currentModel);
+    currentView = new View(simGroup, WIDTH_CELLS, HEIGHT_CELLS, currentModel, spacing);
     initializeModel();
   }
 
@@ -73,8 +74,8 @@ public abstract class Controller {
   protected void initializeModel() {
     Random a = new Random();
     for (int i = 0; i < WIDTH_CELLS * HEIGHT_CELLS; i++) {
-      int x = i / WIDTH_CELLS;
-      int y = i % WIDTH_CELLS;
+      int x = i % WIDTH_CELLS;
+      int y = i / WIDTH_CELLS;
       Cell cell = currentModel.getCell(x, y);
       initializeCellState(cell);
       calcNewDisplay(cell);

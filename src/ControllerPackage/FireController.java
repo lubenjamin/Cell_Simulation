@@ -42,6 +42,8 @@ public class FireController extends Controller {
     initialTree = reader.getDoubleValue("initialTree");
     initialBurningTree = reader.getDoubleValue("initialBurningTree");
     percentCatchFire = reader.getDoubleValue("percentCatchFire");
+
+    spacing = reader.getDoubleValue("spacing");
   }
 
   @Override
@@ -59,8 +61,6 @@ public class FireController extends Controller {
     } else {
       current.setNextState(new State(1));
     }
-
-
   }
 
 
