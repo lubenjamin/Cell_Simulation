@@ -3,7 +3,6 @@ package ControllerPackage;
 import cellsociety.Cell;
 import cellsociety.FileReader;
 import java.util.ArrayList;
-import java.util.Random;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 
@@ -22,23 +21,22 @@ public class FireController extends Controller {
   }
 
   @Override
-  protected void initializeCellState(Cell current){
-    if(probabilityChecker(initialTree)){
-      if(probabilityChecker(initialBurningTree)){
+  protected void initializeCellState(Cell current) {
+    if (probabilityChecker(initialTree)) {
+      if (probabilityChecker(initialBurningTree)) {
         current.setCurrentState(new State(2));
-      }
-      else{
+      } else {
         current.setCurrentState(new State(1));
       }
-    }
-    else{
+    } else {
       current.setCurrentState(new State(0));
     }
   }
 
   @Override
   protected void setColors() {
-    state0Color =Color.WHITE;
+    System.out.println(reader.getDoubleValue("initialBurningTree"));
+    state0Color = Color.WHITE;
     state1Color = Color.GREEN;
     state2Color = Color.RED;
   }
@@ -47,28 +45,29 @@ public class FireController extends Controller {
   protected void updateCell(int x, int y) {
     Cell current = currentModel.getCell(x, y);
 
-    if (current.getCurrentState().getState()==0 || current.getCurrentState().getState()==2) {
+    if (current.getCurrentState().getState() == 0 || current.getCurrentState().getState() == 2) {
       current.setNextState(new State(0));
       return;
     }
 
     int numFire = getNumFire(current);
-    if (numFire >0 && probabilityChecker(percentCatchFire)) {
+    if (numFire > 0 && probabilityChecker(percentCatchFire)) {
       current.setNextState(new State(2));
-    }
-    else{
+    } else {
       current.setNextState(new State(1));
     }
 
 
-
   }
+
 
   private int getNumFire(Cell current) {
     ArrayList<Cell> neigh = currentModel.getSimpleNeighborhood(current.getX(), current.getY());
     int numOnFire = 0;
     for (Cell c : neigh) {
-      if (c.getCurrentState().getState()==2) numOnFire++;
+      if (c.getCurrentState().getState() == 2) {
+        numOnFire++;
+      }
     }
     return numOnFire;
   }
