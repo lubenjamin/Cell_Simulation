@@ -22,13 +22,14 @@ public class PredPreyController extends Controller {
   private ArrayList<Cell> sharkNeedMove;
   private ArrayList<Cell> fishNeedMove;
 
-
   private PredPreyGraph myGraph;
-
-
+  
+  private int numFish;
+  private int numShark;
 
   public PredPreyController(Group simGroup, FileReader reader) {
     super(simGroup, reader);
+
     myGraph = new PredPreyGraph();
     myGraph.setLayoutX(10);
     myGraph.setLayoutY(10);
@@ -73,35 +74,10 @@ public class PredPreyController extends Controller {
     moveSharks();
     moveFish();
 
-    myGraph.update(countShark(),countFish());
+    countSpecies();
+    myGraph.update(numShark,numFish);
   }
-  public int countFish(){
-    int count =0;
-    for (int i = 0; i < WIDTH_CELLS * HEIGHT_CELLS; i++) {
-      int x = i % WIDTH_CELLS;
-      int y = i / WIDTH_CELLS;
-      Cell current = currentModel.getCell(x,y);
-      if(current.getCurrentState().getState() == 1){
-        count ++;
-      }
-    }
-    System.out.println(count);
-    return count;
-  }
-  public int countShark(){
-    int count =0;
-    for (int i = 0; i < WIDTH_CELLS * HEIGHT_CELLS; i++) {
-      int x = i % WIDTH_CELLS;
-      int y = i / WIDTH_CELLS;
-      Cell current = currentModel.getCell(x,y);
-      if(current.getCurrentState().getState() == 2){
-        count ++;
-      }
-    }
-    System.out.println(count);
-    return count;
 
-  }
   @Override
   protected void updateCell(int x, int y) {
     Cell current = currentModel.getCell(x, y);
@@ -199,6 +175,23 @@ public class PredPreyController extends Controller {
       current.setNextState(new PPState(0));
     }
   }
+
+  public void countSpecies(){
+    numFish=0;
+    numShark=0;
+    for (int i = 0; i < WIDTH_CELLS * HEIGHT_CELLS; i++) {
+      int x = i % WIDTH_CELLS;
+      int y = i / WIDTH_CELLS;
+      Cell current = currentModel.getCell(x,y);
+      if(current.getCurrentState().getState() == 1){
+        numFish ++;
+      }
+      if (current.getCurrentState().getState() == 2){
+        numShark++;
+      }
+    }
+  }
+
 
 
   protected class PPState extends State {
