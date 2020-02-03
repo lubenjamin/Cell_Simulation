@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <simulation>
     <type>Segregation</type>
-    <rows>150</rows>
-    <columns>150</columns>
+    <rows>75</rows>
+    <columns>75</columns>
+    <percentOccupied>0.9</percentOccupied>
+    <percentMajority>0.75</percentMajority>
+    <satisfiedLevel>0.6</satisfiedLevel>
 </simulation>
 

@@ -15,7 +15,6 @@ public abstract class Controller {
   protected int WIDTH_CELLS;
   protected int HEIGHT_CELLS;
 
-
   public Controller(Group simGroup, FileReader reader){
     WIDTH_CELLS = reader.getColumns();
     HEIGHT_CELLS = reader.getRows();
@@ -31,7 +30,6 @@ public abstract class Controller {
   }
 
   public void resetSim(){
-
     initializeModel();
     currentView.updateAllCells();
 
@@ -44,14 +42,22 @@ public abstract class Controller {
       int x = i % WIDTH_CELLS;
       int y = i/WIDTH_CELLS;
       Cell current = currentModel.getCell(x,y);
+
       current.setCurrentState(current.getNextState());
+      current.setNextState(null);
       calcNewDisplay(current);
     }
   }
 
-  protected abstract void initializeModel();
+  protected void updateGrid(){
+    for (int i = 0; i < WIDTH_CELLS * HEIGHT_CELLS; i++) {
+      int x = i % WIDTH_CELLS;
+      int y = i / WIDTH_CELLS;
+      updateCell(x, y);
+    }
+  }
 
-  protected abstract void updateGrid();
+  protected abstract void initializeModel();
 
   protected abstract void updateCell(int x, int y);
 

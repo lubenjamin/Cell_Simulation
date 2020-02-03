@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<simulation>
+    <type>Fire</type>
+    <rows>75</rows>
+    <columns>75</columns>
+    <initialTree>0.99</initialTree>
+    <initialBurningTree>0.001</initialBurningTree>
+    <percentCatchFire>0.5</percentCatchFire>
+</simulation>
+

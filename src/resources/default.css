@@ -17,3 +17,5 @@
 .button:hover {
     -fx-background-color: #3a3a3a;
 }
+.default-color0.chart-series-line {-fx-stroke: #b8860b;}
+.default-color1.chart-series-line {-fx-stroke: #00ff00;}

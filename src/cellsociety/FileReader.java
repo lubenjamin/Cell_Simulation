@@ -20,8 +20,10 @@ public class FileReader{
     private String simType;
     private String rows;
     private String columns;
+    private String file;
 
     public FileReader(String fileName) throws Exception {
+        file = fileName;
         File simulation = new File("data/" + fileName);
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -38,6 +40,42 @@ public class FileReader{
                 columns = getValue("columns", element);
             }
         }
+    }
+
+    public int getIntValue(String parameter) throws Exception {
+        File simulation = new File("data/"+file);
+        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+        Document doc = dBuilder.parse(simulation);
+        doc.getDocumentElement().normalize();
+
+        NodeList nodes = doc.getElementsByTagName("simulation");
+        for (int i = 0; i < nodes.getLength(); i++) {
+            Node node = nodes.item(i);
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
+                Element element = (Element) node;
+                return Integer.parseInt(getValue(parameter, element));
+            }
+        }
+        return 0;
+    }
+
+    public double getDoubleValue(String parameter) throws Exception {
+        File simulation = new File("data/"+file);
+        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+        Document doc = dBuilder.parse(simulation);
+        doc.getDocumentElement().normalize();
+
+        NodeList nodes = doc.getElementsByTagName("simulation");
+        for (int i = 0; i < nodes.getLength(); i++) {
+            Node node = nodes.item(i);
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
+                Element element = (Element) node;
+                return Double.parseDouble(getValue(parameter, element));
+            }
+        }
+        return 0;
     }
 
     private static String getValue(String tag, Element element) {

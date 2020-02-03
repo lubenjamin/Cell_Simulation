@@ -6,6 +6,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -39,6 +40,7 @@ public class UserInterface {
     private Button myPercButton = new Button();
     private Button myLifeButton = new Button();
     private Button myFireButton = new Button();
+    private Button myPredButton = new Button();
 
     private Slider mySlider = new Slider();
     private ComboBox<String> myDropDown = new ComboBox();
@@ -78,11 +80,15 @@ public class UserInterface {
         myPercButton = makeButton("SIM2", event -> pickSim(myPercButton));
         myLifeButton = makeButton("SIM3", event -> pickSim(myLifeButton));
         myFireButton = makeButton("SIM4", event -> pickSim(myFireButton));
+        myPredButton = makeButton("SIM5", event -> pickSim(myPredButton));
         v.getChildren().add(mySegButton);
         v.getChildren().add(myPercButton);
         v.getChildren().add(myLifeButton);
         v.getChildren().add(myFireButton);
-        firstSim.setScene(new Scene(v));
+        v.getChildren().add(myPredButton);
+        Scene s = new Scene(v);
+        s.getStylesheets().add(STYLESHEET);
+        firstSim.setScene(s);
         firstSim.showAndWait();
     }
 
@@ -125,7 +131,7 @@ public class UserInterface {
         myAnimation.setRate(mySlider.getValue());
     }
     private void initSimSelect(EventHandler<ActionEvent> handler, ArrayList<String> simNames) {
-        String label = myResources.getString("SELECTCOMMAND");
+        //String label = myResources.getString("SELECTCOMMAND");
         myDropDown.setOnAction(handler);
         for (String s : simNames) {
             myDropDown.getItems().add(s);
@@ -133,6 +139,7 @@ public class UserInterface {
     }
     public String setSim() {
         String st = myDropDown.getValue();
+
         this.isSimLoaded=true;
         return st;
     }

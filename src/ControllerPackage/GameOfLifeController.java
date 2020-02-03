@@ -10,7 +10,7 @@ import javafx.scene.paint.Color;
 
 public class GameOfLifeController extends Controller {
 
-  private final static double initialLive = .5;
+  private final static double initialLive = .3;
 
   public GameOfLifeController(Group simGroup, FileReader reader) {
     super(simGroup, reader);
@@ -26,24 +26,17 @@ public class GameOfLifeController extends Controller {
 
       Cell cell = currentModel.getCell(x, y);
       double stateSelect = a.nextDouble();
-      if(stateSelect>initialLive){
-        cell.setCurrentState("ALIVE");
+      if(stateSelect<initialLive){
+        cell.setCurrentState(new State("ALIVE"));
       }
-      if(stateSelect<=initialLive){
-        cell.setCurrentState("DEAD");
+      if(stateSelect>=initialLive){
+        cell.setCurrentState(new State("DEAD"));
       }
       calcNewDisplay(cell);
     }
   }
 
-  @Override
-  protected void updateGrid() {
-    for (int i = 0; i < WIDTH_CELLS * HEIGHT_CELLS; i++) {
-      int x = i % WIDTH_CELLS;
-      int y = i / WIDTH_CELLS;
-      updateCell(x, y);
-    }
-  }
+
 
   @Override
   protected void updateCell(int x, int y) {
@@ -60,18 +53,18 @@ public class GameOfLifeController extends Controller {
 
     if(current.getCurrentState().equals("ALIVE")){
       if (numAlive==2 || numAlive ==3){
-        current.setNextState("ALIVE");
+        current.setNextState(new State("ALIVE"));
       }
       else{
-        current.setNextState("DEAD");
+        current.setNextState(new State("DEAD"));
       }
     }
     else{
       if(numAlive == 3){
-        current.setNextState("ALIVE");
+        current.setNextState(new State("ALIVE"));
       }
       else{
-        current.setNextState("DEAD");
+        current.setNextState(new State("DEAD"));
       }
     }
 
@@ -81,7 +74,7 @@ public class GameOfLifeController extends Controller {
 
   @Override
   protected void calcNewDisplay(Cell cell) {
-    switch (cell.getCurrentState()){
+    switch ( cell.getCurrentState().getState()){
       case "DEAD":
         cell.setDisplayColor(Color.WHITE);
         break;

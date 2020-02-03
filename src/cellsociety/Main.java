@@ -1,7 +1,15 @@
 package cellsociety;
 
 
+
 import ControllerPackage.*;
+
+import ControllerPackage.Controller;
+import ControllerPackage.FireController;
+import ControllerPackage.GameOfLifeController;
+import ControllerPackage.PercolationController;
+import ControllerPackage.PredPreyController;
+import ControllerPackage.SegregationController;
 import View.UserInterface;
 import java.util.ArrayList;
 import javafx.animation.KeyFrame;
@@ -59,18 +67,30 @@ public class Main extends Application {
     stage.setScene(UI.setupUI(viewGroup));
     stage.show();
 
+
     FileReader reader = new FileReader(UI.setSim()+EXTENSION);
 
     mySim = reader.getSimType();
+
     if (mySim.equals("Percolation")) {
         currentController = new PercolationController(viewGroup, reader);
     }
     else if (mySim.equals("Segregation")) {
+        currentController = new SegregationController(viewGroup, reader);
+    }
+    else if (mySim.equals("Fire")){
         currentController = new FireController(viewGroup, reader);
+    }
+    else if (mySim.equals("GameOfLife")) {
+        currentController = new GameOfLifeController(viewGroup, reader);
+    }
+    else if (mySim.equals("PredatorPrey")) {
+        currentController = new PredPreyController(viewGroup, reader);
     }
     else {
         stage.close();
     }
+
     KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> {
         try {
             step();
@@ -87,6 +107,7 @@ public class Main extends Application {
     myNewSim = UI.setSim();
     if (! myNewSim.equals(mySim)) {
         currentController.clear();
+        UI.isPaused=true;
         FileReader reader = new FileReader(myNewSim+EXTENSION);
         mySim = reader.getSimType();
         if (mySim.equals("Percolation")) {
@@ -95,7 +116,19 @@ public class Main extends Application {
         }
         else if (mySim.equals("Segregation")) {
             mySim = mySim.toLowerCase();
+            currentController = new SegregationController(viewGroup, reader);
+        }
+        else if (mySim.equals("Fire")){
+            mySim = mySim.toLowerCase();
             currentController = new FireController(viewGroup, reader);
+        }
+        else if (mySim.equals("GameOfLife")) {
+            mySim = "gameOfLife";
+            currentController = new GameOfLifeController(viewGroup, reader);
+        }
+        else if (mySim.equals("PredatorPrey")) {
+            mySim = "predatorPrey";
+            currentController = new PredPreyController(viewGroup, reader);
         }
     }
     if (UI.isSimLoaded && mySim != null) {

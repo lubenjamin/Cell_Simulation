@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <simulation>
     <type>Percolation</type>
-    <rows>70</rows>
-    <columns>70</columns>
+    <rows>75</rows>
+    <columns>75</columns>
+    <PERCENT_BLOCKED>0.575</PERCENT_BLOCKED>
 </simulation>
 

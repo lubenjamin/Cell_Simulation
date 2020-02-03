@@ -1,21 +1,32 @@
 package cellsociety;
 
+import ControllerPackage.State;
 import javafx.scene.paint.Paint;
 
 
 
 
 public class Cell {
-  private String currentState;
-  private String nextState;
+  private State currentState;
+  private State nextState;
   private Paint displayColor;
-  public Cell(){
-    currentState = "";
-    nextState = "";
-
+  private int x;
+  private int y;
+  public Cell(int x,int y){
+    currentState = null;
+    nextState = null;
+    this.x = x;
+    this.y = y;
   }
 
-  public String getNextState() {
+  public int getX() {
+    return x;
+  }
+  public int getY() {
+    return y;
+  }
+
+  public State getNextState() {
     return nextState;
   }
 
@@ -23,15 +34,15 @@ public class Cell {
     return displayColor;
   }
 
-  public String getCurrentState(){
+  public State getCurrentState(){
     return currentState;
   }
 
-  public void setCurrentState(String currentState) {
+  public void setCurrentState(State currentState) {
     this.currentState = currentState;
   }
 
-  public void setNextState(String nextState) {
+  public void setNextState(State nextState) {
     this.nextState = nextState;
   }
 
