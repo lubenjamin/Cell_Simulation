@@ -10,13 +10,13 @@ import javafx.scene.paint.Color;
 public class PredPreyController extends Controller {
 
 
-  private final static int sharkBreed = 25;
-  private final static int fishBreed = 10;
-  private final static int fishEnergy = 1;
-  private final static int sharkStarve = 20;
+  private int sharkBreed;
+  private int fishBreed;
+  private int fishEnergy;
+  private int sharkStarve;
 
-  private final static double percentOccupied = .6;
-  private final static double percentFish = .95;
+  private double percentOccupied;
+  private double percentFish;
 
   private ArrayList<Cell> sharkNeedMove;
   private ArrayList<Cell> fishNeedMove;
@@ -42,10 +42,17 @@ public class PredPreyController extends Controller {
   }
 
   @Override
-  protected void setColors() {
+  protected void setSimParams() {
     state0Color = Color.valueOf(reader.getString("state0Color"));
     state1Color = Color.valueOf(reader.getString("state1Color"));
     state2Color = Color.valueOf(reader.getString("state2Color"));
+
+    sharkBreed = reader.getIntValue("sharkBreed");
+    fishBreed = reader.getIntValue("fishBreed");
+    fishEnergy = reader.getIntValue("fishEnergy");
+    sharkStarve = reader.getIntValue("sharkStarve");
+    percentOccupied = reader.getDoubleValue("percentOccupied");
+    percentFish = reader.getDoubleValue("percentFish");
   }
 
   @Override
@@ -168,7 +175,7 @@ public class PredPreyController extends Controller {
     System.out.println(count);
   }
 
-  protected static class PPState extends State {
+  protected class PPState extends State {
 
     private int life;
     private int breed;

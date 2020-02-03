@@ -10,9 +10,9 @@ import javafx.scene.paint.Color;
 public class FireController extends Controller {
 
 
-  private final static double initialTree = .9;
-  private final static double initialBurningTree = .001;
-  private final static double percentCatchFire = .6;
+  private double initialTree;
+  private double initialBurningTree;
+  private double percentCatchFire;
 
   //EMPTY = 0 : TREE = 1 : BURNING : 2;
 
@@ -34,10 +34,14 @@ public class FireController extends Controller {
   }
 
   @Override
-  protected void setColors() {
+  protected void setSimParams() {
     state0Color = Color.valueOf(reader.getString("state0Color"));
     state1Color = Color.valueOf(reader.getString("state1Color"));
     state2Color = Color.valueOf(reader.getString("state2Color"));
+
+    initialTree = reader.getDoubleValue("initialTree");
+    initialBurningTree = reader.getDoubleValue("initialBurningTree");
+    percentCatchFire = reader.getDoubleValue("percentCatchFire");
   }
 
   @Override

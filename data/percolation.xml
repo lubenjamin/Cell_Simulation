@@ -3,7 +3,7 @@
     <type>Percolation</type>
     <rows>75</rows>
     <columns>75</columns>
-    <PERCENT_BLOCKED>0.575</PERCENT_BLOCKED>
+    <percentBlocked>0.575</percentBlocked>
     <state0Color>0xffffffff</state0Color>
     <state1Color>0xadd8e6ff</state1Color>
     <state2Color>0x708090ff</state2Color>
