@@ -72,6 +72,7 @@ public class Main extends Application {
     });
 
 
+
     myAnimation.setCycleCount(Timeline.INDEFINITE);
     myAnimation.getKeyFrames().add(frame);
     myAnimation.play();

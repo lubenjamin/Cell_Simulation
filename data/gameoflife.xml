@@ -4,9 +4,9 @@
     <rows>75</rows>
     <columns>75</columns>
     <initialLive>0.3</initialLive>
-    <state0Color>0xffffffff</state0Color>
-    <state1Color>0x000000ff</state1Color>
-    <state2Color>0x00000000</state2Color>
-    <spacing>1</spacing>
+    <state0Color>0xaaaaaa</state0Color>
+    <state1Color>0x0000df</state1Color>
+    <state2Color>0x000000</state2Color>
+    <spacing>.5</spacing>
 </simulation>
 
