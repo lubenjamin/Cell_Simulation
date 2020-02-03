@@ -3,85 +3,60 @@ package ControllerPackage;
 import cellsociety.Cell;
 import cellsociety.FileReader;
 import java.util.ArrayList;
-import java.util.Random;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 
 
 public class GameOfLifeController extends Controller {
 
-  private final static double initialLive = .3;
+  private double initialLive;
+
+  //DEAD = 0 : ALIVE = 1
 
   public GameOfLifeController(Group simGroup, FileReader reader) {
     super(simGroup, reader);
   }
 
   @Override
-  protected void initializeModel() {
-    Random a = new Random();
-    for (int i = 0; i < WIDTH_CELLS * HEIGHT_CELLS; i++) {
-      int x = i / WIDTH_CELLS;
-      int y = i % WIDTH_CELLS;
-
-
-      Cell cell = currentModel.getCell(x, y);
-      double stateSelect = a.nextDouble();
-      if(stateSelect<initialLive){
-        cell.setCurrentState(new State("ALIVE"));
-      }
-      if(stateSelect>=initialLive){
-        cell.setCurrentState(new State("DEAD"));
-      }
-      calcNewDisplay(cell);
+  protected void initializeCellState(Cell current) {
+    if (probabilityChecker(initialLive)) {
+      current.setCurrentState(new State(1));
+    } else {
+      current.setCurrentState(new State(0));
     }
+
   }
 
+  @Override
+  protected void setSimParams() {
+    state0Color = Color.valueOf(reader.getString("state0Color"));
+    state1Color = Color.valueOf(reader.getString("state1Color"));
+    state2Color = Color.valueOf(reader.getString("state2Color"));
 
+    initialLive = reader.getDoubleValue("initialLive");
+  }
 
   @Override
   protected void updateCell(int x, int y) {
-    Cell current = currentModel.getCell(x,y);
-    ArrayList<Cell> neigh = currentModel.getMooreNeighborhood(x,y);
+    Cell current = currentModel.getCell(x, y);
 
-    int numAlive =0;
+    int numAlive = getNumAlive(current);
+    if ((current.getCurrentState().getState() == 1 && numAlive == 2) || numAlive == 3) {
+      current.setNextState(new State(1));
+    } else {
+      current.setNextState(new State(0));
+    }
+  }
 
-    for (Cell c : neigh){
-      if (c.getCurrentState().equals("ALIVE")){
+
+  private int getNumAlive(Cell current) {
+    int numAlive = 0;
+    ArrayList<Cell> neigh = currentModel.getMooreNeighborhood(current.getX(), current.getY());
+    for (Cell c : neigh) {
+      if (c.getCurrentState().getState() == 1) {
         numAlive++;
       }
     }
-
-    if(current.getCurrentState().equals("ALIVE")){
-      if (numAlive==2 || numAlive ==3){
-        current.setNextState(new State("ALIVE"));
-      }
-      else{
-        current.setNextState(new State("DEAD"));
-      }
-    }
-    else{
-      if(numAlive == 3){
-        current.setNextState(new State("ALIVE"));
-      }
-      else{
-        current.setNextState(new State("DEAD"));
-      }
-    }
-
-
-
-  }
-
-  @Override
-  protected void calcNewDisplay(Cell cell) {
-    switch ( cell.getCurrentState().getState()){
-      case "DEAD":
-        cell.setDisplayColor(Color.WHITE);
-        break;
-      case "ALIVE":
-        cell.setDisplayColor(Color.BLACK);
-        break;
-
-    }
+    return numAlive;
   }
 }

@@ -6,5 +6,8 @@
     <initialTree>0.99</initialTree>
     <initialBurningTree>0.001</initialBurningTree>
     <percentCatchFire>0.5</percentCatchFire>
+    <state0Color>0xffffffff</state0Color>
+    <state1Color>0x008000ff</state1Color>
+    <state2Color>0xff0000ff</state2Color>
 </simulation>
 

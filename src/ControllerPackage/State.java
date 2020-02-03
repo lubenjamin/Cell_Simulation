@@ -2,19 +2,14 @@ package ControllerPackage;
 
 public class State {
 
-  protected String state;
+  protected int state;
 
-  public State(String state) {
+  public State(int state) {
     this.state = state;
   }
 
-  public String getState() {
+  public int getState() {
     return state;
   }
 
-  @Override
-  public boolean equals(Object a) {
-    String s = a.toString();
-    return s.equals(state);
-  }
 }

@@ -3,7 +3,6 @@ package ControllerPackage;
 import cellsociety.Cell;
 import cellsociety.FileReader;
 import java.util.ArrayList;
-import java.util.Random;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 
@@ -11,87 +10,62 @@ import javafx.scene.paint.Color;
 public class FireController extends Controller {
 
 
-  private final static double initialTree = .99;
-  private final static double initialBurningTree = .001;
-  private final static double percentCatchFire = .5;
+  private double initialTree;
+  private double initialBurningTree;
+  private double percentCatchFire;
+
+  //EMPTY = 0 : TREE = 1 : BURNING : 2;
 
   public FireController(Group simGroup, FileReader reader) {
     super(simGroup, reader);
   }
 
   @Override
-  protected void initializeModel() {
-    boolean burnCheck = false;
-    Random a = new Random();
-    for (int i = 0; i < WIDTH_CELLS * HEIGHT_CELLS; i++) {
-      int x = i / WIDTH_CELLS;
-      int y = i % WIDTH_CELLS;
-
-
-      Cell cell = currentModel.getCell(x, y);
-
-      double stateSelect = a.nextDouble();
-
-      if(stateSelect>initialTree){
-        cell.setCurrentState(new State("EMPTY"));
+  protected void initializeCellState(Cell current) {
+    if (probabilityChecker(initialTree)) {
+      if (probabilityChecker(initialBurningTree)) {
+        current.setCurrentState(new State(2));
+      } else {
+        current.setCurrentState(new State(1));
       }
-
-      if(stateSelect<=initialTree){
-        if(a.nextDouble()<=initialBurningTree){
-          cell.setCurrentState(new State("BURNING"));
-          burnCheck=true;
-        }
-        else{
-          cell.setCurrentState(new State("TREE"));
-        }
-      }
-      calcNewDisplay(cell);
-    }
-
-    if (!burnCheck){
-      System.out.println("h2");
-      int x = a.nextInt(WIDTH_CELLS);
-      int y = a.nextInt(HEIGHT_CELLS);
-      Cell cell = currentModel.getCell(x,y);
-      cell.setCurrentState(new State("BURNING"));
-      calcNewDisplay(cell);
+    } else {
+      current.setCurrentState(new State(0));
     }
   }
 
+  @Override
+  protected void setSimParams() {
+    state0Color = Color.valueOf(reader.getString("state0Color"));
+    state1Color = Color.valueOf(reader.getString("state1Color"));
+    state2Color = Color.valueOf(reader.getString("state2Color"));
+
+    initialTree = reader.getDoubleValue("initialTree");
+    initialBurningTree = reader.getDoubleValue("initialBurningTree");
+    percentCatchFire = reader.getDoubleValue("percentCatchFire");
+  }
 
   @Override
   protected void updateCell(int x, int y) {
     Cell current = currentModel.getCell(x, y);
 
-    if (current.getCurrentState().equals("EMPTY") || current.getCurrentState().equals("BURNING")) {
-      current.setNextState(new State("EMPTY"));
+    if (current.getCurrentState().getState() == 0 || current.getCurrentState().getState() == 2) {
+      current.setNextState(new State(0));
       return;
     }
 
-    ArrayList<Cell> neigh = currentModel.getSimpleNeighborhood(x, y);
-    int numOnFire = 0;
-    for (Cell c : neigh) {
-      if (c.getCurrentState().equals("BURNING")) numOnFire++;
+    int numFire = getNumFire(current);
+    if (numFire > 0 && probabilityChecker(percentCatchFire)) {
+      current.setNextState(new State(2));
+    } else {
+      current.setNextState(new State(1));
     }
 
-    if (numOnFire == 0) {
-      current.setNextState(new State("TREE"));
-      return;
-    }
 
-    Random a = new Random();
-    double stateSelect = a.nextDouble();
-    if (stateSelect <= percentCatchFire) {
-      current.setNextState(new State("BURNING"));
-      return;
-    }
-
-    current.setNextState(new State("TREE"));
   }
 
   @Override
   protected void calcNewDisplay(Cell cell) {
-    switch (cell.getCurrentState().getState()){
+    switch (cell.getCurrentState().getState()) {
       case "BURNING":
         cell.setDisplayColor(Color.RED);
         break;
@@ -101,7 +75,17 @@ public class FireController extends Controller {
       case "TREE":
         cell.setDisplayColor(Color.GREEN);
         break;
-
     }
+  }
+
+  private int getNumFire(Cell current) {
+    ArrayList<Cell> neigh = currentModel.getSimpleNeighborhood(current.getX(), current.getY());
+    int numOnFire = 0;
+    for (Cell c : neigh) {
+      if (c.getCurrentState().getState() == 2) {
+        numOnFire++;
+      }
+    }
+    return numOnFire;
   }
 }

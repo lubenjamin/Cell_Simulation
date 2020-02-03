@@ -2,78 +2,60 @@ package ControllerPackage;
 
 import cellsociety.Cell;
 import cellsociety.FileReader;
-import java.util.Random;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 
 
-
 public class PercolationController extends Controller {
 
-  private static final double PERCENT_BLOCKED = .575;
+  private double percentBlocked;
 
+  //EMPTY = 0 : PERC = 1 : BLOCKED : 2;
   public PercolationController(Group simGroup, FileReader reader) {
     super(simGroup, reader);
   }
 
   @Override
-  protected void initializeModel() {
-    Random a = new Random();
-    for (int i = 0; i < WIDTH_CELLS * HEIGHT_CELLS; i++) {
-      int x = i / WIDTH_CELLS;
-      int y = i % WIDTH_CELLS;
-      Cell cell = currentModel.getCell(x, y);
-
-      double stateSelect = a.nextDouble();
-
-
-      if(stateSelect> PERCENT_BLOCKED){
-        cell.setCurrentState(new State("OPEN"));
-      }
-
-      if(stateSelect<= PERCENT_BLOCKED){
-        cell.setCurrentState(new State("CLOSED"));
-      }
-      calcNewDisplay(cell);
+  protected void initializeCellState(Cell current) {
+    if (probabilityChecker(percentBlocked)) {
+      current.setCurrentState(new State(2));
+    } else {
+      current.setCurrentState(new State(0));
     }
   }
 
+  @Override
+  protected void setSimParams() {
+    state0Color = Color.valueOf(reader.getString("state0Color"));
+    state1Color = Color.valueOf(reader.getString("state1Color"));
+    state2Color = Color.valueOf(reader.getString("state2Color"));
+
+    percentBlocked = reader.getDoubleValue("percentBlocked");
+  }
 
   @Override
   protected void updateCell(int x, int y) {
     Cell current = currentModel.getCell(x, y);
-    if (current.getCurrentState().equals("CLOSED")){
-      current.setNextState(new State("CLOSED"));
-      return;
-    }
-    if (y == 0 && current.getCurrentState().equals("OPEN")) {
-      current.setNextState(new State("PERC"));
-      return;
-    }
 
-
-    for (Cell c : currentModel.getMooreNeighborhood(x, y)) {
-      if (c.getCurrentState().equals("PERC")) {
-        current.setNextState(new State("PERC"));
-        return;
-      }
+    if (current.getCurrentState().getState() == 2 || current.getCurrentState().getState() == 1) {
+      current.setNextState(new State(current.getCurrentState().getState()));
+    } else if (checkWater(current)) {
+      current.setNextState(new State(1));
+    } else {
+      current.setNextState(new State(0));
     }
-
-    current.setNextState(current.getCurrentState());
   }
 
-  @Override
-  protected void calcNewDisplay(Cell cell) {
-    switch (cell.getCurrentState().getState()){
-      case "OPEN":
-        cell.setDisplayColor(Color.WHITE);
-        break;
-      case "CLOSED":
-        cell.setDisplayColor(Color.BLACK);
-        break;
-      case "PERC":
-        cell.setDisplayColor(Color.LIGHTBLUE);
-        break;
+
+  private boolean checkWater(Cell current) {
+    if (current.getY() == 0) {
+      return true;
     }
+    for (Cell c : currentModel.getMooreNeighborhood(current.getX(), current.getY())) {
+      if (c.getCurrentState().getState() == 1) {
+        return true;
+      }
+    }
+    return false;
   }
 }

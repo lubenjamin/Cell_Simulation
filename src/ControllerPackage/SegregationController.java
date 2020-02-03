@@ -2,7 +2,6 @@ package ControllerPackage;
 
 import cellsociety.Cell;
 import cellsociety.FileReader;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 import javafx.scene.Group;
@@ -12,134 +11,110 @@ import javafx.scene.paint.Color;
 public class SegregationController extends Controller {
 
 
-  private final static double percentOccupied = .9;
-  private final static double percentMajority = .75;
-  private final static double satisfiedLevel = .6;
+  private double percentOccupied;
+  private double percentMajority;
+  private double satisfiedLevel;
 
   private ArrayList<Cell> emptySpots;
   private ArrayList<Cell> needMove;
 
-
+  //EMPTY = 0 : MAJORITY = 1 : MINORITY : 2;
   public SegregationController(Group simGroup, FileReader reader) {
     super(simGroup, reader);
   }
 
   @Override
-  protected void initializeModel() {
-    Random a = new Random();
-    for (int i = 0; i < WIDTH_CELLS * HEIGHT_CELLS; i++) {
-      int x = i / WIDTH_CELLS;
-      int y = i % WIDTH_CELLS;
-
-      Cell cell = currentModel.getCell(x, y);
-
-      double stateSelect = a.nextDouble();
-
-      if (stateSelect > percentOccupied) {
-        cell.setCurrentState(new State("EMPTY"));
+  protected void initializeCellState(Cell current) {
+    if (probabilityChecker(percentOccupied)) {
+      if (probabilityChecker(percentMajority)) {
+        current.setCurrentState(new State(1));
+      } else {
+        current.setCurrentState(new State(2));
       }
-      if (stateSelect <= percentOccupied) {
-        if (a.nextDouble() < percentMajority) {
-          cell.setCurrentState(new State("MAJORITY"));
-        } else {
-          cell.setCurrentState(new State("MINORITY"));
-        }
-      }
-      calcNewDisplay(cell);
+    } else {
+      current.setCurrentState(new State(0));
     }
+  }
 
+  @Override
+  protected void setSimParams() {
+    state0Color = Color.valueOf(reader.getString("state0Color"));
+    state1Color = Color.valueOf(reader.getString("state1Color"));
+    state2Color = Color.valueOf(reader.getString("state2Color"));
 
+    percentOccupied = reader.getDoubleValue("percentOccupied");
+    percentMajority = reader.getDoubleValue("percentMajority");
+    satisfiedLevel = reader.getDoubleValue("satisfiedLevel");
+  }
+
+  @Override
+  protected void updateCell(int x, int y) {
+    Cell current = currentModel.getCell(x, y);
+
+    if (current.getCurrentState().getState() == 0) {
+      current.setNextState(new State(0));
+      return;
+    }
+    if (getSatisfy(current) < satisfiedLevel) {
+      needMove.add(current);
+    }
+    current.setNextState(current.getCurrentState());
   }
 
   @Override
   protected void updateGrid() {
     needMove = new ArrayList<>();
-    emptySpots = getEmptySpots("EMPTY");
+    emptySpots = getEmptySpots(0);
     super.updateGrid();
     moveUnHappy();
   }
 
-
-
-  @Override
-  protected void updateCell(int x, int y) {
-    Cell current = currentModel.getCell(x, y);
-    if (current.getCurrentState().equals("EMPTY")) {
-      current.setNextState(new State("EMPTY"));
-      return;
-    }
-
-    String currentState = current.getCurrentState().getState();
-
-    ArrayList<Cell> neigh = currentModel.getMooreNeighborhood(x, y);
-    double totalNeigh = 0;
-    double similar = 0;
-
-    for (Cell c : neigh) {
-      if (c.getCurrentState().equals(currentState)) {
-        similar++;
-      }
-      if (!c.getCurrentState().equals("EMPTY")) {
-        totalNeigh++;
-      }
-    }
-
-    if (totalNeigh > 0 && similar / totalNeigh < satisfiedLevel) {
-      needMove.add(current);
-    }
-
-    current.setNextState(current.getCurrentState());
-  }
-
-  @Override
-  protected void calcNewDisplay(Cell cell) {
-
-    switch (cell.getCurrentState().getState()) {
-      case "EMPTY":
-        cell.setDisplayColor(Color.LIGHTGRAY);
-        break;
-      case "MAJORITY":
-        cell.setDisplayColor(Color.DARKBLUE);
-        break;
-      case "MINORITY":
-        cell.setDisplayColor(Color.DARKGOLDENROD);
-        break;
-
-    }
-  }
-
-  private ArrayList<Cell> getEmptySpots(String state) {
-    ArrayList<Cell> ret = new ArrayList<>();
-
-    for (int i = 0; i < WIDTH_CELLS * HEIGHT_CELLS; i++) {
-      int x = i % WIDTH_CELLS;
-      int y = i / WIDTH_CELLS;
-      if (currentModel.getCell(x, y).getCurrentState().equals(state)) {
-        ret.add(currentModel.getCell(x, y));
-      }
-    }
-    return ret;
-  }
-
   /**
-   * This method picks a random cell that needs moving
-   * and a random empty spot. This is because at the beginning
-   * there are not enough empty spots to relocate cells, so
-   * it needs to be random
+   * This method picks a random cell that needs moving and a random empty spot. This is because at
+   * the beginning there are not enough empty spots to relocate cells, so it needs to be random
    */
   private void moveUnHappy() {
     Random r = new Random();
-    while(emptySpots.size()!=0 && needMove.size()!=0){
+    while (emptySpots.size() != 0 && needMove.size() != 0) {
       int indexTo = r.nextInt(emptySpots.size());
       int indexFrom = r.nextInt(needMove.size());
       Cell cellReplace = emptySpots.get(indexTo);
       Cell current = needMove.get(indexFrom);
       cellReplace.setNextState(new State(current.getCurrentState().getState()));
-      current.setNextState(new State("EMPTY"));
+      current.setNextState(new State(0));
       emptySpots.remove(cellReplace);
       needMove.remove(current);
     }
+  }
 
+  private double getSatisfy(Cell current) {
+    ArrayList<Cell> neigh = currentModel.getMooreNeighborhood(current.getX(), current.getY());
+    double totalNeigh = 0;
+    double similar = 0;
+    for (Cell c : neigh) {
+      if (c.getCurrentState().getState() == current.getCurrentState().getState()) {
+        similar++;
+      }
+      if (c.getCurrentState().getState() != 0) {
+        totalNeigh++;
+      }
+    }
+    if (totalNeigh == 0) {
+      return 1;
+    }
+    return similar / totalNeigh;
+  }
+
+  private ArrayList<Cell> getEmptySpots(int state) {
+    ArrayList<Cell> ret = new ArrayList<>();
+    for (int i = 0; i < WIDTH_CELLS * HEIGHT_CELLS; i++) {
+      int x = i % WIDTH_CELLS;
+      int y = i / WIDTH_CELLS;
+      if (currentModel.getCell(x, y).getCurrentState().getState() == state) {
+        ret.add(currentModel.getCell(x, y));
+      }
+    }
+    return ret;
   }
 
 

@@ -68,7 +68,10 @@ public class Main extends Application {
     stage.show();
 
 
+
     FileReader reader = new FileReader(UI.setSim()+EXTENSION);
+
+
 
     mySim = reader.getSimType();
 

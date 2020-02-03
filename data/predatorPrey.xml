@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <simulation>
+<<<<<<< HEAD
     <type>PredatorPrey</type>
+=======
+    <type>PredPrey</type>
+>>>>>>> 79e749bf5e727066552acf0e1270d3eca1abba43
     <rows>75</rows>
     <columns>75</columns>
     <sharkBreed>20</sharkBreed>
@@ -9,5 +13,8 @@
     <sharkStarve>5</sharkStarve>
     <percentOccupied>0.6</percentOccupied>
     <percentFish>0.95</percentFish>
+    <state0Color>0xd3d3d3ff</state0Color>
+    <state1Color>0x008000ff</state1Color>
+    <state2Color>0xb8860bff</state2Color>
 </simulation>
 
