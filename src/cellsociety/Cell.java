@@ -3,15 +3,14 @@ package cellsociety;
 import ControllerPackage.State;
 import javafx.scene.paint.Paint;
 
-
-
-
 public class Cell {
+
   private State currentState;
   private State nextState;
   private Paint displayColor;
   private int x;
   private int y;
+
   public Cell(int x,int y){
     currentState = null;
     nextState = null;
@@ -22,6 +21,7 @@ public class Cell {
   public int getX() {
     return x;
   }
+
   public int getY() {
     return y;
   }

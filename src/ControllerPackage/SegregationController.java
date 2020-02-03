@@ -45,6 +45,7 @@ public class SegregationController extends Controller {
     percentOccupied = reader.getDoubleValue("percentOccupied");
     percentMajority = reader.getDoubleValue("percentMajority");
     satisfiedLevel = reader.getDoubleValue("satisfiedLevel");
+    spacing = reader.getDoubleValue("spacing");
   }
 
   @Override

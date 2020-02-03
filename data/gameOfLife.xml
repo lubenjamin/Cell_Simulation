@@ -7,5 +7,6 @@
     <state0Color>0xffffffff</state0Color>
     <state1Color>0x000000ff</state1Color>
     <state2Color>0x00000000</state2Color>
+    <spacing>1</spacing>
 </simulation>
 
