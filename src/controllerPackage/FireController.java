@@ -1,10 +1,9 @@
-package ControllerPackage;
+package controllerPackage;
 
 import utils.Cell;
 import utils.FileReader;
 import java.util.ArrayList;
 import javafx.scene.Group;
-import javafx.scene.paint.Color;
 
 
 public class FireController extends Controller {

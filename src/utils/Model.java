@@ -27,19 +27,19 @@ public class Model {
 
   public ArrayList<Cell> getSimpleNeighborhood(int x, int y) {
     ArrayList<Cell> ret = new ArrayList<>();
-    addIfExists(ret, x + 0, y + 1);
-    addIfExists(ret, x - 1, y + 0);
-    addIfExists(ret, x + 1, y + 0);
-    addIfExists(ret, x + 0, y - 1);
+    addIfExists(ret, x, y + 1);
+    addIfExists(ret, x - 1, y);
+    addIfExists(ret, x + 1, y);
+    addIfExists(ret, x, y - 1);
     return ret;
   }
 
   public ArrayList<Cell> getTorusNeighborhood(int x, int y) {
     ArrayList<Cell> ret = new ArrayList<>();
-    addTorus(ret, x + 0, y + 1);
-    addTorus(ret, x - 1, y + 0);
-    addTorus(ret, x + 1, y + 0);
-    addTorus(ret, x + 0, y - 1);
+    addTorus(ret, x, y + 1);
+    addTorus(ret, x - 1, y);
+    addTorus(ret, x + 1, y);
+    addTorus(ret, x, y - 1);
     return ret;
   }
 
@@ -69,14 +69,14 @@ public class Model {
     ArrayList<Cell> ret = new ArrayList<>();
 
     addIfExists(ret, x - 1, y + 1);
-    addIfExists(ret, x + 0, y + 1);
+    addIfExists(ret, x, y + 1);
     addIfExists(ret, x + 1, y + 1);
 
-    addIfExists(ret, x - 1, y + 0);
-    addIfExists(ret, x + 1, y + 0);
+    addIfExists(ret, x - 1, y);
+    addIfExists(ret, x + 1, y);
 
     addIfExists(ret, x - 1, y - 1);
-    addIfExists(ret, x + 0, y - 1);
+    addIfExists(ret, x, y - 1);
     addIfExists(ret, x + 1, y - 1);
 
     return ret;

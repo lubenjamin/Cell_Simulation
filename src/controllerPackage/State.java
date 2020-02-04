@@ -1,8 +1,8 @@
-package ControllerPackage;
+package controllerPackage;
 
 public class State {
 
-  protected int state;
+  protected final int state;
 
   public State(int state) {
     this.state = state;

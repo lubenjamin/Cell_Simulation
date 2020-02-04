@@ -1,11 +1,10 @@
-package ControllerPackage;
+package controllerPackage;
 
 import View.PredPreyGraph;
 import utils.Cell;
 import utils.FileReader;
 import java.util.ArrayList;
 import javafx.scene.Group;
-import javafx.scene.paint.Color;
 
 
 public class PredPreyController extends Controller {
@@ -23,7 +22,7 @@ public class PredPreyController extends Controller {
   private ArrayList<Cell> fishNeedMove;
 
   private PredPreyGraph myGraph;
-  
+
   private int numFish;
   private int numShark;
 

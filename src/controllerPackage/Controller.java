@@ -1,4 +1,4 @@
-package ControllerPackage;
+package controllerPackage;
 
 import View.View;
 import utils.Cell;

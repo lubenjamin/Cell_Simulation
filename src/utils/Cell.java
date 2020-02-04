@@ -1,6 +1,6 @@
 package utils;
 
-import ControllerPackage.State;
+import controllerPackage.State;
 import javafx.scene.paint.Paint;
 
 public class Cell {
