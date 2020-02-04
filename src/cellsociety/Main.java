@@ -1,4 +1,4 @@
-package utils;
+package cellsociety;
 
 import ControllerPackage.Controller;
 import ControllerPackage.FireController;

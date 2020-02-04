@@ -75,8 +75,8 @@ public class PredPreyController extends Controller {
     moveSharks();
     moveFish();
 
-    //countSpecies();
-    //myGraph.update(numShark,numFish);
+//    countSpecies();
+//    myGraph.update(numShark,numFish);
   }
 
   @Override

@@ -7,9 +7,11 @@ import javafx.scene.chart.XYChart;
 
 public class PredPreyGraph extends Group {
     private final LineChart<Number, Number> myLineChart;
-    private static final int GRAPHBOUNDS = 200;
-    XYChart.Series<Number,Number> series = new XYChart.Series<>();
-    XYChart.Series<Number,Number> series2 = new XYChart.Series<>();
+    private static final int GRAPH_WIDTH=250;
+    private static final int GRAPH_HEIGHT=150;
+    private int time = 0;
+    private XYChart.Series<Number,Number> series = new XYChart.Series<>();
+    private XYChart.Series<Number,Number> series2 = new XYChart.Series<>();
 
     public PredPreyGraph() {
         NumberAxis xAxis = new NumberAxis();
@@ -18,15 +20,13 @@ public class PredPreyGraph extends Group {
         myLineChart.setTitle("PredatorPrey Relationship");
         yAxis.setLabel("Population");
         xAxis.setLabel("Generation");
-        myLineChart.setPrefWidth(GRAPHBOUNDS);
-        myLineChart.setPrefHeight(GRAPHBOUNDS);
+        myLineChart.setPrefSize(GRAPH_WIDTH, GRAPH_HEIGHT);
         myLineChart.setAnimated(false);
         getChildren().add(myLineChart);
         myLineChart.setCreateSymbols(false);
         myLineChart.getData().add(series);
         myLineChart.getData().add(series2);
     }
-    int time = 0;
     public void update(int predNum, int preyNum) {
         enterData("SHARK", predNum, series);
         enterData("FISH", preyNum, series2);

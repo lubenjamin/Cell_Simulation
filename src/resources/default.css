@@ -19,3 +19,7 @@
 }
 .default-color0.chart-series-line {-fx-stroke: #b8860b;}
 .default-color1.chart-series-line {-fx-stroke: #00ff00;}
+.axis {-fx-font-size: 10;}
+.chart-title {
+    -fx-font-size: 10;
+}
