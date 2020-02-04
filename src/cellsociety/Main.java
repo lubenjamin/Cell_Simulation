@@ -54,7 +54,7 @@ public class Main extends Application {
     stage.setScene(UI.setupUI(viewGroup));
     stage.show();
 
-    FileReader reader = new FileReader(UI.setSim()+EXTENSION);
+    FileReader reader = new FileReader(UI.getSim()+EXTENSION);
     mySim = reader.getSimType();
     checkSimName(mySim, reader,false);
 
@@ -75,7 +75,7 @@ public class Main extends Application {
   }
 
   private void step() throws Exception {
-    myNewSim = UI.setSim();
+    myNewSim = UI.getSim();
     if (! myNewSim.equals(mySim)) {
         currentController.clear();
         UI.setControlPause(true);

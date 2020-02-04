@@ -46,6 +46,20 @@ public class ControlPanel extends Group {
         this.panel = new HBox();
         getChildren().add(initControlPanel());
     }
+    public Button makeButton (String property, EventHandler<ActionEvent> handler) {
+        // represent all supported image suffixes
+        final String IMAGEFILE_SUFFIXES = String.format(".*\\.(%s)", String.join("|", ImageIO.getReaderFileSuffixes()));
+        Button result = new Button();
+        String label = myResources.getString(property);
+        if (label.matches(IMAGEFILE_SUFFIXES)) {
+            result.setGraphic(new ImageView(new Image(getClass().getResourceAsStream(DEFAULT_RESOURCE_FOLDER + label))));
+        }
+        else {
+            result.setText(label);
+        }
+        result.setOnAction(handler);
+        return result;
+    }
 //    public void addPredPreyGraph() {
 //        myGraph = new PredPreyGraph();
 //        panel.setSpacing(50);
@@ -65,20 +79,6 @@ public class ControlPanel extends Group {
         panel.getChildren().add(vb);
         panel.getChildren().add(mySlider);
         return panel;
-    }
-    private Button makeButton (String property, EventHandler<ActionEvent> handler) {
-        // represent all supported image suffixes
-        final String IMAGEFILE_SUFFIXES = String.format(".*\\.(%s)", String.join("|", ImageIO.getReaderFileSuffixes()));
-        Button result = new Button();
-        String label = myResources.getString(property);
-        if (label.matches(IMAGEFILE_SUFFIXES)) {
-            result.setGraphic(new ImageView(new Image(getClass().getResourceAsStream(DEFAULT_RESOURCE_FOLDER + label))));
-        }
-        else {
-            result.setText(label);
-        }
-        result.setOnAction(handler);
-        return result;
     }
     private Slider makeSlider(EventHandler<MouseEvent> handler) {
         Slider mySlider = new Slider();
@@ -113,5 +113,4 @@ public class ControlPanel extends Group {
     }
     private void checkUpdate() { this.isStep = true;
     }
-
 }
