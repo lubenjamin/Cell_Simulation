@@ -25,7 +25,7 @@ FileReader and Model - Connor Hazen
 
 ### Running the Program
 
-Main class: Main
+Simulator class: Simulator
 
 Data files needed: fire.xml, gameoflife.xml, percolation.xml, segregation.xml, predatorprey.xml
 

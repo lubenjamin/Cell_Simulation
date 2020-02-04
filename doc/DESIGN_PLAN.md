@@ -30,7 +30,7 @@ The UI will contain the simulation view, a reset button, select simulation optio
 
 ## Design Details 
 
-Runner:
+Main:
 
 Initialize UI
 Creates correct controller based of selected file
@@ -101,7 +101,7 @@ Data structure for model, and how to hide its implementation? - For the model, w
 
 ## Team Responsibilities
 
-We are going to do this in two stages. In the first part: we will each code one of the MVC classes. The controller class will be barebones but still allow us to check the view and model classes. The next step is fleshing out the Runner class, file reader, and finishing the controller class(es). 
+We are going to do this in two stages. In the first part: we will each code one of the MVC classes. The controller class will be barebones but still allow us to check the view and model classes. The next step is fleshing out the Main class, file reader, and finishing the controller class(es). 
 
 * Team Member #1
 	Stage 1: Controller
@@ -109,7 +109,7 @@ We are going to do this in two stages. In the first part: we will each code one 
 
 * Team Member #2
 	Stage 1: View
-	Stage 2: Runner
+	Stage 2: Main
 
 * Team Member #3
 Stage 1: Model, Cell
