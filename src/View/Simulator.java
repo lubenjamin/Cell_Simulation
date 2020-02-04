@@ -1,3 +1,5 @@
+package View;
+
 import controllerPackage.Controller;
 import controllerPackage.FireController;
 import controllerPackage.GameOfLifeController;
@@ -49,20 +51,17 @@ public class Simulator extends Application {
     stage.setScene(UI.setupUI(viewGroup));
     stage.show();
 
-    FileReader reader = new FileReader(UI.setSim()+EXTENSION);
+    FileReader reader = new FileReader(UI.getSim() + EXTENSION);
     mySim = reader.getSimType();
-    checkSimName(mySim, reader,false);
-
+    checkSimName(mySim, reader, false);
 
     KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> {
-        try {
-            step();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+      try {
+        step();
+      } catch (Exception ex) {
+        ex.printStackTrace();
+      }
     });
-
-
 
     myAnimation.setCycleCount(Timeline.INDEFINITE);
     myAnimation.getKeyFrames().add(frame);
@@ -70,13 +69,13 @@ public class Simulator extends Application {
   }
 
   private void step() throws Exception {
-    myNewSim = UI.setSim();
-    if (! myNewSim.equals(mySim)) {
-        currentController.clear();
-        UI.setControlPause(true);
-        FileReader reader = new FileReader(myNewSim+EXTENSION);
-        mySim = reader.getSimType();
-        checkSimName(mySim, reader, true);
+    myNewSim = UI.getSim();
+    if (!myNewSim.equals(mySim)) {
+      currentController.clear();
+      UI.setControlPause(true);
+      FileReader reader = new FileReader(myNewSim + EXTENSION);
+      mySim = reader.getSimType();
+      checkSimName(mySim, reader, true);
     }
     if (UI.getLoadStatus() && mySim != null) {
       if (!UI.getPauseStatus() || (UI.getPauseStatus() && UI.getStepStatus())) {
@@ -90,10 +89,11 @@ public class Simulator extends Application {
       }
     }
   }
+
   private void getFileNames() {
-      File folder = new File("data/");
-      File[] listOfFiles = folder.listFiles();
-      simNames = new ArrayList<>();
+    File folder = new File("data/");
+    File[] listOfFiles = folder.listFiles();
+    simNames = new ArrayList<>();
     for (File listOfFile : listOfFiles) {
       if (listOfFile.isFile() && listOfFile.getName().contains(EXTENSION)) {
         simNames.add(listOfFile.getName().split(EXTENSION)[0]);
@@ -102,7 +102,7 @@ public class Simulator extends Application {
   }
 
   private void checkSimName(String name, FileReader reader, boolean isUpdating) {
-    switch (name){
+    switch (name) {
       case "Percolation":
         currentController = new PercolationController(viewGroup, reader);
         break;
@@ -120,9 +120,9 @@ public class Simulator extends Application {
         break;
 
     }
-      if (isUpdating) {
-          mySim = name.toLowerCase();
-      }
-  }
+    if (isUpdating) {
+      mySim = name.toLowerCase();
+    }
 
+  }
 }

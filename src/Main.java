@@ -1,7 +1,9 @@
+import javafx.application.Application;
+
 public class Main {
+
   public static void main(String[] args) {
-    Simulator main = new Simulator();
-    main.launch(args);
+    Application.launch(args);
   }
 
 }
