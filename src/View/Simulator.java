@@ -22,7 +22,7 @@ import java.io.File;
 /**
  * Feel free to completely change this code or delete it entirely.
  */
-public class Simulator extends Application {
+public class Simulator {
 
 
   public static final int FRAMES_PER_SECOND = 1;
@@ -41,9 +41,7 @@ public class Simulator extends Application {
   /**
    * Start of the program.
    */
-
-  @Override
-  public void start(Stage stage) throws Exception {
+  public void initialize(Stage stage){
     getFileNames();
 
     Timeline myAnimation = new Timeline();
