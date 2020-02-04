@@ -4,9 +4,9 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
 public class CellVisual extends Rectangle {
-    int myXPos;
-    int myYPos;
-    Paint myColor;
+    final int myXPos;
+    final int myYPos;
+    final Paint myColor;
 
     public CellVisual(double width, double height, Paint color, int x, int y) {
         this.myXPos = x;

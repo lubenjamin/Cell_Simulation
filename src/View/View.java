@@ -7,14 +7,14 @@ import javafx.scene.paint.Paint;
 import java.util.ArrayList;
 
 public class View {
-  private double spacing;
-  private final int VIEW_BOUND = 400;
+  private final double spacing;
+  private final double VIEW_BOUND = 400;
   private double myVisualWidth;
   private double myVisualHeight;
 
-  private Model myModel;
-  private Group myViewGroup;
-  private ArrayList<CellVisual> myVisuals = new ArrayList<>();
+  private final Model myModel;
+  private final Group myViewGroup;
+  private final ArrayList<CellVisual> myVisuals = new ArrayList<>();
 
   public View(Group viewGroup, int widthCells, int heightCells, Model currentModel, double spacing) {
 

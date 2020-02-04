@@ -11,7 +11,6 @@ import utils.FileReader;
 import java.util.ArrayList;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -32,7 +31,7 @@ public class Simulator {
 
   private Controller currentController;
   private UserInterface UI;
-  private Group viewGroup = new Group();
+  private final Group viewGroup = new Group();
 
   private String mySim;
   private String myNewSim;
@@ -92,6 +91,7 @@ public class Simulator {
     File folder = new File("data/");
     File[] listOfFiles = folder.listFiles();
     simNames = new ArrayList<>();
+    assert listOfFiles != null;
     for (File listOfFile : listOfFiles) {
       if (listOfFile.isFile() && listOfFile.getName().contains(EXTENSION)) {
         simNames.add(listOfFile.getName().split(EXTENSION)[0]);

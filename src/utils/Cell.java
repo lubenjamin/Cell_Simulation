@@ -8,8 +8,8 @@ public class Cell {
   private State currentState;
   private State nextState;
   private Paint displayColor;
-  private int x;
-  private int y;
+  private final int x;
+  private final int y;
 
   public Cell(int x,int y){
     currentState = null;

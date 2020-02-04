@@ -19,9 +19,9 @@ public class FileReader{
 
     private Element simElement;
 
-    private String simType;
-    private String rows;
-    private String columns;
+    private final String simType;
+    private final String rows;
+    private final String columns;
     private String file;
 
     public FileReader(String fileName){
@@ -80,7 +80,7 @@ public class FileReader{
 
     private static String getValue(String tag, Element element) {
         NodeList nodes = element.getElementsByTagName(tag).item(0).getChildNodes();
-        Node node = (Node) nodes.item(0);
+        Node node = nodes.item(0);
         return node.getNodeValue();
     }
 

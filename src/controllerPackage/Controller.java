@@ -11,13 +11,13 @@ import javafx.scene.paint.Color;
 
 public abstract class Controller {
 
-  protected Model currentModel;
-  protected View currentView;
-  protected Random random;
-  protected FileReader reader;
+  protected final Model currentModel;
+  protected final View currentView;
+  protected final Random random;
+  protected final FileReader reader;
 
-  protected int WIDTH_CELLS;
-  protected int HEIGHT_CELLS;
+  protected final int WIDTH_CELLS;
+  protected final int HEIGHT_CELLS;
   protected double spacing;
 
   protected Color state0Color;

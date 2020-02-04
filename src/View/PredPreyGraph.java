@@ -10,8 +10,8 @@ public class PredPreyGraph extends Group {
     private static final int GRAPH_WIDTH=250;
     private static final int GRAPH_HEIGHT=150;
     private int time = 0;
-    private XYChart.Series<Number,Number> series = new XYChart.Series<>();
-    private XYChart.Series<Number,Number> series2 = new XYChart.Series<>();
+    private final XYChart.Series<Number,Number> series = new XYChart.Series<>();
+    private final XYChart.Series<Number,Number> series2 = new XYChart.Series<>();
 
     public PredPreyGraph() {
         NumberAxis xAxis = new NumberAxis();
