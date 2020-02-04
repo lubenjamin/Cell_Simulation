@@ -1,3 +1,5 @@
+package utils;
+
 import ControllerPackage.Controller;
 import ControllerPackage.FireController;
 import ControllerPackage.GameOfLifeController;
@@ -76,20 +78,20 @@ public class Main extends Application {
     myNewSim = UI.setSim();
     if (! myNewSim.equals(mySim)) {
         currentController.clear();
-        UI.isPaused=true;
+        UI.setControlPause(true);
         FileReader reader = new FileReader(myNewSim+EXTENSION);
         mySim = reader.getSimType();
         checkSimName(mySim, reader, true);
     }
-    if (UI.isSimLoaded && mySim != null) {
-      if (!UI.isPaused || (UI.isPaused && UI.isStep)) {
+    if (UI.getLoadStatus() && mySim != null) {
+      if (!UI.getPauseStatus() || (UI.getPauseStatus() && UI.getStepStatus())) {
 
         currentController.updateSim();
-        UI.isStep = false;
+        UI.setControlStep(false);
       }
-      if (UI.isReset) {
+      if (UI.getResetStatus()) {
         currentController.resetSim();
-        UI.isReset = false;
+        UI.setControlReset(false);
       }
     }
   }
