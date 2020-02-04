@@ -26,10 +26,6 @@ public class PercolationController extends Controller {
 
   @Override
   protected void setSimParams() {
-    state0Color = Color.valueOf(reader.getString("state0Color"));
-    state1Color = Color.valueOf(reader.getString("state1Color"));
-    state2Color = Color.valueOf(reader.getString("state2Color"));
-
     percentBlocked = reader.getDoubleValue("percentBlocked");
     spacing = reader.getDoubleValue("spacing");
   }
@@ -46,7 +42,6 @@ public class PercolationController extends Controller {
       current.setNextState(new State(0));
     }
   }
-
 
   private boolean checkWater(Cell current) {
     if (current.getY() == 0) {

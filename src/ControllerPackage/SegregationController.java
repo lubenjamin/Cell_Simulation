@@ -38,10 +38,6 @@ public class SegregationController extends Controller {
 
   @Override
   protected void setSimParams() {
-    state0Color = Color.valueOf(reader.getString("state0Color"));
-    state1Color = Color.valueOf(reader.getString("state1Color"));
-    state2Color = Color.valueOf(reader.getString("state2Color"));
-
     percentOccupied = reader.getDoubleValue("percentOccupied");
     percentMajority = reader.getDoubleValue("percentMajority");
     satisfiedLevel = reader.getDoubleValue("satisfiedLevel");

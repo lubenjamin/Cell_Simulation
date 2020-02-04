@@ -35,10 +35,6 @@ public class FireController extends Controller {
 
   @Override
   protected void setSimParams() {
-    state0Color = Color.valueOf(reader.getString("state0Color"));
-    state1Color = Color.valueOf(reader.getString("state1Color"));
-    state2Color = Color.valueOf(reader.getString("state2Color"));
-
     initialTree = reader.getDoubleValue("initialTree");
     initialBurningTree = reader.getDoubleValue("initialBurningTree");
     percentCatchFire = reader.getDoubleValue("percentCatchFire");
