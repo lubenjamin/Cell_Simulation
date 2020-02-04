@@ -77,14 +77,10 @@ public class SegregationController extends Controller {
   private void moveUnHappy() {
     Random r = new Random();
     while (emptySpots.size() != 0 && needMove.size() != 0) {
-      int indexTo = r.nextInt(emptySpots.size());
-      int indexFrom = r.nextInt(needMove.size());
-      Cell cellReplace = emptySpots.get(indexTo);
-      Cell current = needMove.get(indexFrom);
+      Cell cellReplace = emptySpots.remove(r.nextInt(emptySpots.size()));
+      Cell current = needMove.remove(r.nextInt(needMove.size()));
       cellReplace.setNextState(new State(current.getCurrentState().getState()));
       current.setNextState(new State(0));
-      emptySpots.remove(cellReplace);
-      needMove.remove(current);
     }
   }
 

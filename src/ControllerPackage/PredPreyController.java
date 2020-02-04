@@ -95,8 +95,7 @@ public class PredPreyController extends Controller {
   private void moveFish() {
     while (fishNeedMove.size() > 0) {
       int index = random.nextInt(fishNeedMove.size());
-      Cell current = fishNeedMove.get(index);
-      fishNeedMove.remove(current);
+      Cell current = fishNeedMove.remove(index);
       if (current.getNextState() != null) {
         continue;
       }
@@ -113,12 +112,9 @@ public class PredPreyController extends Controller {
   private void moveSharks() {
     while (sharkNeedMove.size() > 0) {
       int index = random.nextInt(sharkNeedMove.size());
-      Cell current = sharkNeedMove.get(index);
-      sharkNeedMove.remove(current);
-
+      Cell current = sharkNeedMove.remove(index);
       ArrayList<Cell> fishLoc = getFishNeighbors(current);
       ArrayList<Cell> empty = getEmptyNextState(current);
-
       if (fishLoc.size() > 0) {
         int place = random.nextInt(fishLoc.size());
         moveSharkToSpot(fishLoc.get(place), current);
