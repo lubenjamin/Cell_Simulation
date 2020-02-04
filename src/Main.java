@@ -1,9 +1,3 @@
-package cellsociety;
-
-
-
-import ControllerPackage.*;
-
 import ControllerPackage.Controller;
 import ControllerPackage.FireController;
 import ControllerPackage.GameOfLifeController;
@@ -11,6 +5,7 @@ import ControllerPackage.PercolationController;
 import ControllerPackage.PredPreyController;
 import ControllerPackage.SegregationController;
 import View.UserInterface;
+import utils.FileReader;
 import java.util.ArrayList;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -20,7 +15,6 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.File;
-import java.util.ArrayList;
 
 
 /**

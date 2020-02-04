@@ -1,9 +1,9 @@
 package ControllerPackage;
 
 import View.View;
-import cellsociety.Cell;
-import cellsociety.FileReader;
-import cellsociety.Model;
+import utils.Cell;
+import utils.FileReader;
+import utils.Model;
 import java.util.Random;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;

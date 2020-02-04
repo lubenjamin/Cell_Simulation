@@ -1,8 +1,8 @@
 package ControllerPackage;
 
 import View.PredPreyGraph;
-import cellsociety.Cell;
-import cellsociety.FileReader;
+import utils.Cell;
+import utils.FileReader;
 import java.util.ArrayList;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
@@ -31,10 +31,10 @@ public class PredPreyController extends Controller {
   public PredPreyController(Group simGroup, FileReader reader) {
     super(simGroup, reader);
 
-    myGraph = new PredPreyGraph();
-    myGraph.setLayoutX(10);
-    myGraph.setLayoutY(10);
-    simGroup.getChildren().add(myGraph);
+    //myGraph = new PredPreyGraph();
+    //myGraph.setLayoutX(10);
+    //myGraph.setLayoutY(10);
+    //simGroup.getChildren().add(myGraph);
   }
 
   @Override
@@ -75,8 +75,8 @@ public class PredPreyController extends Controller {
     moveSharks();
     moveFish();
 
-    countSpecies();
-    myGraph.update(numShark,numFish);
+    //countSpecies();
+    //myGraph.update(numShark,numFish);
   }
 
   @Override
@@ -191,8 +191,6 @@ public class PredPreyController extends Controller {
       }
     }
   }
-
-
 
   protected class PPState extends State {
 

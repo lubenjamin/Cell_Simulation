@@ -3,11 +3,11 @@ simulation
 
 This project implements a cellular automata simulator.
 
-Names:
+Names: Connor Hazen, Abhijay, Benjamin
 
 ### Timeline
 
-Start Date: 
+Start Date: Jan 26th
 
 Finish Date: 
 
@@ -15,17 +15,21 @@ Hours Spent:
 
 ### Primary Roles
 
+Simulation Logic and controllers - Connor Hazen
+UI and View = Abhijay
+FileReader and Model - Connor Hazen
+
 
 ### Resources Used
 
 
 ### Running the Program
 
-Main class:
+Main class: Main
 
-Data files needed: 
+Data files needed: fire.xml, gameoflife.xml, percolation.xml, segregation.xml, predatorprey.xml
 
-Features implemented:
+Features implemented: 5 Simulations with adjustable speed and step functionality. 
 
 
 

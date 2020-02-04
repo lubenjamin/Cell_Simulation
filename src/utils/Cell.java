@@ -1,4 +1,4 @@
-package cellsociety;
+package utils;
 
 import ControllerPackage.State;
 import javafx.scene.paint.Paint;

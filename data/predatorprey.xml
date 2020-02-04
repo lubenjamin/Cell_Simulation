@@ -9,9 +9,9 @@
     <sharkStarve>7</sharkStarve>
     <percentOccupied>0.8</percentOccupied>
     <percentFish>0.99</percentFish>
-    <state0Color>0x087240</state0Color>
+    <state0Color>0x056a3a</state0Color>
     <state1Color>0x000000</state1Color>
-    <state2Color>0x0000df</state2Color>
+    <state2Color>0x0000db</state2Color>
     <spacing>0</spacing>
 </simulation>
 

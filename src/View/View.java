@@ -1,9 +1,8 @@
 package View;
 
-import cellsociety.Cell;
-import cellsociety.Model;
+import utils.Cell;
+import utils.Model;
 import javafx.scene.Group;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import java.util.ArrayList;
 

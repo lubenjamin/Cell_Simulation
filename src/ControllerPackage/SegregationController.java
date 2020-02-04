@@ -1,7 +1,7 @@
 package ControllerPackage;
 
-import cellsociety.Cell;
-import cellsociety.FileReader;
+import utils.Cell;
+import utils.FileReader;
 import java.util.ArrayList;
 import java.util.Random;
 import javafx.scene.Group;
