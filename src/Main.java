@@ -1,5 +1,3 @@
-package cellsociety;
-
 import ControllerPackage.Controller;
 import ControllerPackage.FireController;
 import ControllerPackage.GameOfLifeController;
