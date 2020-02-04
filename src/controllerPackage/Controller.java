@@ -1,4 +1,4 @@
-package ControllerPackage;
+package controllerPackage;
 
 import View.View;
 import utils.Cell;
@@ -30,6 +30,8 @@ public abstract class Controller {
     this.reader = reader;
     random = new Random();
     setSimParams();
+    setSimColor();
+
     WIDTH_CELLS = reader.getColumns();
     HEIGHT_CELLS = reader.getRows();
     currentModel = new Model(WIDTH_CELLS, HEIGHT_CELLS);
@@ -98,6 +100,12 @@ public abstract class Controller {
         break;
 
     }
+  }
+
+  protected void setSimColor(){
+    state0Color = Color.valueOf(reader.getString("state0Color"));
+    state1Color = Color.valueOf(reader.getString("state1Color"));
+    state2Color = Color.valueOf(reader.getString("state2Color"));
   }
 
   protected boolean probabilityChecker(double compareTo) {

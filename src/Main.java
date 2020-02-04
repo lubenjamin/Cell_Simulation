@@ -1,11 +1,9 @@
-package cellsociety;
-
-import ControllerPackage.Controller;
-import ControllerPackage.FireController;
-import ControllerPackage.GameOfLifeController;
-import ControllerPackage.PercolationController;
-import ControllerPackage.PredPreyController;
-import ControllerPackage.SegregationController;
+import controllerPackage.Controller;
+import controllerPackage.FireController;
+import controllerPackage.GameOfLifeController;
+import controllerPackage.PercolationController;
+import controllerPackage.PredPreyController;
+import controllerPackage.SegregationController;
 import View.UserInterface;
 import utils.FileReader;
 import java.util.ArrayList;
@@ -99,11 +97,11 @@ public class Main extends Application {
       File folder = new File("data/");
       File[] listOfFiles = folder.listFiles();
       simNames = new ArrayList<>();
-      for (int i = 0; i < listOfFiles.length; i++) {
-          if (listOfFiles[i].isFile() && listOfFiles[i].getName().contains(EXTENSION)) {
-              simNames.add(listOfFiles[i].getName().split(EXTENSION)[0]);
-          }
+    for (File listOfFile : listOfFiles) {
+      if (listOfFile.isFile() && listOfFile.getName().contains(EXTENSION)) {
+        simNames.add(listOfFile.getName().split(EXTENSION)[0]);
       }
+    }
   }
 
   private void checkSimName(String name, FileReader reader, boolean isUpdating) {

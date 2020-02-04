@@ -1,10 +1,9 @@
-package ControllerPackage;
+package controllerPackage;
 
 import utils.Cell;
 import utils.FileReader;
 import java.util.ArrayList;
 import javafx.scene.Group;
-import javafx.scene.paint.Color;
 
 
 public class GameOfLifeController extends Controller {
@@ -28,10 +27,6 @@ public class GameOfLifeController extends Controller {
 
   @Override
   protected void setSimParams() {
-    state0Color = Color.valueOf(reader.getString("state0Color"));
-    state1Color = Color.valueOf(reader.getString("state1Color"));
-    state2Color = Color.valueOf(reader.getString("state2Color"));
-
     initialLive = reader.getDoubleValue("initialLive");
     spacing = reader.getDoubleValue("spacing");
   }

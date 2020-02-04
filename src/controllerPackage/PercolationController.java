@@ -1,9 +1,8 @@
-package ControllerPackage;
+package controllerPackage;
 
 import utils.Cell;
 import utils.FileReader;
 import javafx.scene.Group;
-import javafx.scene.paint.Color;
 
 
 public class PercolationController extends Controller {
@@ -26,10 +25,6 @@ public class PercolationController extends Controller {
 
   @Override
   protected void setSimParams() {
-    state0Color = Color.valueOf(reader.getString("state0Color"));
-    state1Color = Color.valueOf(reader.getString("state1Color"));
-    state2Color = Color.valueOf(reader.getString("state2Color"));
-
     percentBlocked = reader.getDoubleValue("percentBlocked");
     spacing = reader.getDoubleValue("spacing");
   }
@@ -46,7 +41,6 @@ public class PercolationController extends Controller {
       current.setNextState(new State(0));
     }
   }
-
 
   private boolean checkWater(Cell current) {
     if (current.getY() == 0) {
