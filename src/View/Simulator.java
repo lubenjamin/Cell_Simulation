@@ -41,7 +41,7 @@ public class Simulator {
   /**
    * Start of the program.
    */
-  public void initialize(Stage stage) throws XMLException {
+  public void initialize(Stage stage){
     getFileNames();
 
     Timeline myAnimation = new Timeline();
@@ -54,11 +54,7 @@ public class Simulator {
     checkSimName(mySim, reader, false);
 
     KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> {
-      try {
         step();
-      } catch (Exception ex) {
-        ex.printStackTrace();
-      }
     });
 
     myAnimation.setCycleCount(Timeline.INDEFINITE);
@@ -66,7 +62,7 @@ public class Simulator {
     myAnimation.play();
   }
 
-  private void step() throws Exception {
+  private void step(){
     myNewSim = UI.getSim();
     if (!myNewSim.equals(mySim)) {
       currentController.clear();
