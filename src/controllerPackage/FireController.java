@@ -59,7 +59,7 @@ public class FireController extends Controller {
   }
 
   private int getNumFire(Cell current) {
-    ArrayList<Cell> neigh = currentModel.getSimpleNeighborhood(current.getX(), current.getY());
+    ArrayList<Cell> neigh = (ArrayList<Cell>) currentModel.getSimpleNeighborhood(current.getX(), current.getY());
     int numOnFire = 0;
     for (Cell c : neigh) {
       if (c.getCurrentState().getState() == 2) {

@@ -2,6 +2,7 @@ package utils;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class Model {
@@ -25,7 +26,7 @@ public class Model {
     return grid[y][x];
   }
 
-  public ArrayList<Cell> getSimpleNeighborhood(int x, int y) {
+  public List<Cell> getSimpleNeighborhood(int x, int y) {
     ArrayList<Cell> ret = new ArrayList<>();
     addIfExists(ret, x, y + 1);
     addIfExists(ret, x - 1, y);
@@ -34,7 +35,7 @@ public class Model {
     return ret;
   }
 
-  public ArrayList<Cell> getTorusNeighborhood(int x, int y) {
+  public List<Cell> getTorusNeighborhood(int x, int y) {
     ArrayList<Cell> ret = new ArrayList<>();
     addTorus(ret, x, y + 1);
     addTorus(ret, x - 1, y);
@@ -65,7 +66,7 @@ public class Model {
 
 
 
-  public ArrayList<Cell> getMooreNeighborhood(int x, int y) {
+  public List<Cell> getMooreNeighborhood(int x, int y) {
     ArrayList<Cell> ret = new ArrayList<>();
 
     addIfExists(ret, x - 1, y + 1);

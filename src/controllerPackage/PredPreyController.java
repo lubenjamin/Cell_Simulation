@@ -136,7 +136,7 @@ public class PredPreyController extends Controller {
   }
 
   private ArrayList<Cell> getEmptyNextState(Cell current) {
-    ArrayList<Cell> neigh = currentModel.getTorusNeighborhood(current.getX(), current.getY());
+    ArrayList<Cell> neigh = (ArrayList<Cell>) currentModel.getTorusNeighborhood(current.getX(), current.getY());
     ArrayList<Cell> empty = new ArrayList<>();
     for (Cell c : neigh) {
       if (c.getCurrentState().getState() == 0 && (c.getNextState() == null
@@ -148,7 +148,7 @@ public class PredPreyController extends Controller {
   }
 
   private ArrayList<Cell> getFishNeighbors(Cell current) {
-    ArrayList<Cell> neigh = currentModel.getTorusNeighborhood(current.getX(), current.getY());
+    ArrayList<Cell> neigh = (ArrayList<Cell>) currentModel.getTorusNeighborhood(current.getX(), current.getY());
     ArrayList<Cell> fish = new ArrayList<>();
     for (Cell c : neigh) {
       if (c.getCurrentState().getState() == 1) {

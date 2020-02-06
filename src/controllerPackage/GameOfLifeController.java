@@ -46,7 +46,7 @@ public class GameOfLifeController extends Controller {
 
   private int getNumAlive(Cell current) {
     int numAlive = 0;
-    ArrayList<Cell> neigh = currentModel.getMooreNeighborhood(current.getX(), current.getY());
+    ArrayList<Cell> neigh = (ArrayList<Cell>) currentModel.getMooreNeighborhood(current.getX(), current.getY());
     for (Cell c : neigh) {
       if (c.getCurrentState().getState() == 1) {
         numAlive++;
