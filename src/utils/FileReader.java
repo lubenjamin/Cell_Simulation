@@ -25,7 +25,7 @@ public class FileReader{
     private final String rows;
     private final String columns;
 
-    public FileReader(String fileName) throws XMLException {
+    public FileReader(String fileName){
         if(!setElement(fileName)){
             System.out.println("NO SIMULATION ELEMENT IN FILE");
         }
@@ -36,7 +36,7 @@ public class FileReader{
 
     }
 
-    public boolean setElement(String fileName) throws XMLException{
+    public boolean setElement(String fileName){
 
         try{
             File simulation = new File("data/" + fileName);
@@ -55,9 +55,14 @@ public class FileReader{
             return false;
         }
         catch(Exception e){
-            throw new XMLException("XML FILE IS NOT FOUND", fileName);
+            /**
+             * dont throw
+             * make pop
+             * system.exit(0)
+             */
+            System.exit(0);
+            return false;
         }
-
     }
 
     public int getIntValue(String parameter){
