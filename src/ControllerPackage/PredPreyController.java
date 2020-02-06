@@ -101,7 +101,7 @@ public class PredPreyController extends Controller {
         continue;
       }
       ArrayList<Cell> emptyNeighbors = getEmptyNextState(current);
-      if (emptyNeighbors.size() == 0) {
+      if (emptyNeighbors.isEmpty()) {
         current.setNextState(new PPState((PPState) current.getCurrentState()));
       } else {
         int moveIndex = random.nextInt(emptyNeighbors.size());
@@ -119,10 +119,10 @@ public class PredPreyController extends Controller {
       ArrayList<Cell> fishLoc = getFishNeighbors(current);
       ArrayList<Cell> empty = getEmptyNextState(current);
 
-      if (fishLoc.size() > 0) {
+      if (!fishLoc.isEmpty()) {
         int place = random.nextInt(fishLoc.size());
         moveSharkToSpot(fishLoc.get(place), current);
-      } else if (empty.size() > 0) {
+      } else if (!empty.isEmpty()) {
         int place = random.nextInt(empty.size());
         moveSharkToSpot(empty.get(place), current);
       } else {
