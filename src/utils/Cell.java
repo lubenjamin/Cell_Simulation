@@ -13,6 +13,7 @@ public class Cell {
   public Cell(int x,int y){
     currentState = null;
     nextState = null;
+    displayColor = "000000";
     this.x = x;
     this.y = y;
   }
