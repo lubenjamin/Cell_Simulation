@@ -1,5 +1,6 @@
 package View;
 
+import javafx.scene.paint.Color;
 import utils.Cell;
 import utils.Model;
 import javafx.scene.Group;
@@ -45,6 +46,6 @@ public class View {
     }
   }
   private Paint displayState(Cell cell) {
-    return cell.getDisplayColor();
+    return Color.valueOf(cell.getDisplayColor());
   }
 }
