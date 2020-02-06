@@ -24,6 +24,10 @@ public abstract class Controller {
   protected String state1Color;
   protected String state2Color;
 
+  protected static final int state0 = 0;
+  protected static final int state1 = 1;
+  protected static final int state2 = 2;
+
 
 
   public Controller(Group simGroup, FileReader reader) {
@@ -89,13 +93,13 @@ public abstract class Controller {
   protected void calcNewDisplay(Cell cell) {
 
     switch (cell.getCurrentState().getState()) {
-      case 0:
+      case state0:
         cell.setDisplayColor(state0Color);
         break;
-      case 1:
+      case state1:
         cell.setDisplayColor(state1Color);
         break;
-      case 2:
+      case state2:
         cell.setDisplayColor(state2Color);
         break;
 

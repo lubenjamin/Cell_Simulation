@@ -26,12 +26,12 @@ public class SegregationController extends Controller {
   protected void initializeCellState(Cell current) {
     if (probabilityChecker(percentOccupied)) {
       if (probabilityChecker(percentMajority)) {
-        current.setCurrentState(new State(1));
+        current.setCurrentState(new State(state1));
       } else {
-        current.setCurrentState(new State(2));
+        current.setCurrentState(new State(state2));
       }
     } else {
-      current.setCurrentState(new State(0));
+      current.setCurrentState(new State(state0));
     }
   }
 
@@ -47,8 +47,8 @@ public class SegregationController extends Controller {
   protected void updateCell(int x, int y) {
     Cell current = currentModel.getCell(x, y);
 
-    if (current.getCurrentState().getState() == 0) {
-      current.setNextState(new State(0));
+    if (current.getCurrentState().getState() == state0) {
+      current.setNextState(new State(state0));
       return;
     }
     if (getSatisfy(current) < satisfiedLevel) {
@@ -75,7 +75,7 @@ public class SegregationController extends Controller {
       Cell cellReplace = emptySpots.remove(r.nextInt(emptySpots.size()));
       Cell current = needMove.remove(r.nextInt(needMove.size()));
       cellReplace.setNextState(new State(current.getCurrentState().getState()));
-      current.setNextState(new State(0));
+      current.setNextState(new State(state0));
     }
   }
 
@@ -87,7 +87,7 @@ public class SegregationController extends Controller {
       if (c.getCurrentState().getState() == current.getCurrentState().getState()) {
         similar++;
       }
-      if (c.getCurrentState().getState() != 0) {
+      if (c.getCurrentState().getState() != state0) {
         totalNeigh++;
       }
     }
@@ -102,7 +102,7 @@ public class SegregationController extends Controller {
     for (int i = 0; i < WIDTH_CELLS * HEIGHT_CELLS; i++) {
       int x = i % WIDTH_CELLS;
       int y = i / WIDTH_CELLS;
-      if (currentModel.getCell(x, y).getCurrentState().getState() == 0) {
+      if (currentModel.getCell(x, y).getCurrentState().getState() == state0) {
         ret.add(currentModel.getCell(x, y));
       }
     }
