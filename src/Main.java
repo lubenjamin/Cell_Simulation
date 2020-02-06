@@ -1,6 +1,7 @@
 import View.Simulator;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import utils.XMLException;
 
 public class Main  extends Application {
 
@@ -9,7 +10,7 @@ public class Main  extends Application {
   }
 
   @Override
-  public void start(Stage primaryStage){
+  public void start(Stage primaryStage) throws XMLException {
     Simulator sim = new Simulator();
     sim.initialize(primaryStage);
   }
