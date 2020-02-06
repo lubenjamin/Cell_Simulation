@@ -10,7 +10,7 @@ public class Main  extends Application {
   }
 
   @Override
-  public void start(Stage primaryStage) throws XMLException {
+  public void start(Stage primaryStage){
     Simulator sim = new Simulator();
     sim.initialize(primaryStage);
   }
