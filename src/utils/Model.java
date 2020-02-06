@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Model {
 
-  private Cell[][] grid;
+  private final Cell[][] grid;
 
   public Model(int widthCells, int heightCells) {
     grid = new Cell[heightCells][widthCells];

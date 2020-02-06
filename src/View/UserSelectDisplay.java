@@ -20,16 +20,17 @@ public class UserSelectDisplay extends Stage {
     private Button myFireButton = new Button();
     private Button myPredButton = new Button();
 
-    private ResourceBundle myResources;
-    private ControlPanel myControlPanel;
-    private ComboBox<String> myDropDown;
-    private ArrayList<String> mySims;
+    private final ComboBox<String> myDropDown;
 
-    public UserSelectDisplay(ResourceBundle resources, ControlPanel controls, ComboBox<String> dropDown, ArrayList<String> sims) {
+    private final ResourceBundle myResources;
+    private final ControlPanel myControlPanel;
+    private final ArrayList<String> mySims;
+
+    public UserSelectDisplay(ResourceBundle resources, ControlPanel controls, ArrayList<String> sims) {
         this.myResources = resources;
         this.myControlPanel = controls;
-        this.myDropDown = dropDown;
         this.mySims = sims;
+        myDropDown = new ComboBox<>();
         initUserSelectDisplay();
         initSimSelect(event -> setSim(), mySims);
     }
@@ -40,6 +41,9 @@ public class UserSelectDisplay extends Stage {
 //        }
         myControlPanel.isSimLoaded=true;
         return st;
+    }
+    public ComboBox<String> getDropDown() {
+        return myDropDown;
     }
     private void initUserSelectDisplay() {
             setTitle(myResources.getString("CHOICETITLE"));

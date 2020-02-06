@@ -3,7 +3,6 @@ package View;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -25,14 +24,14 @@ public class ControlPanel extends Group {
     private Button myStepButton = new Button();
     private Slider mySlider = new Slider();
 
-    private ResourceBundle myResources;
+    private final ResourceBundle myResources;
 
     private static final String RESOURCES = "resources";
     private static final String DEFAULT_RESOURCE_FOLDER = "/" + RESOURCES + "/";
 
-    private Timeline myAnimation;
+    private final Timeline myAnimation;
     private PredPreyGraph myGraph;
-    private HBox panel;
+    private final HBox panel;
 
     public boolean isPaused;
     public boolean isReset;
