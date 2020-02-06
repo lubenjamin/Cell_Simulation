@@ -14,6 +14,7 @@ import javafx.animation.Timeline;
 import javafx.scene.Group;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import utils.XMLException;
 
 import java.io.File;
 
@@ -40,7 +41,7 @@ public class Simulator {
   /**
    * Start of the program.
    */
-  public void initialize(Stage stage){
+  public void initialize(Stage stage) throws XMLException {
     getFileNames();
 
     Timeline myAnimation = new Timeline();

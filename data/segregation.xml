@@ -3,7 +3,7 @@
     <type>Segregation</type>
     <rows>75</rows>
     <columns>75</columns>
-    <percentOccupied>0.94</percentOccupied>
+    <percentOccupied>0.50</percentOccupied>
     <percentMajority>0.72</percentMajority>
     <satisfiedLevel>0.72</satisfiedLevel>
     <state0Color>0xe1e4cb</state0Color>
