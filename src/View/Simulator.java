@@ -15,6 +15,7 @@ import javafx.scene.Group;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import javax.naming.ldap.Control;
 import java.io.File;
 
 
@@ -31,6 +32,7 @@ public class Simulator {
 
   private Controller currentController;
   private UserInterface UI;
+  private ControlPanel myControlPanel;
   private final Group viewGroup = new Group();
 
   private String mySim;
@@ -42,9 +44,9 @@ public class Simulator {
    */
   public void initialize(Stage stage){
     getFileNames();
-
     Timeline myAnimation = new Timeline();
-    UI = new UserInterface(stage, "English", simNames, myAnimation);
+    myControlPanel = new ControlPanel(myAnimation);
+    UI = new UserInterface(stage, "English", simNames, myControlPanel);
     stage.setScene(UI.setupUI(viewGroup));
     stage.show();
 
@@ -56,7 +58,7 @@ public class Simulator {
       try {
         step();
       } catch (Exception ex) {
-        ex.printStackTrace();
+        ex.printStackTrace(); //change to an exception
       }
     });
 
@@ -69,20 +71,19 @@ public class Simulator {
     myNewSim = UI.getSim();
     if (!myNewSim.equals(mySim)) {
       currentController.clear();
-      UI.setControlPause(true);
+      myControlPanel.setPlay();
       FileReader reader = new FileReader(myNewSim + EXTENSION);
       mySim = reader.getSimType();
       checkSimName(mySim, reader, true);
     }
-    if (UI.getLoadStatus() && mySim != null) {
-      if (!UI.getPauseStatus() || (UI.getPauseStatus() && UI.getStepStatus())) {
-
+    if (myControlPanel.getSimLoadStatus() && mySim != null) {
+      if (!myControlPanel.getPauseStatus() || (myControlPanel.getPauseStatus() && myControlPanel.getUpdateStatus())) {
         currentController.updateSim();
-        UI.setControlStep(false);
+       myControlPanel.resetControl();
       }
-      if (UI.getResetStatus()) {
+      if (myControlPanel.getResetStatus()) {
         currentController.resetSim();
-        UI.setControlReset(false);
+        myControlPanel.resetControl();
       }
     }
   }

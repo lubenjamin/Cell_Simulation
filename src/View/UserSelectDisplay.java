@@ -20,9 +20,15 @@ public class UserSelectDisplay extends Stage {
     private Button myFireButton = new Button();
     private Button myPredButton = new Button();
 
-    private final ComboBox<String> myDropDown;
+    private static final String RESOURCES = "resources";
+    private static final String DEFAULT_RESOURCE_PACKAGE = RESOURCES + ".";
+    private static final String DEFAULT_RESOURCE_FOLDER = "/" + RESOURCES + "/";
+
 
     private final ResourceBundle myResources;
+    private final ComboBox<String> myDropDown;
+
+
     private final ControlPanel myControlPanel;
     private final ArrayList<String> mySims;
 
@@ -39,7 +45,7 @@ public class UserSelectDisplay extends Stage {
 //        if (st == "PredatorPrey") {
 //            myControlPanel.addPredPreyGraph();
 //        }
-        myControlPanel.isSimLoaded=true;
+        myControlPanel.setSimLoad(true);
         return st;
     }
     public ComboBox<String> getDropDown() {
