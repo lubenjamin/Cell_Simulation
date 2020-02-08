@@ -9,6 +9,7 @@ public class PercolationController extends Controller {
 
   private double percentBlocked;
 
+
   //EMPTY = 0 : PERC = 1 : BLOCKED : 2;
   public PercolationController(Group simGroup, FileReader reader) {
     super(simGroup, reader);
@@ -17,9 +18,9 @@ public class PercolationController extends Controller {
   @Override
   protected void initializeCellState(Cell current) {
     if (probabilityChecker(percentBlocked)) {
-      current.setCurrentState(new State(2));
+      current.setCurrentState(new State(state2));
     } else {
-      current.setCurrentState(new State(0));
+      current.setCurrentState(new State(state0));
     }
   }
 
@@ -32,13 +33,12 @@ public class PercolationController extends Controller {
   @Override
   protected void updateCell(int x, int y) {
     Cell current = currentModel.getCell(x, y);
-
-    if (current.getCurrentState().getState() == 2 || current.getCurrentState().getState() == 1) {
+    if (current.getCurrentState().getState() == state2 || current.getCurrentState().getState() == state1) {
       current.setNextState(new State(current.getCurrentState().getState()));
     } else if (checkWater(current)) {
-      current.setNextState(new State(1));
+      current.setNextState(new State(state1));
     } else {
-      current.setNextState(new State(0));
+      current.setNextState(new State(state0));
     }
   }
 
@@ -47,7 +47,7 @@ public class PercolationController extends Controller {
       return true;
     }
     for (Cell c : currentModel.getMooreNeighborhood(current.getX(), current.getY())) {
-      if (c.getCurrentState().getState() == 1) {
+      if (c.getCurrentState().getState() == state1) {
         return true;
       }
     }

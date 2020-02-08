@@ -1,19 +1,19 @@
 package utils;
 
 import controllerPackage.State;
-import javafx.scene.paint.Paint;
 
 public class Cell {
 
   private State currentState;
   private State nextState;
-  private Paint displayColor;
+  private String displayColor;
   private final int x;
   private final int y;
 
   public Cell(int x,int y){
     currentState = null;
     nextState = null;
+    displayColor = "000000";
     this.x = x;
     this.y = y;
   }
@@ -30,7 +30,7 @@ public class Cell {
     return nextState;
   }
 
-  public Paint getDisplayColor() {
+  public String getDisplayColor() {
     return displayColor;
   }
 
@@ -46,7 +46,7 @@ public class Cell {
     this.nextState = nextState;
   }
 
-  public void setDisplayColor(Paint displayColor) {
+  public void setDisplayColor(String displayColor) {
     this.displayColor = displayColor;
   }
 }

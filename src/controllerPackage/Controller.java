@@ -20,9 +20,13 @@ public abstract class Controller {
   protected final int HEIGHT_CELLS;
   protected double spacing;
 
-  protected Color state0Color;
-  protected Color state1Color;
-  protected Color state2Color;
+  protected String state0Color;
+  protected String state1Color;
+  protected String state2Color;
+
+  protected static final int state0 = 0;
+  protected static final int state1 = 1;
+  protected static final int state2 = 2;
 
 
 
@@ -89,13 +93,13 @@ public abstract class Controller {
   protected void calcNewDisplay(Cell cell) {
 
     switch (cell.getCurrentState().getState()) {
-      case 0:
+      case state0:
         cell.setDisplayColor(state0Color);
         break;
-      case 1:
+      case state1:
         cell.setDisplayColor(state1Color);
         break;
-      case 2:
+      case state2:
         cell.setDisplayColor(state2Color);
         break;
 
@@ -103,9 +107,9 @@ public abstract class Controller {
   }
 
   protected void setSimColor(){
-    state0Color = Color.valueOf(reader.getString("state0Color"));
-    state1Color = Color.valueOf(reader.getString("state1Color"));
-    state2Color = Color.valueOf(reader.getString("state2Color"));
+    state0Color = reader.getString("state0Color");
+    state1Color = reader.getString("state1Color");
+    state2Color = reader.getString("state2Color");
   }
 
   protected boolean probabilityChecker(double compareTo) {

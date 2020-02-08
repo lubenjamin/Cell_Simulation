@@ -103,10 +103,10 @@ public class ControlPanel extends Group {
     private void handleSlider() {
         myAnimation.setRate(mySlider.getValue());
     }
-    private void setPause() {
+    public void setPause() {
         isPaused = true;
     }
-    public void setPlay() {
+    private void setPlay() {
         if (isSimLoaded) {
             isPaused = false;
         }

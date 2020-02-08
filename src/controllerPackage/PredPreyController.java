@@ -21,6 +21,7 @@ public class PredPreyController extends Controller {
   private ArrayList<Cell> sharkNeedMove;
   private ArrayList<Cell> fishNeedMove;
 
+
   private PredPreyGraph myGraph;
 
   private int numFish;
@@ -40,14 +41,14 @@ public class PredPreyController extends Controller {
   protected void initializeCellState(Cell current) {
     if (probabilityChecker(percentOccupied)) {
       if (probabilityChecker(percentFish)) {
-        current.setCurrentState(new PPState(1));
+        current.setCurrentState(new PPState(state1));
         ((PPState) current.getCurrentState()).setBreed(random.nextInt(fishBreed + 1));
       } else {
-        current.setCurrentState(new PPState(2));
+        current.setCurrentState(new PPState(state2));
         ((PPState) current.getCurrentState()).setBreed(random.nextInt(sharkBreed + 1));
       }
     } else {
-      current.setCurrentState(new PPState(0));
+      current.setCurrentState(new PPState(state0));
     }
   }
 
@@ -77,9 +78,9 @@ public class PredPreyController extends Controller {
   @Override
   protected void updateCell(int x, int y) {
     Cell current = currentModel.getCell(x, y);
-    if (current.getCurrentState().getState() == 0 || ((PPState) current.getCurrentState()).checkLife()) {
-      current.setNextState(new PPState(0));
-    } else if (current.getCurrentState().getState() == 2) {
+    if (current.getCurrentState().getState() == state0 || ((PPState) current.getCurrentState()).checkLife()) {
+      current.setNextState(new PPState(state0));
+    } else if (current.getCurrentState().getState() == state2) {
       sharkNeedMove.add(current);
     } else {
       fishNeedMove.add(current);
@@ -88,14 +89,14 @@ public class PredPreyController extends Controller {
   }
 
   private void moveFish() {
-    while (fishNeedMove.size() > 0) {
+    while (!fishNeedMove.isEmpty()) {
       int index = random.nextInt(fishNeedMove.size());
       Cell current = fishNeedMove.remove(index);
       if (current.getNextState() != null) {
         continue;
       }
       ArrayList<Cell> emptyNeighbors = getEmptyNextState(current);
-      if (emptyNeighbors.size() == 0) {
+      if (emptyNeighbors.isEmpty()) {
         current.setNextState(new PPState((PPState) current.getCurrentState()));
       } else {
         int moveIndex = random.nextInt(emptyNeighbors.size());
@@ -105,15 +106,15 @@ public class PredPreyController extends Controller {
   }
 
   private void moveSharks() {
-    while (sharkNeedMove.size() > 0) {
+    while (!sharkNeedMove.isEmpty()) {
       int index = random.nextInt(sharkNeedMove.size());
       Cell current = sharkNeedMove.remove(index);
       ArrayList<Cell> fishLoc = getFishNeighbors(current);
       ArrayList<Cell> empty = getEmptyNextState(current);
-      if (fishLoc.size() > 0) {
+      if (!fishLoc.isEmpty()) {
         int place = random.nextInt(fishLoc.size());
         moveSharkToSpot(fishLoc.get(place), current);
-      } else if (empty.size() > 0) {
+      } else if (!empty.isEmpty()) {
         int place = random.nextInt(empty.size());
         moveSharkToSpot(empty.get(place), current);
       } else {
@@ -136,11 +137,11 @@ public class PredPreyController extends Controller {
   }
 
   private ArrayList<Cell> getEmptyNextState(Cell current) {
-    ArrayList<Cell> neigh = currentModel.getTorusNeighborhood(current.getX(), current.getY());
+    ArrayList<Cell> neigh = (ArrayList<Cell>) currentModel.getTorusNeighborhood(current.getX(), current.getY());
     ArrayList<Cell> empty = new ArrayList<>();
     for (Cell c : neigh) {
-      if (c.getCurrentState().getState() == 0 && (c.getNextState() == null
-          || c.getNextState().getState() == 0)) {
+      if (c.getCurrentState().getState() == state0 && (c.getNextState() == null
+          || c.getNextState().getState() == state0)) {
         empty.add(c);
       }
     }
@@ -148,10 +149,10 @@ public class PredPreyController extends Controller {
   }
 
   private ArrayList<Cell> getFishNeighbors(Cell current) {
-    ArrayList<Cell> neigh = currentModel.getTorusNeighborhood(current.getX(), current.getY());
+    ArrayList<Cell> neigh = (ArrayList<Cell>) currentModel.getTorusNeighborhood(current.getX(), current.getY());
     ArrayList<Cell> fish = new ArrayList<>();
     for (Cell c : neigh) {
-      if (c.getCurrentState().getState() == 1) {
+      if (c.getCurrentState().getState() == state1) {
         fish.add(c);
       }
     }
@@ -163,7 +164,7 @@ public class PredPreyController extends Controller {
       current.setNextState(new PPState(current.getCurrentState().getState()));
       ((PPState) current.getCurrentState()).resetBreed();
     } else {
-      current.setNextState(new PPState(0));
+      current.setNextState(new PPState(state0));
     }
   }
 
@@ -174,10 +175,10 @@ public class PredPreyController extends Controller {
       int x = i % WIDTH_CELLS;
       int y = i / WIDTH_CELLS;
       Cell current = currentModel.getCell(x,y);
-      if(current.getCurrentState().getState() == 1){
+      if(current.getCurrentState().getState() == state1){
         numFish ++;
       }
-      if (current.getCurrentState().getState() == 2){
+      if (current.getCurrentState().getState() == state2){
         numShark++;
       }
     }
@@ -190,11 +191,11 @@ public class PredPreyController extends Controller {
 
     public PPState(int state) {
       super(state);
-      if (state == 2) {
+      if (state == state2) {
         life = sharkStarve;
         breed = sharkBreed;
       }
-      if (state == 1) {
+      if (state == state1) {
         breed = fishBreed;
       }
     }
@@ -202,7 +203,7 @@ public class PredPreyController extends Controller {
     public PPState(PPState prevState) {
       super(prevState.getState());
       breed = prevState.getBreed();
-      if (prevState.getState() == 2) {
+      if (prevState.getState() == state2) {
         life = prevState.getLife();
       }
 
@@ -236,16 +237,16 @@ public class PredPreyController extends Controller {
     }
 
     public void resetBreed() {
-      if (state == 2) {
+      if (state == state2) {
         breed = sharkBreed;
       }
-      if (state == 1) {
+      if (state == state1) {
         breed = fishBreed;
       }
     }
 
     public boolean checkLife() {
-      if (state == 2) {
+      if (state == state2) {
         return life <= 0;
       }
       return false;

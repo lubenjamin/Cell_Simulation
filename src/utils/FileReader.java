@@ -6,6 +6,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.nio.file.FileSystemException;
 
 /**
  * simulation size
@@ -22,7 +24,6 @@ public class FileReader{
     private final String simType;
     private final String rows;
     private final String columns;
-    private String file;
 
     public FileReader(String fileName){
         if(!setElement(fileName)){
@@ -38,14 +39,11 @@ public class FileReader{
     public boolean setElement(String fileName){
 
         try{
-
-            file = fileName;
             File simulation = new File("data/" + fileName);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(simulation);
             doc.getDocumentElement().normalize();
-
             NodeList nodes = doc.getElementsByTagName("simulation");
             for (int i = 0; i < nodes.getLength(); i++) {
                 Node node = nodes.item(i);
@@ -54,14 +52,17 @@ public class FileReader{
                     return true;
                 }
             }
-            System.out.println("FILE IS NOT CORRECT");
             return false;
         }
         catch(Exception e){
-            System.out.println("FILE IS NOT CORRECT");
+            /**
+             * dont throw
+             * make pop
+             * system.exit(0)
+             */
+            System.exit(0);
             return false;
         }
-
     }
 
     public int getIntValue(String parameter){

@@ -14,6 +14,7 @@ import javafx.animation.Timeline;
 import javafx.scene.Group;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import utils.XMLException;
 
 import javax.naming.ldap.Control;
 import java.io.File;
@@ -55,11 +56,8 @@ public class Simulator {
     checkSimName(mySim, reader, false);
 
     KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> {
-      try {
         step();
-      } catch (Exception ex) {
-        ex.printStackTrace(); //change to an exception
-      }
+
     });
 
     myAnimation.setCycleCount(Timeline.INDEFINITE);
@@ -67,11 +65,11 @@ public class Simulator {
     myAnimation.play();
   }
 
-  private void step() throws Exception {
+  private void step(){
     myNewSim = UI.getSim();
     if (!myNewSim.equals(mySim)) {
       currentController.clear();
-      myControlPanel.setPlay();
+      myControlPanel.setPause();
       FileReader reader = new FileReader(myNewSim + EXTENSION);
       mySim = reader.getSimType();
       checkSimName(mySim, reader, true);
