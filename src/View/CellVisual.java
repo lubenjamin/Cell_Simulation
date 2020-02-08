@@ -1,13 +1,14 @@
-package cellsociety.View;
+package View;
 
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
 public class CellVisual extends Rectangle {
-    double myXPos;
-    double myYPos;
-    Paint myColor;
-    public CellVisual(double width, double height, Paint color, double x, double y) {
+    final int myXPos;
+    final int myYPos;
+    final Paint myColor;
+
+    public CellVisual(double width, double height, Paint color, int x, int y) {
         this.myXPos = x;
         this.myYPos = y;
         this.myColor = color;
@@ -15,10 +16,10 @@ public class CellVisual extends Rectangle {
         this.setHeight(height);
         this.setFill(color);
     }
-    public double getXPos() {
+    public int getXPos() {
         return myXPos;
     }
-    public double getYPos() {
+    public int getYPos() {
         return myYPos;
     }
 }

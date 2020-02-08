@@ -53,9 +53,9 @@ public void setWeapon(Weapon newWeapon)
 }
 
 
-public class Runner(){
+public class Main(){
 
-public Runner()
+public Main()
 
 public int comparator(Weapon w1, Weapon w2)
 

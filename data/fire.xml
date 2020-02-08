@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<simulation>
+    <type>Fire</type>
+    <rows>75</rows>
+    <columns>75</columns>
+    <initialTree>1</initialTree>
+    <initialBurningTree>0.001</initialBurningTree>
+    <percentCatchFire>0.55</percentCatchFire>
+    <state0Color>0x1d1010</state0Color>
+    <state1Color>0x2c4920</state1Color>
+    <state2Color>0xdf0000ff</state2Color>
+    <spacing>0.01</spacing>
+</simulation>
+
