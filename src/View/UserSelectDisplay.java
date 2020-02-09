@@ -27,29 +27,47 @@ public class UserSelectDisplay extends Stage {
 
     private final ResourceBundle myResources;
     private final ComboBox<String> myDropDown;
+    private final ComboBox<String> myDropDown2;
 
 
     private final ControlPanel myControlPanel;
     private final ArrayList<String> mySims;
 
-    public UserSelectDisplay(ResourceBundle resources, ControlPanel controls, ArrayList<String> sims) {
+    private boolean state;
+
+    public UserSelectDisplay(ResourceBundle resources, ControlPanel controls, ArrayList<String> sims, boolean b) {
         this.myResources = resources;
         this.myControlPanel = controls;
         this.mySims = sims;
+        this.state = b;
         myDropDown = new ComboBox<>();
+        myDropDown.setValue("Switch Simulation");
+        myDropDown2 = new ComboBox<>();
+        myDropDown2.setValue("Add Simulation");
+        if (!b) {
         initUserSelectDisplay();
-        initSimSelect(event -> setSim(), mySims);
+        }
+        initSimSelect(event -> setSim(), event -> addSim(), mySims);
     }
     public String setSim() {
         String st = myDropDown.getValue();
-//        if (st == "PredatorPrey") {
-//            myControlPanel.addPredPreyGraph();
-//        }
         myControlPanel.setSimLoad(true);
+        return st;
+    }
+    public String addSim() {
+        String st = myDropDown2.getValue();
+        if (! st.equals("Add Simulation")) {
+            myControlPanel.setSimAdd(true);
+            Stage stage = new Stage();
+            Simulator s = new Simulator(stage, true, st);
+        }
         return st;
     }
     public ComboBox<String> getDropDown() {
         return myDropDown;
+    }
+    public ComboBox<String> getDropDown2() {
+        return myDropDown2;
     }
     private void initUserSelectDisplay() {
             setTitle(myResources.getString("CHOICETITLE"));
@@ -71,17 +89,16 @@ public class UserSelectDisplay extends Stage {
     }
     private void pickSim(Button b) {
         String ret = b.getText();
-//        if (ret.equals("PredatorPrey")) {
-//            myControlPanel.addPredPreyGraph();
-//        }
         myDropDown.setValue(ret);
         setSim();
         close();
     }
-    private void initSimSelect(EventHandler<ActionEvent> handler, ArrayList<String> simNames) {
+    private void initSimSelect(EventHandler<ActionEvent> handler,EventHandler<ActionEvent> handler2, ArrayList<String> simNames) {
         myDropDown.setOnAction(handler);
+        myDropDown2.setOnAction(handler2);
         for (String s : simNames) {
             myDropDown.getItems().add(s);
+            myDropDown2.getItems().add(s);
         }
     }
 

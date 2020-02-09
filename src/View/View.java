@@ -33,6 +33,7 @@ public class View {
     myViewGroup.getChildren().clear();
   }
   private void initCellView(Model grid, int width, int height) {
+    Group g = new Group();
     myVisualWidth = VIEW_BOUND/width;
     myVisualHeight = VIEW_BOUND/height;
     for (int i = 0; i < width; i++) {
@@ -41,9 +42,10 @@ public class View {
         cv.setX(i*(myVisualWidth+spacing));
         cv.setY(j*(myVisualHeight+spacing));
         myVisuals.add(cv);
-        myViewGroup.getChildren().add(cv);
+        g.getChildren().add(cv);
       }
     }
+    myViewGroup.getChildren().add(g);
   }
   private Paint displayState(Cell cell) {
     return Color.valueOf(cell.getDisplayColor());

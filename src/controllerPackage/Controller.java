@@ -115,7 +115,6 @@ public abstract class Controller {
   protected boolean probabilityChecker(double compareTo) {
     double stateSelect = random.nextDouble();
     return stateSelect < compareTo;
-
   }
 
 

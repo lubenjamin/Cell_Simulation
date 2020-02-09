@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.chart.LineChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
@@ -44,6 +45,7 @@ public class ControlPanel extends Group {
     private boolean isReset;
     private boolean isStep;
     private boolean isSimLoaded;
+    private boolean isSimAdded;
 
     public ControlPanel(Timeline animation) {
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
@@ -66,11 +68,10 @@ public class ControlPanel extends Group {
         result.setOnAction(handler);
         return result;
     }
-//    public void addPredPreyGraph() {
-//        myGraph = new PredPreyGraph();
-//        panel.setSpacing(50);
-//        panel.getChildren().add(myGraph);
-//    }
+    public PredPreyGraph addPredPreyGraph() {
+        myGraph = new PredPreyGraph();
+        return myGraph;
+    }
     private Node initControlPanel() {
         HBox result = new HBox();
         myPlayButton = makeButton("PLAYCOMMAND", event -> setPlay());
@@ -89,7 +90,7 @@ public class ControlPanel extends Group {
     private Slider makeSlider(EventHandler<MouseEvent> handler) {
         Slider mySlider = new Slider();
         mySlider.setOnMouseReleased(handler);
-        mySlider.setMin(0);
+        mySlider.setMin(1);
         mySlider.setMax(50);
         mySlider.setValue(15);
         mySlider.setShowTickLabels(true);
@@ -135,8 +136,11 @@ public class ControlPanel extends Group {
     public void resetControl() {
         this.isReset = false;
         this.isStep = false;
-
+        this.isSimAdded = false;
+    }
+    public boolean getAddStatus() {
+        return this.isSimAdded;
     }
     public void setSimLoad(boolean b) { this.isSimLoaded = b; }
-
+    public void setSimAdd(boolean b) { this.isSimAdded = b; }
 }
