@@ -57,7 +57,6 @@ public class Simulator {
 
     KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> {
         step();
-
     });
 
     myAnimation.setCycleCount(Timeline.INDEFINITE);
