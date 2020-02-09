@@ -5,17 +5,13 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.nio.file.FileSystemException;
 
-/**
- * simulation size
- * probabilities
- * five titles
- * initial states (segregation)
- *
- */
 
 public class FileReader{
 
@@ -24,16 +20,13 @@ public class FileReader{
     private final String simType;
     private final String rows;
     private final String columns;
+    private String errorMessage;
 
-    public FileReader(String fileName){
-        if(!setElement(fileName)){
-            System.out.println("NO SIMULATION ELEMENT IN FILE");
-        }
+    public FileReader(String fileName) throws XMLException {
+        setElement(fileName);
         simType = getValue("type", simElement);
         rows = getValue("rows", simElement);
         columns = getValue("columns", simElement);
-
-
     }
 
     public boolean setElement(String fileName){
@@ -54,27 +47,36 @@ public class FileReader{
             }
             return false;
         }
-        catch(Exception e){
-            /**
-             * dont throw
-             * make pop
-             * system.exit(0)
-             */
-            System.exit(0);
-            return false;
+        catch(RuntimeException | ParserConfigurationException | SAXException | IOException e){
+            throw new XMLException("INVALID FILE: "+fileName, fileName);
         }
     }
 
     public int getIntValue(String parameter){
-        return Integer.parseInt(getValue(parameter,simElement));
+        try {
+            return Integer.parseInt(getValue(parameter, simElement));
+        }catch(NullPointerException e){
+            errorMessage = parameter+" parameter is invalid";
+            throw new parameterException(parameter+" parameter is invalid", parameter);
+        }
     }
 
     public double getDoubleValue(String parameter) {
-        return Double.parseDouble(getValue(parameter,simElement));
+        try {
+            return Double.parseDouble(getValue(parameter, simElement));
+        }catch(NullPointerException e){
+            errorMessage = parameter+" parameter is invalid";
+            throw new parameterException(parameter+" parameter is invalid", parameter);
+        }
     }
 
     public String getString(String parameter) {
-        return getValue(parameter,simElement);
+        try {
+            return getValue(parameter, simElement);
+        }catch(NullPointerException e){
+            errorMessage = parameter+" parameter is invalid";
+            throw new parameterException(parameter+" parameter is invalid", parameter);
+        }
     }
 
 
@@ -97,5 +99,8 @@ public class FileReader{
         return Integer.parseInt(columns);
     }
 
+    public String getErrorMessage(){
+        return errorMessage;
+    }
 
 }
