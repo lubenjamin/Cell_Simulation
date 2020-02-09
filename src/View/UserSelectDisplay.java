@@ -57,7 +57,6 @@ public class UserSelectDisplay extends Stage {
     public String addSim() {
         String st = myDropDown2.getValue();
         if (! st.equals("Add Simulation")) {
-            myControlPanel.setSimAdd(true);
             Stage stage = new Stage();
             Simulator s = new Simulator(stage, true, st);
         }
@@ -87,11 +86,12 @@ public class UserSelectDisplay extends Stage {
             setScene(s);
             showAndWait();
     }
-    private void pickSim(Button b) {
+    private String pickSim(Button b) {
         String ret = b.getText();
         myDropDown.setValue(ret);
         setSim();
         close();
+        return ret;
     }
     private void initSimSelect(EventHandler<ActionEvent> handler,EventHandler<ActionEvent> handler2, ArrayList<String> simNames) {
         myDropDown.setOnAction(handler);

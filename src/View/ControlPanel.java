@@ -45,12 +45,11 @@ public class ControlPanel extends Group {
     private boolean isReset;
     private boolean isStep;
     private boolean isSimLoaded;
-    private boolean isSimAdded;
 
     public ControlPanel(Timeline animation) {
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
         this.myAnimation = animation;
-        this.isPaused=true;
+        this.isPaused = true;
         this.panel = new HBox();
         getChildren().add(initControlPanel());
     }
@@ -136,11 +135,6 @@ public class ControlPanel extends Group {
     public void resetControl() {
         this.isReset = false;
         this.isStep = false;
-        this.isSimAdded = false;
-    }
-    public boolean getAddStatus() {
-        return this.isSimAdded;
     }
     public void setSimLoad(boolean b) { this.isSimLoaded = b; }
-    public void setSimAdd(boolean b) { this.isSimAdded = b; }
 }

@@ -1,11 +1,17 @@
 package View;
 
+import controllerPackage.State;
+import javafx.event.EventHandler;
+import javafx.scene.control.ChoiceDialog;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import utils.Cell;
 import utils.Model;
 import javafx.scene.Group;
 import javafx.scene.paint.Paint;
+
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class View {
   private final double spacing;
@@ -43,11 +49,26 @@ public class View {
         cv.setY(j*(myVisualHeight+spacing));
         myVisuals.add(cv);
         g.getChildren().add(cv);
+        EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
+          @Override
+          public void handle(MouseEvent mouseEvent) {
+//            grid.getCell(cv.getXPos(), cv.getYPos()).setNextState(Color.BLACK);
+//            cv.setFill(displayState(grid.getCell(cv.getXPos(), cv.getYPos())));
+              handleCellClick(grid.getCell(cv.getXPos(), cv.getYPos()));
+          }
+        };
+        cv.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
       }
     }
     myViewGroup.getChildren().add(g);
   }
   private Paint displayState(Cell cell) {
     return Color.valueOf(cell.getDisplayColor());
+  }
+  private void handleCellClick(Cell cell ) {
+    ChoiceDialog<Integer> cd = new ChoiceDialog<>(1, 2, 3);
+    cd.setContentText("Pick a state");
+    Optional<Integer> res = cd.showAndWait();
+    res.ifPresent(choice -> cell.setNextState(new State(choice)));
   }
 }
