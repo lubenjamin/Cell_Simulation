@@ -6,19 +6,21 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.HBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class UserSelectDisplay extends Stage {
     private static final String STYLESHEET = "resources/default.css";
 
-    private Button mySegButton = new Button();
-    private Button myPercButton = new Button();
-    private Button myLifeButton = new Button();
-    private Button myFireButton = new Button();
-    private Button myPredButton = new Button();
+//    private Button mySegButton = new Button();
+//    private Button myPercButton = new Button();
+//    private Button myLifeButton = new Button();
+//    private Button myFireButton = new Button();
+//    private Button myPredButton = new Button();
 
     private static final String RESOURCES = "resources";
     private static final String DEFAULT_RESOURCE_PACKAGE = RESOURCES + ".";
@@ -32,6 +34,7 @@ public class UserSelectDisplay extends Stage {
 
     private final ControlPanel myControlPanel;
     private final ArrayList<String> mySims;
+    private File myFirstSim;
 
     private boolean state;
 
@@ -69,30 +72,40 @@ public class UserSelectDisplay extends Stage {
         return myDropDown2;
     }
     private void initUserSelectDisplay() {
-            setTitle(myResources.getString("CHOICETITLE"));
-            HBox v = new HBox();
-            mySegButton = myControlPanel.makeButton("SIM1", event -> pickSim(mySegButton));
-            myPercButton = myControlPanel.makeButton("SIM2", event -> pickSim(myPercButton));
-            myLifeButton = myControlPanel.makeButton("SIM3", event -> pickSim(myLifeButton));
-            myFireButton = myControlPanel.makeButton("SIM4", event -> pickSim(myFireButton));
-            myPredButton = myControlPanel.makeButton("SIM5", event -> pickSim(myPredButton));
-            v.getChildren().add(mySegButton);
-            v.getChildren().add(myPercButton);
-            v.getChildren().add(myLifeButton);
-            v.getChildren().add(myFireButton);
-            v.getChildren().add(myPredButton);
-            Scene s = new Scene(v);
-            s.getStylesheets().add(STYLESHEET);
-            setScene(s);
-            showAndWait();
-    }
-    private String pickSim(Button b) {
-        String ret = b.getText();
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle("Load a new XML file");
+        chooser.setInitialDirectory(new File(System.getProperty("user.dir")));
+        myFirstSim = chooser.showOpenDialog(this);
+        String ret = myFirstSim.getName().split(".xml")[0];
         myDropDown.setValue(ret);
         setSim();
-        close();
-        return ret;
     }
+//    private void initUserSelectDisplay() {
+//            setTitle(myResources.getString("CHOICETITLE"));
+//            HBox v = new HBox();
+//            mySegButton = myControlPanel.makeButton("SIM1", event -> pickSim(mySegButton));
+//            myPercButton = myControlPanel.makeButton("SIM2", event -> pickSim(myPercButton));
+//            myLifeButton = myControlPanel.makeButton("SIM3", event -> pickSim(myLifeButton));
+//            myFireButton = myControlPanel.makeButton("SIM4", event -> pickSim(myFireButton));
+//            myPredButton = myControlPanel.makeButton("SIM5", event -> pickSim(myPredButton));
+//            v.getChildren().add(mySegButton);
+//            v.getChildren().add(myPercButton);
+//            v.getChildren().add(myLifeButton);
+//            v.getChildren().add(myFireButton);
+//            v.getChildren().add(myPredButton);
+//            Scene s = new Scene(v);
+//            s.getStylesheets().add(STYLESHEET);
+//            setScene(s);
+//            showAndWait();
+//    }
+
+//    private String pickSim(Button b) {
+//        String ret = b.getText();
+//        myDropDown.setValue(ret);
+//        setSim();
+//        close();
+//        return ret;
+//    }
     private void initSimSelect(EventHandler<ActionEvent> handler,EventHandler<ActionEvent> handler2, ArrayList<String> simNames) {
         myDropDown.setOnAction(handler);
         myDropDown2.setOnAction(handler2);

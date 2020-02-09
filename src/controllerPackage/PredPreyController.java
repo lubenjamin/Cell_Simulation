@@ -45,6 +45,7 @@ public class PredPreyController extends Controller {
     } else {
       current.setCurrentState(new PPState(state0));
     }
+    super.giveCellStates(current);
   }
   @Override
   protected void setSimParams() {

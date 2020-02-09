@@ -24,6 +24,7 @@ public class GameOfLifeController extends Controller {
       current.setCurrentState(new State(state0));
 
     }
+    super.giveCellStates(current);
   }
 
   @Override

@@ -146,13 +146,4 @@ public class Simulator {
     }
 
   }
-//  public void checkCellClick(CellVisual cv, Cell cell, Controller c, FileReader r) {
-//    ChoiceDialog<String> cd = new ChoiceDialog<>(r.getString("state0Color"));
-//    cd.setTitle("State");
-//    cd.setContentText("Choose cell state");
-//    Optional<String> res = cd.showAndWait();
-//    res.ifPresent(event -> {
-//      c.updateCell(cell.getX(), cell.getY());
-//    });
-//  }
 }

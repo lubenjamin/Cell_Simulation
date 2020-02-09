@@ -23,6 +23,8 @@ public class View {
   private final Group myViewGroup;
   private final ArrayList<CellVisual> myVisuals = new ArrayList<>();
 
+  private int currState = 0;
+
   public View(Group viewGroup, int widthCells, int heightCells, Model currentModel, double spacing) {
 
     this.spacing = spacing;
@@ -49,14 +51,7 @@ public class View {
         cv.setY(j*(myVisualHeight+spacing));
         myVisuals.add(cv);
         g.getChildren().add(cv);
-        EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
-          @Override
-          public void handle(MouseEvent mouseEvent) {
-//            grid.getCell(cv.getXPos(), cv.getYPos()).setNextState(Color.BLACK);
-//            cv.setFill(displayState(grid.getCell(cv.getXPos(), cv.getYPos())));
-              handleCellClick(grid.getCell(cv.getXPos(), cv.getYPos()));
-          }
-        };
+        EventHandler<MouseEvent> eventHandler = mouseEvent -> handleCellClick(grid.getCell(cv.getXPos(), cv.getYPos()), cv);
         cv.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
       }
     }
@@ -65,10 +60,20 @@ public class View {
   private Paint displayState(Cell cell) {
     return Color.valueOf(cell.getDisplayColor());
   }
-  private void handleCellClick(Cell cell ) {
-    ChoiceDialog<Integer> cd = new ChoiceDialog<>(1, 2, 3);
-    cd.setContentText("Pick a state");
-    Optional<Integer> res = cd.showAndWait();
-    res.ifPresent(choice -> cell.setNextState(new State(choice)));
+  private void handleCellClick(Cell cell, CellVisual cv) {
+//    ChoiceDialog<Integer> cd = new ChoiceDialog<>(0, 1, 2);
+//    cd.setTitle("State Select");
+//    cd.setHeaderText("0 = Empty, 1 = Tree, 2 = Burning");
+//    cd.setContentText("Pick a state");
+//    Optional<Integer> res = cd.showAndWait();
+//    res.ifPresent(choice -> cell.setCurrentState(new State(choice)));
+//    res.ifPresent(choice -> cell.changeColor(choice));
+    currState++;
+    if (currState > 2) {
+      currState = 0;
+    }
+    cell.setCurrentState(new State(currState));
+    cell.changeColor(currState);
+    cv.setFill(displayState(cell));
   }
 }
