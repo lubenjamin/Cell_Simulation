@@ -1,5 +1,6 @@
 package utils;
 
+import javafx.application.Platform;
 import javafx.scene.control.Alert;
 
 public class parameterException extends NullPointerException {
@@ -11,6 +12,7 @@ public class parameterException extends NullPointerException {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         //alert.setTitle(myResources.getString("ErrorTitle"));
         alert.setContentText(message);
-        alert.showAndWait();
+        //alert.showAndWait();
+        Platform.runLater(alert::showAndWait);
     }
 }

@@ -29,11 +29,11 @@ public class UserInterface {
     private HBox hb = new HBox();
     private PredPreyGraph myGraph;
 
-    public UserInterface(Stage stage, String language, ArrayList<String> simNames, ControlPanel panel, boolean b) {
+    public UserInterface(Stage stage, String language, ArrayList<String> simNames, ControlPanel panel, boolean isFirstSimulation) {
         this.mySims = simNames;
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
         this.myControlPanel = panel;
-        myDisplay = new UserSelectDisplay(myResources, myControlPanel, mySims, b);
+        myDisplay = new UserSelectDisplay(myResources, myControlPanel, mySims, isFirstSimulation);
         stage.setTitle(myResources.getString("SIMTITLE"));
     }
     public Scene setupUI(Group viewGroup) {

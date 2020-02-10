@@ -46,26 +46,24 @@ public class Simulator {
   private ArrayList<String> simNames;
   private Timeline myAnimation;
 
-  private boolean b;
 
   /**
    * Start of the program.
    */
-  public Simulator(Stage stage, boolean b, String sim) {
+  public Simulator(Stage stage, boolean isFirstSimulation, String sim) {
     getFileNames();
     myAnimation = new Timeline();
     myControlPanel = new ControlPanel(myAnimation);
-    UI = new UserInterface(stage, "English", simNames, myControlPanel, b);
+    UI = new UserInterface(stage, "English", simNames, myControlPanel, isFirstSimulation);
     myScene = UI.setupUI(viewGroup);
     stage.setScene(myScene);
     stage.show();
-    if (!b) {
+    if (!isFirstSimulation) {
       initialize(UI.getSim());
     }
     else {
       initialize(sim);
     }
-    this.b = b;
   }
   public void initialize(String sim){
       FileReader reader = new FileReader(sim + EXTENSION);
@@ -75,7 +73,6 @@ public class Simulator {
     KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> {
         step();
     });
-
     myAnimation.setCycleCount(Timeline.INDEFINITE);
     myAnimation.getKeyFrames().add(frame);
     myAnimation.play();
@@ -84,9 +81,11 @@ public class Simulator {
       myNewSim = UI.getSim();
       if (!myNewSim.equals("Switch Simulation") && !myNewSim.equals(mySim)) {
         currentController.clear();
-        myControlPanel.setPause();
+        //myAnimation.stop();
         FileReader reader = new FileReader(myNewSim + EXTENSION);
         mySim = reader.getSimType();
+        //myControlPanel.setPause();
+
         checkSimName(mySim, reader);
       }
     if (myControlPanel.getSimLoadStatus() && mySim != null) {

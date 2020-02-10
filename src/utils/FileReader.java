@@ -2,6 +2,7 @@ package utils;
 
 import javax.xml.parsers.*;
 
+import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -70,7 +71,7 @@ public class FileReader{
             alert.setHeaderText("Look, an Error Dialog");
             alert.setContentText("Ooops, there was an error!");
 
-            alert.showAndWait();
+            Platform.runLater(alert::showAndWait);
             throw new parameterException(parameter+" parameter is invalid", parameter);
         }
     }
