@@ -13,8 +13,6 @@ public class RockPaperScissors extends Controller{
     super(simGroup, reader);
   }
 
-t
-
   @Override
   protected void setSimParams() {
 
@@ -33,13 +31,6 @@ t
 
   @Override
   protected void updateCell(int x, int y) {
-    Cell current = currentModel.getCell(x,y);
-    ArrayList<Cell> neigh = (ArrayList<Cell>) currentModel.getMooreNeighborhood(x,y);
-    int state = current.getCurrentState().getState();
-
-    //array list of what beats
-
-
 
   }
 }
