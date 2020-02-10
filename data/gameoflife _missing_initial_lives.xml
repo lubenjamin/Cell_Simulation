@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<simulation>
+    <type>GameOfLife</type>
+    <rows>40</rows>
+    <columns>40</columns>
+    <initialLive></initialLive>
+    <state0Color>0xaaaaaa</state0Color>
+    <state1Color>0x0000df</state1Color>
+    <state2Color>0x000000</state2Color>
+    <spacing>.5</spacing>
+</simulation>
+
