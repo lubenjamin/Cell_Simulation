@@ -1,12 +1,10 @@
 package controllerPackage;
 
 
-import View.View;
 import View.SimSpecificUI;
-
+import View.View;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
@@ -21,12 +19,12 @@ public abstract class Controller {
 
   protected static ArrayList<String> colors;
   protected static int maxState;
-  protected Model currentModel;
   protected final View currentView;
   protected final Random random;
   protected final FileReader reader;
   protected final int WIDTH_CELLS;
   protected final int HEIGHT_CELLS;
+  protected Model currentModel;
   protected double spacing;
   protected SimSpecificUI simUI;
   protected String modelType;
@@ -51,11 +49,10 @@ public abstract class Controller {
     simUI = new SimSpecificUI(simUiGroup, getSimParamsForUi());
   }
 
-  protected void createModel(){
-    if(modelType.equals("Hex")) {
+  protected void createModel() {
+    if (modelType.equals("Hex")) {
       currentModel = new HexModel(WIDTH_CELLS, HEIGHT_CELLS, maxState);
-    }
-    else{
+    } else {
       currentModel = new SquareModel(WIDTH_CELLS, HEIGHT_CELLS, maxState);
     }
 
@@ -131,8 +128,7 @@ public abstract class Controller {
       if (!reader.checkExists("state" + x + "Color")) {
         System.out.println("missing state color: adding random color");
         colors.add(randomColor());
-      }
-      else{
+      } else {
         colors.add(reader.getString("state" + x + "Color"));
       }
     }
