@@ -112,10 +112,15 @@ public abstract class Controller {
     state2Color = reader.getString("state2Color");
   }
 
+  protected void giveCellStates(Cell current) {
+    current.addState(state0Color);
+    current.addState(state1Color);
+    current.addState(state2Color);
+  }
+
   protected boolean probabilityChecker(double compareTo) {
     double stateSelect = random.nextDouble();
     return stateSelect < compareTo;
-
   }
 
 

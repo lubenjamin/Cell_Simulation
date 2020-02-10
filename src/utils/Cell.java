@@ -2,6 +2,8 @@ package utils;
 
 import controllerPackage.State;
 
+import java.util.ArrayList;
+
 public class Cell {
 
   private State currentState;
@@ -9,11 +11,13 @@ public class Cell {
   private String displayColor;
   private final int x;
   private final int y;
+  private ArrayList<String> myStates;
 
   public Cell(int x,int y){
     currentState = null;
     nextState = null;
     displayColor = "000000";
+    myStates = new ArrayList<>();
     this.x = x;
     this.y = y;
   }
@@ -48,5 +52,13 @@ public class Cell {
 
   public void setDisplayColor(String displayColor) {
     this.displayColor = displayColor;
+  }
+
+  public void addState(String state) {
+    myStates.add(state);
+  }
+  public void changeColor(int stateNum) {
+    String state = myStates.get(stateNum);
+    setDisplayColor(state);
   }
 }

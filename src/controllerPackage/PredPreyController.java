@@ -28,15 +28,10 @@ public class PredPreyController extends Controller {
   private int numShark;
 
 
-  public PredPreyController(Group simGroup, FileReader reader) {
+  public PredPreyController(Group simGroup, FileReader reader, PredPreyGraph graph) {
     super(simGroup, reader);
-
-    //myGraph = new PredPreyGraph();
-    //myGraph.setLayoutX(10);
-    //myGraph.setLayoutY(10);
-    //simGroup.getChildren().add(myGraph);
+    this.myGraph = graph;
   }
-
   @Override
   protected void initializeCellState(Cell current) {
     if (probabilityChecker(percentOccupied)) {
@@ -50,8 +45,8 @@ public class PredPreyController extends Controller {
     } else {
       current.setCurrentState(new PPState(state0));
     }
+    super.giveCellStates(current);
   }
-
   @Override
   protected void setSimParams() {
     sharkBreed = reader.getIntValue("sharkBreed");
@@ -71,8 +66,8 @@ public class PredPreyController extends Controller {
     moveSharks();
     moveFish();
 
-//    countSpecies();
-//    myGraph.update(numShark,numFish);
+    countSpecies();
+    myGraph.update(numShark,numFish);
   }
 
   @Override

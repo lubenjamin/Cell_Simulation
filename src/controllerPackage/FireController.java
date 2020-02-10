@@ -36,6 +36,7 @@ public class FireController extends Controller {
     } else {
       current.setCurrentState(new State(state0));
     }
+    super.giveCellStates(current);
   }
 
   @Override
