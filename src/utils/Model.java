@@ -33,6 +33,8 @@ public abstract class Model {
     return ret;
   }
 
+  public abstract List<Cell> getMooreNeighborhood(int x, int y);
+
   private void addIfExists(ArrayList<Cell> ret, int x, int y) {
     if (x < grid[0].length && x >= 0 && y >= 0 && y < grid.length) {
       ret.add(grid[y][x]);
