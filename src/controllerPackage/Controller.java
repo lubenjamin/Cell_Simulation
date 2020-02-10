@@ -13,6 +13,7 @@ import javafx.scene.paint.Color;
 import utils.Cell;
 import utils.FileReader;
 import utils.Model;
+import utils.SquareModel;
 
 
 public abstract class Controller {
@@ -39,7 +40,7 @@ public abstract class Controller {
 
     WIDTH_CELLS = reader.getColumns();
     HEIGHT_CELLS = reader.getRows();
-    currentModel = new Model(WIDTH_CELLS, HEIGHT_CELLS, maxState);
+    currentModel = new SquareModel(WIDTH_CELLS, HEIGHT_CELLS, maxState);
     currentView = new View(simGroup, WIDTH_CELLS, HEIGHT_CELLS, currentModel, spacing, colors);
     initializeModel();
     currentView.updateAllCells();
