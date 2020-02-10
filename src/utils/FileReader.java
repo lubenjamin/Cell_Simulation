@@ -75,7 +75,6 @@ public class FileReader{
         try {
             return getValue(parameter, simElement);
         }catch(NullPointerException e){
-            errorMessage = parameter+" parameter is invalid";
             popUp(parameter);
             //throw new parameterException(errorMessage, parameter);
             return null;
