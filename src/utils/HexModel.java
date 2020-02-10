@@ -26,7 +26,7 @@ public class HexModel extends Model{
         return grid[y][x];
     }
 
-    public List<Cell> getNeighborhood(int x, int y) {
+    public List<Cell> getSimpleNeighborhood(int x, int y) {
         ArrayList<Cell> ret = new ArrayList<>();
         if(y % 2 == 0) {
             addIfExists(ret, x, y - 1);
