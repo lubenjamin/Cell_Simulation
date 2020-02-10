@@ -1,6 +1,8 @@
 package utils;
 
 import javax.xml.parsers.*;
+
+import javafx.scene.control.Alert;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -61,9 +63,14 @@ public class FileReader{
     public double getDoubleValue(String parameter) {
         try {
             return Double.parseDouble(getValue(parameter, simElement));
-        }catch(parameterException e){
+        }catch(NullPointerException e){
             errorMessage = parameter+" parameter is invalid";
-            e.showError(errorMessage);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setHeaderText("Look, an Error Dialog");
+            alert.setContentText("Ooops, there was an error!");
+
+            alert.showAndWait();
             throw new parameterException(parameter+" parameter is invalid", parameter);
         }
     }
