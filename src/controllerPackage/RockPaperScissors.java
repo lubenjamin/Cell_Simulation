@@ -10,6 +10,7 @@ public class RockPaperScissors extends Controller {
 
   private int numberOfTypes;
   private int threshold;
+  private int randomChanceThresh;
   private HashMap<Integer, ArrayList<Integer>> loseTo;
 
   public RockPaperScissors(Group simGroup, FileReader reader, Group simUIGroup) {
@@ -18,34 +19,13 @@ public class RockPaperScissors extends Controller {
     createLoseToMap();
   }
 
-  private void checkCount() {
-    int x0 = 0;
-    int x1 = 0;
-    int x2 = 0;
-    for (int i = 0; i < WIDTH_CELLS * HEIGHT_CELLS; i++) {
-      int x = i % WIDTH_CELLS;
-      int y = i / WIDTH_CELLS;
-      Cell cell = currentModel.getCell(x, y);
-      if (cell.getCurrentState().getState() == 0) {
-        x0++;
-      }
-      if (cell.getCurrentState().getState() == 1) {
-        x1++;
-      }
-      if (cell.getCurrentState().getState() == 2) {
-        x2++;
-      }
-    }
-    System.out.println(x0 + " " + x1 + " " + x2);
-  }
-
 
   @Override
   protected HashMap<String, Object> getSimParamsForUi() {
-
     HashMap<String, Object> ret = new HashMap<>();
     ret.put("numberOfTypes", numberOfTypes);
     ret.put("threshold", threshold);
+    ret.put("randomChanceThresh", randomChanceThresh);
     return ret;
   }
 
@@ -54,15 +34,15 @@ public class RockPaperScissors extends Controller {
     HashMap<String, Object> values = (HashMap<String, Object>) simUI.getValues();
     numberOfTypes = (int) values.get("numberOfTypes");
     threshold = (int) values.get("threshold");
+    randomChanceThresh = (int) values.get("randomChanceThresh");
     maxState = numberOfTypes - 1;
     createLoseToMap();
   }
-
-
   @Override
   protected void setSimParams() {
     numberOfTypes = reader.getIntValue("numberOfTypes");
     threshold = reader.getIntValue("threshold");
+    randomChanceThresh = reader.getIntValue("randomChanceThresh");
     spacing = reader.getDoubleValue("spacing");
     maxState = numberOfTypes - 1;
   }
@@ -70,7 +50,7 @@ public class RockPaperScissors extends Controller {
   @Override
   protected void initializeCellState(Cell cell) {
     int type = (int) (random.nextDouble() * numberOfTypes);
-    cell.setCurrentState(new State(type));
+    cell.setCurrentState(new State(whichPie(cell.getX(), cell.getY())));
   }
 
   @Override
@@ -81,26 +61,38 @@ public class RockPaperScissors extends Controller {
   }
 
   private int getNextType(Cell cell) {
-    ArrayList<Cell> neigh = (ArrayList<Cell>) currentModel
-        .getMooreNeighborhood(cell.getX(), cell.getY());
-    ArrayList<Integer> losing = loseTo.get(cell.getCurrentState().getState());
-    int[] maxLoseTo = new int[loseTo.size()];
-    int maxIndex = 0;
+    int[] countOfLosingNeighbors = getCountOfNeighbors(cell);
     int maxVal = 0;
-    for (Cell x : neigh) {
-      int index = losing.indexOf(x.getCurrentState().getState());
-      if (index >= 0) {
-        maxLoseTo[index] = maxLoseTo[index] + 1;
-        if (maxLoseTo[index] > maxVal) {
-          maxVal = maxLoseTo[index];
-          maxIndex = index;
-        }
+    ArrayList<Integer> possibleIndex = new ArrayList<>();
+    for(int x =0; x<countOfLosingNeighbors.length; x++){
+      if (countOfLosingNeighbors[x] > maxVal) {
+        possibleIndex.clear();
+        possibleIndex.add(x);
+        maxVal = countOfLosingNeighbors[x];
+      }
+      if(countOfLosingNeighbors[x]==maxVal){
+        possibleIndex.add(x);
       }
     }
-    if (maxVal > threshold) {
-      return losing.get(maxIndex);
+    if (maxVal > threshold + random.nextInt(randomChanceThresh)) {
+      return possibleIndex.get(random.nextInt(possibleIndex.size()));
     }
     return cell.getCurrentState().getState();
+  }
+
+  private int[] getCountOfNeighbors(Cell cell) {
+    ArrayList<Cell> neigh = (ArrayList<Cell>) currentModel.getMooreNeighborhood(cell.getX(), cell.getY());
+    ArrayList<Integer> statesLoseList = loseTo.get(cell.getCurrentState().getState());
+    int[] ret = new int[numberOfTypes];
+
+    for (Cell x : neigh) {
+      int index = statesLoseList.indexOf(x.getCurrentState().getState());
+      if (index >= 0) {
+        ret[x.getCurrentState().getState()] = ret[x.getCurrentState().getState()] + 1;
+      }
+    }
+
+    return ret;
   }
 
   private void createLoseToMap() {
@@ -119,5 +111,26 @@ public class RockPaperScissors extends Controller {
       }
       current.add(currentLastNumber);
     }
+  }
+
+  private int whichPie(int x, int y){
+
+    double xC = x-WIDTH_CELLS/2.0;
+    double yC = HEIGHT_CELLS/2.0-y;
+    double length = Math.sqrt(yC*yC + xC*xC);
+    double angle;
+    if(xC == 0){
+      xC = 1;
+    }
+    angle = Math.acos( xC/length);
+    if(yC<0){
+      angle = -1* angle;
+    }
+    if(angle<0){
+      angle = angle + Math.PI*2;
+    }
+    double sections = Math.PI*2.0/numberOfTypes;
+    return (int) (angle/sections);
+
   }
 }

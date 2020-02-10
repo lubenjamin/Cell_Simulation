@@ -38,7 +38,7 @@ public class SimSpecificUI {
     if (o instanceof Double) {
       s = new Spinner(0, 1, (double) o, .05);
     } else {
-      s = new Spinner(0, 100, 0, 1);
+      s = new Spinner(0, 100, (int) o, 1);
     }
     s.setEditable(true);
     spinners.put(k, s);
