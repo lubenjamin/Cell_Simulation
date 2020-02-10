@@ -53,27 +53,17 @@ public class Simulator {
     myScene = UI.setupUI(viewGroup, simUIGroup);
     stage.setScene(myScene);
     stage.show();
-    if (!isFirstSimulation) {
-      initialize(UI.getSim());
-    } else {
-      initialize(sim);
-    }
+    initialize();
   }
 
-  public void initialize(String sim) {
-//    FileReader reader = new FileReader(sim + EXTENSION);
-//    mySim = reader.getString("type");
-//    checkSimName(mySim, reader);
-
+  public void initialize() {
     KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> {
       step();
     });
-
     myAnimation.setCycleCount(Timeline.INDEFINITE);
     myAnimation.getKeyFrames().add(frame);
     myAnimation.play();
   }
-
 
   private void step(){
       myNewSim = UI.getSim();
@@ -90,7 +80,8 @@ public class Simulator {
         myControlPanel.setPause();
         FileReader reader2 = new FileReader(myNewSim + EXTENSION);
         mySim = myNewSim;
-        checkSimName(mySim, reader2);
+        String simselect = reader2.getString("type");
+        checkSimName(simselect, reader2);
     }
     if (myControlPanel.getSimLoadStatus() && mySim != null && currentController != null) {
       if (!myControlPanel.getPauseStatus() || myControlPanel.getUpdateStatus()) {
@@ -123,21 +114,22 @@ public class Simulator {
   private void checkSimName(String name, FileReader reader) {
     if (name == null) {
       currentController = null;
+      name = "";
     }
       switch (name) {
-        case "percolation":
+        case "Percolation":
           currentController = new PercolationController(viewGroup, reader, simUIGroup);
           break;
-        case "segregation":
+        case "Segregation":
           currentController = new SegregationController(viewGroup, reader, simUIGroup);
           break;
-        case "fire":
+        case "Fire":
           currentController = new FireController(viewGroup, reader, simUIGroup);
           break;
-        case "gameoflife":
+        case "GameOfLife":
           currentController = new GameOfLifeController(viewGroup, reader, simUIGroup);
           break;
-        case "predatorprey":
+        case "PredatorPrey":
           myGraph = UI.addPredChart();
           currentController = new PredPreyController(viewGroup, reader, simUIGroup, myGraph);
           break;
