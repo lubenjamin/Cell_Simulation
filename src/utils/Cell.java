@@ -2,24 +2,23 @@ package utils;
 
 import controllerPackage.State;
 
-import java.util.ArrayList;
-
 public class Cell {
 
-  private State currentState;
-  private State nextState;
-  private String displayColor;
   private final int x;
   private final int y;
-  private ArrayList<String> myStates;
+  private int newStateFromClick;
+  private int maxState;
+  private boolean clickedCell;
+  private State currentState;
+  private State nextState;
 
-  public Cell(int x,int y){
-    currentState = null;
+  public Cell(int x, int y, int maxState) {
+    clickedCell = false;
+    currentState = new State(0);
     nextState = null;
-    displayColor = "000000";
-    myStates = new ArrayList<>();
     this.x = x;
     this.y = y;
+    this.maxState = maxState;
   }
 
   public int getX() {
@@ -34,31 +33,33 @@ public class Cell {
     return nextState;
   }
 
-  public String getDisplayColor() {
-    return displayColor;
+  public void setNextState(State nextState) {
+    this.nextState = nextState;
   }
 
-  public State getCurrentState(){
+  public State getCurrentState() {
     return currentState;
   }
 
   public void setCurrentState(State currentState) {
     this.currentState = currentState;
+    newStateFromClick = currentState.getState();
   }
 
-  public void setNextState(State nextState) {
-    this.nextState = nextState;
+  public void incrementState() {
+    clickedCell = true;
+    newStateFromClick = (newStateFromClick + 1) % (maxState + 1);
   }
 
-  public void setDisplayColor(String displayColor) {
-    this.displayColor = displayColor;
+  public boolean isClickedCell() {
+    if (clickedCell) {
+      clickedCell = false;
+      return true;
+    }
+    return false;
   }
 
-  public void addState(String state) {
-    myStates.add(state);
-  }
-  public void changeColor(int stateNum) {
-    String state = myStates.get(stateNum);
-    setDisplayColor(state);
+  public int getNewStateFromClick() {
+    return newStateFromClick;
   }
 }

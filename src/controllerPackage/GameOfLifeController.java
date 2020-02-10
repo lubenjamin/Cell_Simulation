@@ -1,9 +1,9 @@
 package controllerPackage;
 
-import utils.Cell;
-import utils.FileReader;
 import java.util.ArrayList;
 import javafx.scene.Group;
+import utils.Cell;
+import utils.FileReader;
 
 
 public class GameOfLifeController extends Controller {
@@ -16,21 +16,21 @@ public class GameOfLifeController extends Controller {
     super(simGroup, reader);
   }
 
+
   @Override
   protected void initializeCellState(Cell current) {
     if (probabilityChecker(initialLive)) {
-      current.setCurrentState(new State(state1));
+      current.setCurrentState(new State(1));
     } else {
-      current.setCurrentState(new State(state0));
-
+      current.setCurrentState(new State(0));
     }
-    super.giveCellStates(current);
   }
 
   @Override
   protected void setSimParams() {
     initialLive = reader.getDoubleValue("initialLive");
     spacing = reader.getDoubleValue("spacing");
+    maxState = 1;
   }
 
   @Override
@@ -38,19 +38,20 @@ public class GameOfLifeController extends Controller {
     Cell current = currentModel.getCell(x, y);
 
     int numAlive = getNumAlive(current);
-    if ((current.getCurrentState().getState() == state1 && numAlive == 2) || numAlive == 3) {
-      current.setNextState(new State(state1));
+    if ((current.getCurrentState().getState() == 1 && numAlive == 2) || numAlive == 3) {
+      current.setNextState(new State(1));
     } else {
-      current.setNextState(new State(state0));
+      current.setNextState(new State(0));
     }
   }
 
 
   private int getNumAlive(Cell current) {
     int numAlive = 0;
-    ArrayList<Cell> neigh = (ArrayList<Cell>) currentModel.getMooreNeighborhood(current.getX(), current.getY());
+    ArrayList<Cell> neigh = (ArrayList<Cell>) currentModel
+        .getMooreNeighborhood(current.getX(), current.getY());
     for (Cell c : neigh) {
-      if (c.getCurrentState().getState() == state1) {
+      if (c.getCurrentState().getState() == 1) {
         numAlive++;
       }
     }

@@ -1,20 +1,17 @@
 package View;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.layout.HBox;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.ComboBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 public class UserSelectDisplay extends Stage {
-    private static final String STYLESHEET = "resources/default.css";
+
+  private static final String STYLESHEET = "resources/default.css";
 
 //    private Button mySegButton = new Button();
 //    private Button myPercButton = new Button();
@@ -22,64 +19,70 @@ public class UserSelectDisplay extends Stage {
 //    private Button myFireButton = new Button();
 //    private Button myPredButton = new Button();
 
-    private static final String RESOURCES = "resources";
-    private static final String DEFAULT_RESOURCE_PACKAGE = RESOURCES + ".";
-    private static final String DEFAULT_RESOURCE_FOLDER = "/" + RESOURCES + "/";
+  private static final String RESOURCES = "resources";
+  private static final String DEFAULT_RESOURCE_PACKAGE = RESOURCES + ".";
+  private static final String DEFAULT_RESOURCE_FOLDER = "/" + RESOURCES + "/";
 
 
-    private final ResourceBundle myResources;
-    private final ComboBox<String> myDropDown;
-    private final ComboBox<String> myDropDown2;
+  private final ResourceBundle myResources;
+  private final ComboBox<String> myDropDown;
+  private final ComboBox<String> myDropDown2;
 
 
-    private final ControlPanel myControlPanel;
-    private final ArrayList<String> mySims;
-    private File myFirstSim;
+  private final ControlPanel myControlPanel;
+  private final ArrayList<String> mySims;
+  private File myFirstSim;
 
-    private boolean state;
+  private boolean state;
 
-    public UserSelectDisplay(ResourceBundle resources, ControlPanel controls, ArrayList<String> sims, boolean b) {
-        this.myResources = resources;
-        this.myControlPanel = controls;
-        this.mySims = sims;
-        this.state = b;
-        myDropDown = new ComboBox<>();
-        myDropDown.setValue("Switch Simulation");
-        myDropDown2 = new ComboBox<>();
-        myDropDown2.setValue("Add Simulation");
-        if (!b) {
-        initUserSelectDisplay();
-        }
-        initSimSelect(event -> setSim(), event -> addSim(), mySims);
+  public UserSelectDisplay(ResourceBundle resources, ControlPanel controls, ArrayList<String> sims,
+      boolean b) {
+    this.myResources = resources;
+    this.myControlPanel = controls;
+    this.mySims = sims;
+    this.state = b;
+    myDropDown = new ComboBox<>();
+    myDropDown.setValue("Switch Simulation");
+    myDropDown2 = new ComboBox<>();
+    myDropDown2.setValue("Add Simulation");
+    if (!b) {
+      initUserSelectDisplay();
     }
-    public String setSim() {
-        String st = myDropDown.getValue();
-        myControlPanel.setSimLoad(true);
-        return st;
+    initSimSelect(event -> setSim(), event -> addSim(), mySims);
+  }
+
+  public String setSim() {
+    String st = myDropDown.getValue();
+    myControlPanel.setSimLoad(true);
+    return st;
+  }
+
+  public String addSim() {
+    String st = myDropDown2.getValue();
+    if (!st.equals("Add Simulation")) {
+      Stage stage = new Stage();
+      Simulator s = new Simulator(stage, true, st);
     }
-    public String addSim() {
-        String st = myDropDown2.getValue();
-        if (! st.equals("Add Simulation")) {
-            Stage stage = new Stage();
-            Simulator s = new Simulator(stage, true, st);
-        }
-        return st;
-    }
-    public ComboBox<String> getDropDown() {
-        return myDropDown;
-    }
-    public ComboBox<String> getDropDown2() {
-        return myDropDown2;
-    }
-    private void initUserSelectDisplay() {
-        FileChooser chooser = new FileChooser();
-        chooser.setTitle("Load a new XML file");
-        chooser.setInitialDirectory(new File(System.getProperty("user.dir")));
-        myFirstSim = chooser.showOpenDialog(this);
-        String ret = myFirstSim.getName().split(".xml")[0];
-        myDropDown.setValue(ret);
-        setSim();
-    }
+    return st;
+  }
+
+  public ComboBox<String> getDropDown() {
+    return myDropDown;
+  }
+
+  public ComboBox<String> getDropDown2() {
+    return myDropDown2;
+  }
+
+  private void initUserSelectDisplay() {
+    FileChooser chooser = new FileChooser();
+    chooser.setTitle("Load a new XML file");
+    chooser.setInitialDirectory(new File(System.getProperty("user.dir")));
+    myFirstSim = chooser.showOpenDialog(this);
+    String ret = myFirstSim.getName().split(".xml")[0];
+    myDropDown.setValue(ret);
+    setSim();
+  }
 //    private void initUserSelectDisplay() {
 //            setTitle(myResources.getString("CHOICETITLE"));
 //            HBox v = new HBox();
@@ -99,20 +102,21 @@ public class UserSelectDisplay extends Stage {
 //            showAndWait();
 //    }
 
-//    private String pickSim(Button b) {
+  //    private String pickSim(Button b) {
 //        String ret = b.getText();
 //        myDropDown.setValue(ret);
 //        setSim();
 //        close();
 //        return ret;
 //    }
-    private void initSimSelect(EventHandler<ActionEvent> handler,EventHandler<ActionEvent> handler2, ArrayList<String> simNames) {
-        myDropDown.setOnAction(handler);
-        myDropDown2.setOnAction(handler2);
-        for (String s : simNames) {
-            myDropDown.getItems().add(s);
-            myDropDown2.getItems().add(s);
-        }
+  private void initSimSelect(EventHandler<ActionEvent> handler, EventHandler<ActionEvent> handler2,
+      ArrayList<String> simNames) {
+    myDropDown.setOnAction(handler);
+    myDropDown2.setOnAction(handler2);
+    for (String s : simNames) {
+      myDropDown.getItems().add(s);
+      myDropDown2.getItems().add(s);
     }
+  }
 
 }

@@ -1,8 +1,8 @@
 package controllerPackage;
 
+import javafx.scene.Group;
 import utils.Cell;
 import utils.FileReader;
-import javafx.scene.Group;
 
 
 public class PercolationController extends Controller {
@@ -15,31 +15,33 @@ public class PercolationController extends Controller {
     super(simGroup, reader);
   }
 
+
   @Override
   protected void initializeCellState(Cell current) {
     if (probabilityChecker(percentBlocked)) {
-      current.setCurrentState(new State(state2));
+      current.setCurrentState(new State(2));
     } else {
-      current.setCurrentState(new State(state0));
+      current.setCurrentState(new State(0));
     }
-    super.giveCellStates(current);
+
   }
 
   @Override
   protected void setSimParams() {
     percentBlocked = reader.getDoubleValue("percentBlocked");
     spacing = reader.getDoubleValue("spacing");
+    maxState = 2;
   }
 
   @Override
   protected void updateCell(int x, int y) {
     Cell current = currentModel.getCell(x, y);
-    if (current.getCurrentState().getState() == state2 || current.getCurrentState().getState() == state1) {
+    if (current.getCurrentState().getState() == 2 || current.getCurrentState().getState() == 1) {
       current.setNextState(new State(current.getCurrentState().getState()));
     } else if (checkWater(current)) {
-      current.setNextState(new State(state1));
+      current.setNextState(new State(1));
     } else {
-      current.setNextState(new State(state0));
+      current.setNextState(new State(0));
     }
   }
 
@@ -48,7 +50,7 @@ public class PercolationController extends Controller {
       return true;
     }
     for (Cell c : currentModel.getMooreNeighborhood(current.getX(), current.getY())) {
-      if (c.getCurrentState().getState() == state1) {
+      if (c.getCurrentState().getState() == 1) {
         return true;
       }
     }

@@ -1,10 +1,10 @@
 package controllerPackage;
 
 import View.PredPreyGraph;
-import utils.Cell;
-import utils.FileReader;
 import java.util.ArrayList;
 import javafx.scene.Group;
+import utils.Cell;
+import utils.FileReader;
 
 
 public class PredPreyController extends Controller {
@@ -32,21 +32,29 @@ public class PredPreyController extends Controller {
     super(simGroup, reader);
     this.myGraph = graph;
   }
+
+  @Override
+  protected void setState(Cell current, int newStateFromClick) {
+    current.setCurrentState(new PPState(newStateFromClick));
+  }
+
+
   @Override
   protected void initializeCellState(Cell current) {
     if (probabilityChecker(percentOccupied)) {
       if (probabilityChecker(percentFish)) {
-        current.setCurrentState(new PPState(state1));
+        current.setCurrentState(new PPState(1));
         ((PPState) current.getCurrentState()).setBreed(random.nextInt(fishBreed + 1));
       } else {
-        current.setCurrentState(new PPState(state2));
+        current.setCurrentState(new PPState(2));
         ((PPState) current.getCurrentState()).setBreed(random.nextInt(sharkBreed + 1));
       }
     } else {
-      current.setCurrentState(new PPState(state0));
+      current.setCurrentState(new PPState(0));
     }
-    super.giveCellStates(current);
+
   }
+
   @Override
   protected void setSimParams() {
     sharkBreed = reader.getIntValue("sharkBreed");
@@ -56,6 +64,7 @@ public class PredPreyController extends Controller {
     percentOccupied = reader.getDoubleValue("percentOccupied");
     percentFish = reader.getDoubleValue("percentFish");
     spacing = reader.getDoubleValue("spacing");
+    maxState = 2;
   }
 
   @Override
@@ -67,15 +76,16 @@ public class PredPreyController extends Controller {
     moveFish();
 
     countSpecies();
-    myGraph.update(numShark,numFish);
+    myGraph.update(numShark, numFish);
   }
 
   @Override
   protected void updateCell(int x, int y) {
     Cell current = currentModel.getCell(x, y);
-    if (current.getCurrentState().getState() == state0 || ((PPState) current.getCurrentState()).checkLife()) {
-      current.setNextState(new PPState(state0));
-    } else if (current.getCurrentState().getState() == state2) {
+    if (current.getCurrentState().getState() == 0 || ((PPState) current.getCurrentState())
+        .checkLife()) {
+      current.setNextState(new PPState(0));
+    } else if (current.getCurrentState().getState() == 2) {
       sharkNeedMove.add(current);
     } else {
       fishNeedMove.add(current);
@@ -132,11 +142,12 @@ public class PredPreyController extends Controller {
   }
 
   private ArrayList<Cell> getEmptyNextState(Cell current) {
-    ArrayList<Cell> neigh = (ArrayList<Cell>) currentModel.getTorusNeighborhood(current.getX(), current.getY());
+    ArrayList<Cell> neigh = (ArrayList<Cell>) currentModel
+        .getTorusNeighborhood(current.getX(), current.getY());
     ArrayList<Cell> empty = new ArrayList<>();
     for (Cell c : neigh) {
-      if (c.getCurrentState().getState() == state0 && (c.getNextState() == null
-          || c.getNextState().getState() == state0)) {
+      if (c.getCurrentState().getState() == 0 && (c.getNextState() == null
+          || c.getNextState().getState() == 0)) {
         empty.add(c);
       }
     }
@@ -144,10 +155,11 @@ public class PredPreyController extends Controller {
   }
 
   private ArrayList<Cell> getFishNeighbors(Cell current) {
-    ArrayList<Cell> neigh = (ArrayList<Cell>) currentModel.getTorusNeighborhood(current.getX(), current.getY());
+    ArrayList<Cell> neigh = (ArrayList<Cell>) currentModel
+        .getTorusNeighborhood(current.getX(), current.getY());
     ArrayList<Cell> fish = new ArrayList<>();
     for (Cell c : neigh) {
-      if (c.getCurrentState().getState() == state1) {
+      if (c.getCurrentState().getState() == 1) {
         fish.add(c);
       }
     }
@@ -159,21 +171,21 @@ public class PredPreyController extends Controller {
       current.setNextState(new PPState(current.getCurrentState().getState()));
       ((PPState) current.getCurrentState()).resetBreed();
     } else {
-      current.setNextState(new PPState(state0));
+      current.setNextState(new PPState(0));
     }
   }
 
-  public void countSpecies(){
-    numFish=0;
-    numShark=0;
+  public void countSpecies() {
+    numFish = 0;
+    numShark = 0;
     for (int i = 0; i < WIDTH_CELLS * HEIGHT_CELLS; i++) {
       int x = i % WIDTH_CELLS;
       int y = i / WIDTH_CELLS;
-      Cell current = currentModel.getCell(x,y);
-      if(current.getCurrentState().getState() == state1){
-        numFish ++;
+      Cell current = currentModel.getCell(x, y);
+      if (current.getCurrentState().getState() == 1) {
+        numFish++;
       }
-      if (current.getCurrentState().getState() == state2){
+      if (current.getCurrentState().getState() == 2) {
         numShark++;
       }
     }
@@ -186,11 +198,11 @@ public class PredPreyController extends Controller {
 
     public PPState(int state) {
       super(state);
-      if (state == state2) {
+      if (state == 2) {
         life = sharkStarve;
         breed = sharkBreed;
       }
-      if (state == state1) {
+      if (state == 1) {
         breed = fishBreed;
       }
     }
@@ -198,7 +210,7 @@ public class PredPreyController extends Controller {
     public PPState(PPState prevState) {
       super(prevState.getState());
       breed = prevState.getBreed();
-      if (prevState.getState() == state2) {
+      if (prevState.getState() == 2) {
         life = prevState.getLife();
       }
 
@@ -232,16 +244,16 @@ public class PredPreyController extends Controller {
     }
 
     public void resetBreed() {
-      if (state == state2) {
+      if (state == 2) {
         breed = sharkBreed;
       }
-      if (state == state1) {
+      if (state == 1) {
         breed = fishBreed;
       }
     }
 
     public boolean checkLife() {
-      if (state == state2) {
+      if (state == 2) {
         return life <= 0;
       }
       return false;

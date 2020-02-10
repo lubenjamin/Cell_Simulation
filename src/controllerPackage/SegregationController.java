@@ -1,10 +1,10 @@
 package controllerPackage;
 
-import utils.Cell;
-import utils.FileReader;
 import java.util.ArrayList;
 import java.util.Random;
 import javafx.scene.Group;
+import utils.Cell;
+import utils.FileReader;
 
 
 public class SegregationController extends Controller {
@@ -22,18 +22,19 @@ public class SegregationController extends Controller {
     super(simGroup, reader);
   }
 
+
   @Override
   protected void initializeCellState(Cell current) {
     if (probabilityChecker(percentOccupied)) {
       if (probabilityChecker(percentMajority)) {
-        current.setCurrentState(new State(state1));
+        current.setCurrentState(new State(1));
       } else {
-        current.setCurrentState(new State(state2));
+        current.setCurrentState(new State(2));
       }
     } else {
-      current.setCurrentState(new State(state0));
+      current.setCurrentState(new State(0));
     }
-    super.giveCellStates(current);
+
   }
 
   @Override
@@ -42,14 +43,15 @@ public class SegregationController extends Controller {
     percentMajority = reader.getDoubleValue("percentMajority");
     satisfiedLevel = reader.getDoubleValue("satisfiedLevel");
     spacing = reader.getDoubleValue("spacing");
+    maxState = 2;
   }
 
   @Override
   protected void updateCell(int x, int y) {
     Cell current = currentModel.getCell(x, y);
 
-    if (current.getCurrentState().getState() == state0) {
-      current.setNextState(new State(state0));
+    if (current.getCurrentState().getState() == 0) {
+      current.setNextState(new State(0));
       return;
     }
     if (getSatisfy(current) < satisfiedLevel) {
@@ -76,19 +78,20 @@ public class SegregationController extends Controller {
       Cell cellReplace = emptySpots.remove(r.nextInt(emptySpots.size()));
       Cell current = needMove.remove(r.nextInt(needMove.size()));
       cellReplace.setNextState(new State(current.getCurrentState().getState()));
-      current.setNextState(new State(state0));
+      current.setNextState(new State(0));
     }
   }
 
   private double getSatisfy(Cell current) {
-    ArrayList<Cell> neigh = (ArrayList<Cell>) currentModel.getMooreNeighborhood(current.getX(), current.getY());
+    ArrayList<Cell> neigh = (ArrayList<Cell>) currentModel
+        .getMooreNeighborhood(current.getX(), current.getY());
     double totalNeigh = 0;
     double similar = 0;
     for (Cell c : neigh) {
       if (c.getCurrentState().getState() == current.getCurrentState().getState()) {
         similar++;
       }
-      if (c.getCurrentState().getState() != state0) {
+      if (c.getCurrentState().getState() != 0) {
         totalNeigh++;
       }
     }
@@ -103,7 +106,7 @@ public class SegregationController extends Controller {
     for (int i = 0; i < WIDTH_CELLS * HEIGHT_CELLS; i++) {
       int x = i % WIDTH_CELLS;
       int y = i / WIDTH_CELLS;
-      if (currentModel.getCell(x, y).getCurrentState().getState() == state0) {
+      if (currentModel.getCell(x, y).getCurrentState().getState() == 0) {
         ret.add(currentModel.getCell(x, y));
       }
     }
