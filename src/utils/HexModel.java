@@ -3,11 +3,12 @@ package utils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HexModel {
+public class HexModel extends Model{
     private final Cell[][] grid;
     public boolean manualEntry;
 
     public HexModel(int widthCells, int heightCells, int maxState) {
+        super(widthCells,heightCells,maxState);
         manualEntry = false;
         grid = new Cell[heightCells][widthCells];
         initializeGrid(maxState);
