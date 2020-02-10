@@ -77,10 +77,6 @@ public class Simulator {
 
   private void step(){
       myNewSim = UI.getSim();
-      if (myNewSim != "Switch Simulation") {
-        FileReader reader = new FileReader(myNewSim + EXTENSION);
-        myNewSim = reader.getString("type");
-      }
       if (mySim == null) {
         mySim = myNewSim;
         myNewSim = "Switch Simulation";
@@ -93,7 +89,7 @@ public class Simulator {
         UI.removeGraph();
         myControlPanel.setPause();
         FileReader reader2 = new FileReader(myNewSim + EXTENSION);
-        mySim = reader2.getString("type");
+        mySim = myNewSim;
         checkSimName(mySim, reader2);
     }
     if (myControlPanel.getSimLoadStatus() && mySim != null && currentController != null) {
@@ -129,19 +125,19 @@ public class Simulator {
       currentController = null;
     }
       switch (name) {
-        case "Percolation":
+        case "percolation":
           currentController = new PercolationController(viewGroup, reader, simUIGroup);
           break;
-        case "Segregation":
+        case "segregation":
           currentController = new SegregationController(viewGroup, reader, simUIGroup);
           break;
-        case "Fire":
+        case "fire":
           currentController = new FireController(viewGroup, reader, simUIGroup);
           break;
-        case "GameOfLife":
+        case "gameoflife":
           currentController = new GameOfLifeController(viewGroup, reader, simUIGroup);
           break;
-        case "PredatorPrey":
+        case "predatorprey":
           myGraph = UI.addPredChart();
           currentController = new PredPreyController(viewGroup, reader, simUIGroup, myGraph);
           break;
