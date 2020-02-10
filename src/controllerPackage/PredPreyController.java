@@ -2,6 +2,7 @@ package controllerPackage;
 
 import View.PredPreyGraph;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javafx.scene.Group;
 import utils.Cell;
 import utils.FileReader;
@@ -33,6 +34,28 @@ public class PredPreyController extends Controller {
     this.myGraph = graph;
   }
 
+  @Override
+  protected HashMap<String, Object> getSimParamsForUi() {
+    HashMap<String, Object> ret = new HashMap<>();
+    ret.put("sharkBreed", sharkBreed);
+    ret.put("fishBreed", fishBreed);
+    ret.put("fishEnergy", fishEnergy);
+    ret.put("percentOccupied", percentOccupied);
+    ret.put("percentFish", percentFish);
+    ret.put("sharkStarve", sharkStarve);
+    return ret;
+  }
+
+  @Override
+  protected void setSimParamsFromUI() {
+    HashMap<String, Object> values = (HashMap<String, Object>) simUI.getValues();
+    sharkBreed = (int) values.get("sharkBreed");
+    fishBreed = (int) values.get("fishBreed");
+    fishEnergy = (int) values.get("fishEnergy");
+    percentOccupied = (double) values.get("percentOccupied");
+    percentFish = (double) values.get("percentFish");
+    sharkStarve = (int) values.get("sharkStarve");
+  }
   @Override
   protected void setState(Cell current, int newStateFromClick) {
     current.setCurrentState(new PPState(newStateFromClick));

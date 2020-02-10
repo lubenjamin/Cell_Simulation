@@ -31,8 +31,9 @@ public class UserInterface {
     this.mySims = simNames;
     myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
     this.myControlPanel = panel;
-    myDisplay = new UserSelectDisplay(myResources, myControlPanel, mySims, isFirstSimulation);
+
     stage.setTitle(myResources.getString("SIMTITLE"));
+    myDisplay = new UserSelectDisplay(myResources, myControlPanel, mySims, isFirstSimulation);
   }
 
   public Scene setupUI(Group viewGroup) {

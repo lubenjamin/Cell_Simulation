@@ -57,7 +57,6 @@ public class Simulator {
       initialize(sim);
     }
   }
-
   public void initialize(String sim) {
     FileReader reader = new FileReader(sim + EXTENSION);
     mySim = reader.getString("type");
@@ -66,23 +65,28 @@ public class Simulator {
     KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> {
       step();
     });
+
     myAnimation.setCycleCount(Timeline.INDEFINITE);
     myAnimation.getKeyFrames().add(frame);
     myAnimation.play();
   }
-
-  private void step() {
-    myNewSim = UI.getSim();
-    if (!myNewSim.equals("Switch Simulation") && !myNewSim.equals(mySim)) {
-      currentController.clear();
-      //myAnimation.stop();
-      FileReader reader = new FileReader(myNewSim + EXTENSION);
-      mySim = reader.getString("type");
-      //myControlPanel.setPause();
-
-      checkSimName(mySim, reader);
-    }
-    if (myControlPanel.getSimLoadStatus() && mySim != null) {
+  private void step(){
+      myNewSim = UI.getSim();
+      if (mySim == null) {
+        mySim = myNewSim;
+        myNewSim = "Switch Simulation";
+      }
+      if (!myNewSim.equals("Switch Simulation") && !myNewSim.equals(mySim)) {
+        if (currentController != null) {
+          currentController.clear();
+        }
+        UI.removeGraph();
+        myControlPanel.setPause();
+        FileReader reader = new FileReader(myNewSim + EXTENSION);
+        mySim = reader.getString("type");
+        checkSimName(mySim, reader);
+      }
+    if (myControlPanel.getSimLoadStatus() && mySim != null && currentController != null) {
       if (!myControlPanel.getPauseStatus() || myControlPanel.getUpdateStatus()) {
         currentController.updateSim();
         myControlPanel.resetControl();
@@ -111,7 +115,11 @@ public class Simulator {
   }
 
   private void checkSimName(String name, FileReader reader) {
-    mySim = name.toLowerCase();
+    if (name == null) {
+      currentController = null;
+    }
+    else {
+      mySim = name.toLowerCase();
     switch (name) {
       case "Percolation":
         currentController = new PercolationController(viewGroup, reader);
@@ -129,11 +137,11 @@ public class Simulator {
         myGraph = UI.addPredChart();
         currentController = new PredPreyController(viewGroup, reader, myGraph);
         break;
-
     }
-    if (!name.equals("PredatorPrey") && myGraph != null) {
-      UI.removeGraph();
     }
+//    if (! name.equals("PredatorPrey") && myGraph != null) {
+//      UI.removeGraph();
+//    }
 
   }
 }
