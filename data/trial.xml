@@ -4,6 +4,7 @@
     <rows>75</rows>
     <columns>75</columns>
     <percentBlocked>0.575</percentBlocked>
+    <modelType>Hex</modelType>
     <state0Color>0xe1e4cb</state0Color>
     <state1Color>0x80a0b9</state1Color>
     <state2Color>0x304040</state2Color>

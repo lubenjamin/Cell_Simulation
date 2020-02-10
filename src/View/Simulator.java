@@ -63,23 +63,11 @@ public class Simulator {
     myAnimation.getKeyFrames().add(frame);
     myAnimation.play();
   }
-  private void step(){
-      myNewSim = UI.getSim();
-//      if (mySim == null) {
-//        mySim = myNewSim;
-//        myNewSim = "Switch Simulation";
-//      }
-      if (!myNewSim.equals(BASECASE) && !myNewSim.equals(mySim)) {
-        if (currentController != null) {
-          viewGroup.getChildren().clear();
-          simUIGroup.getChildren().clear();
-        }
-        UI.removeGraph();
-        myControlPanel.setPause();
-        FileReader reader2 = new FileReader(myNewSim + EXTENSION);
-        mySim = myNewSim;
-        String simselect = reader2.getString("type");
-        checkSimName(simselect, reader2);
+
+  private void step() {
+    myNewSim = UI.getSim();
+    if (!myNewSim.equals(BASECASE) && !myNewSim.equals(mySim)) {
+      makeNewSim();
     }
     if (myControlPanel.getSimLoadStatus() && mySim != null && currentController != null) {
       if (!myControlPanel.getPauseStatus() || myControlPanel.getUpdateStatus()) {
@@ -87,15 +75,31 @@ public class Simulator {
         myControlPanel.resetControl();
       }
       if (myControlPanel.getResetStatus()) {
-        if (myGraph != null) {
-          myGraph.clear();
-          myGraph.reinit();
-        }
-        currentController.resetSim();
-        myControlPanel.resetControl();
+        resetSimStep();
       }
     }
   }
+
+  private void resetSimStep() {
+    if (myGraph != null) {
+      myGraph.clear();
+    }
+    currentController.resetSim();
+    myControlPanel.resetControl();
+  }
+
+  private void makeNewSim() {
+    if (currentController != null) {
+      viewGroup.getChildren().clear();
+      simUIGroup.getChildren().clear();
+    }
+    UI.removeGraph();
+    myControlPanel.setPause();
+    FileReader reader = new FileReader(myNewSim + EXTENSION);
+    mySim = myNewSim;
+    checkSimName(reader.getString("type"), reader);
+  }
+
   private void getFileNames() {
     File folder = new File("data/");
     File[] listOfFiles = folder.listFiles();
@@ -107,32 +111,33 @@ public class Simulator {
       }
     }
   }
+
   private void checkSimName(String name, FileReader reader) {
     if (name == null) {
       currentController = null;
       name = "";
     }
-      switch (name) {
-        case "Percolation":
-          currentController = new PercolationController(viewGroup, reader, simUIGroup);
-          break;
-        case "Segregation":
-          currentController = new SegregationController(viewGroup, reader, simUIGroup);
-          break;
-        case "Fire":
-          currentController = new FireController(viewGroup, reader, simUIGroup);
-          break;
-        case "GameOfLife":
-          currentController = new GameOfLifeController(viewGroup, reader, simUIGroup);
-          break;
-        case "PredatorPrey":
-          myGraph = UI.addPredChart();
-          currentController = new PredPreyController(viewGroup, reader, simUIGroup, myGraph);
-          break;
-        case "RockPaperScissors":
-          currentController = new RockPaperScissors(viewGroup, reader, simUIGroup);
-          break;
-      }
+    switch (name) {
+      case "Percolation":
+        currentController = new PercolationController(viewGroup, reader, simUIGroup);
+        break;
+      case "Segregation":
+        currentController = new SegregationController(viewGroup, reader, simUIGroup);
+        break;
+      case "Fire":
+        currentController = new FireController(viewGroup, reader, simUIGroup);
+        break;
+      case "GameOfLife":
+        currentController = new GameOfLifeController(viewGroup, reader, simUIGroup);
+        break;
+      case "PredatorPrey":
+        myGraph = UI.addPredChart();
+        currentController = new PredPreyController(viewGroup, reader, simUIGroup, myGraph);
+        break;
+      case "RockPaperScissors":
+        currentController = new RockPaperScissors(viewGroup, reader, simUIGroup);
+        break;
     }
   }
+}
 

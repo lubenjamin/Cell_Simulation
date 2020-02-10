@@ -84,7 +84,6 @@ public class RockPaperScissors extends Controller {
   private int getNextType(Cell cell) {
     ArrayList<Cell> neigh = (ArrayList<Cell>) currentModel.getMooreNeighborhood(cell.getX(), cell.getY());
     ArrayList<Integer> losing = loseTo.get(cell.getCurrentState().getState());
-
     int[] maxLoseTo = new int[loseTo.size()];
     int maxIndex = 0;
     int maxVal = 0;
@@ -98,7 +97,6 @@ public class RockPaperScissors extends Controller {
         }
       }
     }
-
     if(maxVal>threshold){
       return losing.get(maxIndex);
     }
@@ -107,15 +105,11 @@ public class RockPaperScissors extends Controller {
 
   private void createLoseToMap() {
     ArrayList<Integer> current = new ArrayList<>();
-
     int numLoseTo = numberOfTypes/2;
     int currentLastNumber = numLoseTo;
-
-
     for(int x = 0; x<numLoseTo; x++){
       current.add(x+1);
     }
-
     for(int x = 0; x<numberOfTypes; x++){
       loseTo.put(x, new ArrayList<>(current));
       current.remove(0);
