@@ -53,34 +53,20 @@ public class Simulator {
     myScene = UI.setupUI(viewGroup, simUIGroup);
     stage.setScene(myScene);
     stage.show();
-    if (!isFirstSimulation) {
-      initialize(UI.getSim());
-    } else {
-      initialize(sim);
-    }
+    initialize();
   }
 
-  public void initialize(String sim) {
-//    FileReader reader = new FileReader(sim + EXTENSION);
-//    mySim = reader.getString("type");
-//    checkSimName(mySim, reader);
-
+  public void initialize() {
     KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> {
       step();
     });
-
     myAnimation.setCycleCount(Timeline.INDEFINITE);
     myAnimation.getKeyFrames().add(frame);
     myAnimation.play();
   }
 
-
   private void step(){
       myNewSim = UI.getSim();
-      if (myNewSim != "Switch Simulation") {
-        FileReader reader = new FileReader(myNewSim + EXTENSION);
-        myNewSim = reader.getString("type");
-      }
       if (mySim == null) {
         mySim = myNewSim;
         myNewSim = "Switch Simulation";
@@ -93,8 +79,9 @@ public class Simulator {
         UI.removeGraph();
         myControlPanel.setPause();
         FileReader reader2 = new FileReader(myNewSim + EXTENSION);
-        mySim = reader2.getString("type");
-        checkSimName(mySim, reader2);
+        mySim = myNewSim;
+        String simselect = reader2.getString("type");
+        checkSimName(simselect, reader2);
     }
     if (myControlPanel.getSimLoadStatus() && mySim != null && currentController != null) {
       if (!myControlPanel.getPauseStatus() || myControlPanel.getUpdateStatus()) {
@@ -127,6 +114,7 @@ public class Simulator {
   private void checkSimName(String name, FileReader reader) {
     if (name == null) {
       currentController = null;
+      name = "";
     }
       switch (name) {
         case "Percolation":
