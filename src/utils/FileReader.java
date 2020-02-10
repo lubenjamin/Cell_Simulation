@@ -100,10 +100,6 @@ public class FileReader {
     return Integer.parseInt(columns);
   }
 
-  public String getErrorMessage() {
-    return errorMessage;
-  }
-
   public boolean checkExists(String parameter) {
     try {
       getValue(parameter, simElement);
