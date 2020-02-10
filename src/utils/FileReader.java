@@ -100,4 +100,13 @@ public class FileReader{
         return errorMessage;
     }
 
+    public boolean checkExists(String parameter) {
+        try {
+            getValue(parameter, simElement);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
 }

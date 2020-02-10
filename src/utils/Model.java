@@ -8,16 +8,18 @@ import java.util.List;
 public class Model {
 
   private final Cell[][] grid;
+  public boolean manualEntry;
 
-  public Model(int widthCells, int heightCells) {
+  public Model(int widthCells, int heightCells, int maxState) {
+    manualEntry = false;
     grid = new Cell[heightCells][widthCells];
-    initializeGrid();
+    initializeGrid(maxState);
   }
 
-  private void initializeGrid() {
+  private void initializeGrid(int maxState) {
     for (int y = 0; y < grid.length; y++) {
       for (int x = 0; x < grid[0].length; x++) {
-        grid[y][x] = new Cell(x,y );
+        grid[y][x] = new Cell(x,y, maxState);
       }
     }
   }
