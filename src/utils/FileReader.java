@@ -102,4 +102,18 @@ public class FileReader{
     public int getColumns(){
         return Integer.parseInt(columns);
     }
+
+    public String getErrorMessage(){
+        return errorMessage;
+    }
+
+    public boolean checkExists(String parameter) {
+        try {
+            getValue(parameter, simElement);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
 }

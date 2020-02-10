@@ -22,10 +22,13 @@ public class View {
   private final Model myModel;
   private final Group myViewGroup;
   private final ArrayList<CellVisual> myVisuals = new ArrayList<>();
+  private final ArrayList<String> colors;
 
   private int currState = 0;
 
-  public View(Group viewGroup, int widthCells, int heightCells, Model currentModel, double spacing) {
+  public View(Group viewGroup, int widthCells, int heightCells, Model currentModel, double spacing,
+      ArrayList<String> colors) {
+    this.colors = colors;
 
     this.spacing = spacing;
     this.myModel = currentModel;
@@ -56,8 +59,9 @@ public class View {
     }
   }
   private Paint displayState(Cell cell) {
-    return Color.valueOf(cell.getDisplayColor());
+    return Color.valueOf(colors.get(cell.getCurrentState().getState()));
   }
+
   private void handleCellClick(Cell cell, CellVisual cv) {
 //    ChoiceDialog<Integer> cd = new ChoiceDialog<>(0, 1, 2);
 //    cd.setTitle("State Select");
@@ -66,12 +70,12 @@ public class View {
 //    Optional<Integer> res = cd.showAndWait();
 //    res.ifPresent(choice -> cell.setCurrentState(new State(choice)));
 //    res.ifPresent(choice -> cell.changeColor(choice));
+    myModel.manualEntry = true;
     currState++;
     if (currState > 2) {
       currState = 0;
     }
-    cell.setCurrentState(new State(currState));
-    cell.changeColor(currState);
+    cell.incrementState();
     cv.setFill(displayState(cell));
   }
 }
