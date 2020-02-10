@@ -16,8 +16,8 @@ public class FireController extends Controller {
 
   //EMPTY = 0 : TREE = 1 : BURNING : 2;
 
-  public FireController(Group simGroup, FileReader reader) {
-    super(simGroup, reader);
+  public FireController(Group simGroup, FileReader reader, Group simUIGroup) {
+    super(simGroup, reader, simUIGroup);
   }
 
   @Override

@@ -29,7 +29,7 @@ public abstract class Controller {
   protected SimSpecificUI simUI;
 
 
-  public Controller(Group simGroup, FileReader reader) {
+  public Controller(Group simGroup, FileReader reader, Group simUiGroup) {
 
     colors = new ArrayList<>();
     this.reader = reader;
@@ -45,7 +45,7 @@ public abstract class Controller {
     currentView.updateAllCells();
 
     HashMap<String, Object> a = getSimParamsForUi();
-    simUI = new SimSpecificUI(simGroup, a);
+    simUI = new SimSpecificUI(simUiGroup, a);
   }
 
   protected abstract HashMap<String, Object> getSimParamsForUi();
