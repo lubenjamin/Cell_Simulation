@@ -61,8 +61,9 @@ public class FileReader{
     public double getDoubleValue(String parameter) {
         try {
             return Double.parseDouble(getValue(parameter, simElement));
-        }catch(NullPointerException e){
+        }catch(parameterException e){
             errorMessage = parameter+" parameter is invalid";
+            e.showError(errorMessage);
             throw new parameterException(parameter+" parameter is invalid", parameter);
         }
     }
