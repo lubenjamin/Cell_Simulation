@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -26,28 +27,22 @@ public class UserSelectDisplay extends Stage {
 
   private final ResourceBundle myResources;
   private final ComboBox<String> myDropDown;
-  private final ComboBox<String> myDropDown2;
+  //private final ComboBox<String> myDropDown2;
+
+  private Button mySimAddButton = new Button();
 
 
   private final ControlPanel myControlPanel;
   private final ArrayList<String> mySims;
   private File myFirstSim;
 
-  private boolean state;
-
-  public UserSelectDisplay(ResourceBundle resources, ControlPanel controls, ArrayList<String> sims,
-      boolean b) {
+  public UserSelectDisplay(ResourceBundle resources, ControlPanel controls, ArrayList<String> sims) {
     this.myResources = resources;
     this.myControlPanel = controls;
     this.mySims = sims;
-    this.state = b;
     myDropDown = new ComboBox<>();
     myDropDown.setValue("Switch Simulation");
-    myDropDown2 = new ComboBox<>();
-    myDropDown2.setValue("Add Simulation");
-    if (!b) {
-      //initUserSelectDisplay();
-    }
+    mySimAddButton = controls.makeButton("ADDSIMCOMMAND", event -> addSim());
     initSimSelect(event -> setSim(), event -> addSim(), mySims);
   }
 
@@ -57,21 +52,16 @@ public class UserSelectDisplay extends Stage {
     return st;
   }
 
-  public String addSim() {
-    String st = myDropDown2.getValue();
-    if (!st.equals("Add Simulation")) {
+  private void addSim() {
       Stage stage = new Stage();
-      Simulator s = new Simulator(stage, true, st);
-    }
-    return st;
+      new Simulator(stage);
   }
 
   public ComboBox<String> getDropDown() {
     return myDropDown;
   }
-
-  public ComboBox<String> getDropDown2() {
-    return myDropDown2;
+  public Button getSimAddButton() {
+    return mySimAddButton;
   }
 
   private void initUserSelectDisplay() {
@@ -87,10 +77,10 @@ public class UserSelectDisplay extends Stage {
   private void initSimSelect(EventHandler<ActionEvent> handler, EventHandler<ActionEvent> handler2,
       ArrayList<String> simNames) {
     myDropDown.setOnAction(handler);
-    myDropDown2.setOnAction(handler2);
+    //myDropDown2.setOnAction(handler2);
     for (String s : simNames) {
       myDropDown.getItems().add(s);
-      myDropDown2.getItems().add(s);
+     // myDropDown2.getItems().add(s);
     }
   }
 

@@ -28,6 +28,7 @@ public class Simulator {
   private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 
   private static final String EXTENSION = ".xml";
+  private static final String BASECASE = "Switch Simulation";
   private final Group viewGroup = new Group();
   private final Group simUIGroup = new Group();
   private Controller currentController = null;
@@ -45,18 +46,16 @@ public class Simulator {
   /**
    * Start of the program.
    */
-  public Simulator(Stage stage, boolean isFirstSimulation, String sim) {
+  public Simulator(Stage stage) {
     getFileNames();
     myAnimation = new Timeline();
     myControlPanel = new ControlPanel(myAnimation);
-    UI = new UserInterface(stage, "English", simNames, myControlPanel, isFirstSimulation);
+    UI = new UserInterface(stage, "English", simNames, myControlPanel);
+
     myScene = UI.setupUI(viewGroup, simUIGroup);
     stage.setScene(myScene);
     stage.show();
-    initialize();
-  }
 
-  public void initialize() {
     KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> {
       step();
     });
@@ -64,14 +63,13 @@ public class Simulator {
     myAnimation.getKeyFrames().add(frame);
     myAnimation.play();
   }
-
   private void step(){
       myNewSim = UI.getSim();
-      if (mySim == null) {
-        mySim = myNewSim;
-        myNewSim = "Switch Simulation";
-      }
-      if (!myNewSim.equals("Switch Simulation") && !myNewSim.equals(mySim)) {
+//      if (mySim == null) {
+//        mySim = myNewSim;
+//        myNewSim = "Switch Simulation";
+//      }
+      if (!myNewSim.equals(BASECASE) && !myNewSim.equals(mySim)) {
         if (currentController != null) {
           viewGroup.getChildren().clear();
           simUIGroup.getChildren().clear();
@@ -98,7 +96,6 @@ public class Simulator {
       }
     }
   }
-
   private void getFileNames() {
     File folder = new File("data/");
     File[] listOfFiles = folder.listFiles();
@@ -110,7 +107,6 @@ public class Simulator {
       }
     }
   }
-
   private void checkSimName(String name, FileReader reader) {
     if (name == null) {
       currentController = null;

@@ -31,21 +31,20 @@ public class UserInterface {
   private PredPreyGraph myGraph;
   private BorderPane bp = new BorderPane();
 
-  public UserInterface(Stage stage, String language, ArrayList<String> simNames, ControlPanel panel,
-      boolean isFirstSimulation) {
+  public UserInterface(Stage stage, String language, ArrayList<String> simNames, ControlPanel panel) {
     this.mySims = simNames;
     myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
     this.myControlPanel = panel;
 
     stage.setTitle(myResources.getString("SIMTITLE"));
-    myDisplay = new UserSelectDisplay(myResources, myControlPanel, mySims, isFirstSimulation);
+    myDisplay = new UserSelectDisplay(myResources, myControlPanel, mySims);
   }
 
   public Scene setupUI(Group viewGroup, Group simGroup) {
     hb2.setAlignment(Pos.CENTER);
     hb.setSpacing(450);
     hb.getChildren().add(myDisplay.getDropDown());
-    hb.getChildren().add(myDisplay.getDropDown2());
+    hb.getChildren().add(myDisplay.getSimAddButton());
     bp.setTop(hb);
     bp.setRight(hb2);
     bp.setLeft(simGroup);

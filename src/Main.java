@@ -10,6 +10,6 @@ public class Main extends Application {
 
   @Override
   public void start(Stage primaryStage){
-    new Simulator(primaryStage, false, null);
+    new Simulator(primaryStage);
   }
 }
