@@ -77,7 +77,7 @@ public class UserSelectDisplay extends Stage {
   private void initUserSelectDisplay() {
     FileChooser chooser = new FileChooser();
     chooser.setTitle("Load a new XML file");
-    chooser.setInitialDirectory(new File(System.getProperty("user.dir")));
+    chooser.setInitialDirectory(new File("./data/"));
     myFirstSim = chooser.showOpenDialog(this);
     String ret = myFirstSim.getName().split(".xml")[0];
     myDropDown.setValue(ret);

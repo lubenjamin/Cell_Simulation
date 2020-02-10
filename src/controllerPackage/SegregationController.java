@@ -1,6 +1,7 @@
 package controllerPackage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 import javafx.scene.Group;
 import utils.Cell;
@@ -20,6 +21,23 @@ public class SegregationController extends Controller {
   //EMPTY = 0 : MAJORITY = 1 : MINORITY : 2;
   public SegregationController(Group simGroup, FileReader reader) {
     super(simGroup, reader);
+  }
+
+  @Override
+  protected HashMap<String, Object> getSimParamsForUi() {
+    HashMap<String, Object> ret = new HashMap<>();
+    ret.put("percentOccupied", percentOccupied);
+    ret.put("percentMajority", percentMajority);
+    ret.put("satisfiedLevel", satisfiedLevel);
+    return ret;
+  }
+
+  @Override
+  protected void setSimParamsFromUI() {
+    HashMap<String, Object> values = (HashMap<String, Object>) simUI.getValues();
+    percentOccupied = (double) values.get("percentOccupied");
+    percentMajority = (double) values.get("percentMajority");
+    satisfiedLevel = (double) values.get("satisfiedLevel");
   }
 
 
