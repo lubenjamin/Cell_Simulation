@@ -127,8 +127,7 @@ public class Simulator {
   private void checkSimName(String name, FileReader reader) {
     if (name == null) {
       currentController = null;
-    } else {
-      mySim = name.toLowerCase();
+    }
       switch (name) {
         case "Percolation":
           currentController = new PercolationController(viewGroup, reader, simUIGroup);
@@ -152,5 +151,4 @@ public class Simulator {
       }
     }
   }
-}
 

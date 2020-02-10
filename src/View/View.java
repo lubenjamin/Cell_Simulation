@@ -64,13 +64,6 @@ public class View {
   }
 
   private void handleCellClick(Cell cell, CellVisual cv) {
-//    ChoiceDialog<Integer> cd = new ChoiceDialog<>(0, 1, 2);
-//    cd.setTitle("State Select");
-//    cd.setHeaderText("0 = Empty, 1 = Tree, 2 = Burning");
-//    cd.setContentText("Pick a state");
-//    Optional<Integer> res = cd.showAndWait();
-//    res.ifPresent(choice -> cell.setCurrentState(new State(choice)));
-//    res.ifPresent(choice -> cell.changeColor(choice));
     myModel.manualEntry = true;
     currState++;
     if (currState > 2) {
