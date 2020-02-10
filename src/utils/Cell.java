@@ -49,7 +49,7 @@ public class Cell {
 
   public void incrementState(){
     clickedCell = true;
-    newStateFromClick = (newStateFromClick + 1) % maxState;
+    newStateFromClick = (newStateFromClick + 1) % (maxState+1);
   }
   public boolean isClickedCell(){
     if(clickedCell){

@@ -76,6 +76,6 @@ public class View {
       currState = 0;
     }
     cell.incrementState();
-    cv.setFill(displayState(cell));
+    cv.setFill(Color.valueOf(colors.get(cell.getNewStateFromClick())));
   }
 }
