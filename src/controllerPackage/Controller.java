@@ -2,6 +2,7 @@ package controllerPackage;
 
 
 import View.View;
+import View.HexView;
 import View.SimSpecificUI;
 
 import java.util.ArrayList;
@@ -45,7 +46,7 @@ public abstract class Controller {
     createModel();
 
 
-    currentView = new View(simGroup, WIDTH_CELLS, HEIGHT_CELLS, currentModel, spacing, colors);
+    currentView = new HexView(simGroup, WIDTH_CELLS, HEIGHT_CELLS, currentModel, spacing, colors);
 
 
     initializeModel();

@@ -65,10 +65,6 @@ public class Simulator {
   }
   private void step(){
       myNewSim = UI.getSim();
-//      if (mySim == null) {
-//        mySim = myNewSim;
-//        myNewSim = "Switch Simulation";
-//      }
       if (!myNewSim.equals(BASECASE) && !myNewSim.equals(mySim)) {
         if (currentController != null) {
           viewGroup.getChildren().clear();
