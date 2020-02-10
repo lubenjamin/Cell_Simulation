@@ -1,6 +1,7 @@
 package controllerPackage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import javafx.scene.Group;
 import utils.Cell;
 import utils.FileReader;
@@ -16,6 +17,18 @@ public class GameOfLifeController extends Controller {
     super(simGroup, reader);
   }
 
+  @Override
+  protected HashMap<String, Object> getSimParamsForUi() {
+    HashMap<String, Object> ret = new HashMap<>();
+    ret.put("initialLive", initialLive);
+    return ret;
+  }
+
+  @Override
+  protected void setSimParamsFromUI() {
+    HashMap<String, Object> values = (HashMap<String, Object>) simUI.getValues();
+    initialLive = (double) values.get("initialLive");
+  }
 
   @Override
   protected void initializeCellState(Cell current) {

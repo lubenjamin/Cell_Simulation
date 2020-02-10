@@ -1,6 +1,7 @@
 package controllerPackage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import javafx.scene.Group;
 import utils.Cell;
 import utils.FileReader;
@@ -17,6 +18,23 @@ public class FireController extends Controller {
 
   public FireController(Group simGroup, FileReader reader) {
     super(simGroup, reader);
+  }
+
+  @Override
+  protected HashMap<String, Object> getSimParamsForUi() {
+    HashMap<String, Object> ret = new HashMap<>();
+    ret.put("initialTree", initialTree);
+    ret.put("initialBurningTree", initialBurningTree);
+    ret.put("percentCatchFire", percentCatchFire);
+    return ret;
+  }
+
+  @Override
+  protected void setSimParamsFromUI() {
+    HashMap<String, Object> values = (HashMap<String, Object>) simUI.getValues();
+    initialTree = (double) values.get("initialTree");
+    initialBurningTree = (double) values.get("initialBurningTree");
+    percentCatchFire = (double) values.get("percentCatchFire");
   }
 
 
