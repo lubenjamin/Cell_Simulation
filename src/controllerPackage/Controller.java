@@ -12,6 +12,7 @@ import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import utils.Cell;
 import utils.FileReader;
+import utils.HexModel;
 import utils.Model;
 import utils.SquareModel;
 
@@ -20,7 +21,7 @@ public abstract class Controller {
 
   protected static ArrayList<String> colors;
   protected static int maxState;
-  protected final Model currentModel;
+  protected Model currentModel;
   protected final View currentView;
   protected final Random random;
   protected final FileReader reader;
@@ -28,6 +29,7 @@ public abstract class Controller {
   protected final int HEIGHT_CELLS;
   protected double spacing;
   protected SimSpecificUI simUI;
+  protected String modelType = "";
 
 
   public Controller(Group simGroup, FileReader reader, Group simUiGroup) {
@@ -40,13 +42,25 @@ public abstract class Controller {
     setSimParams();
     setSimColor();
 
-    currentModel = new SquareModel(WIDTH_CELLS, HEIGHT_CELLS, maxState);
+    createModel();
+
+
     currentView = new View(simGroup, WIDTH_CELLS, HEIGHT_CELLS, currentModel, spacing, colors);
 
 
     initializeModel();
     currentView.updateAllCells();
     simUI = new SimSpecificUI(simUiGroup, getSimParamsForUi());
+  }
+
+  protected void createModel(){
+    if(modelType.equals("Hex")) {
+      currentModel = new HexModel(WIDTH_CELLS, HEIGHT_CELLS, maxState);
+    }
+    else{
+      currentModel = new SquareModel(WIDTH_CELLS, HEIGHT_CELLS, maxState);
+    }
+
   }
 
   public void updateSim() {
