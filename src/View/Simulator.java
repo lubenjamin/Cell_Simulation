@@ -67,7 +67,7 @@ public class Simulator {
   }
   public void initialize(String sim){
       FileReader reader = new FileReader(sim + EXTENSION);
-      mySim = reader.getSimType();
+      mySim = reader.getString("type");
       checkSimName(mySim, reader);
 
     KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> {
@@ -83,7 +83,7 @@ public class Simulator {
         currentController.clear();
         //myAnimation.stop();
         FileReader reader = new FileReader(myNewSim + EXTENSION);
-        mySim = reader.getSimType();
+        mySim = reader.getString("type");
         //myControlPanel.setPause();
 
         checkSimName(mySim, reader);
