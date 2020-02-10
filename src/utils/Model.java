@@ -37,7 +37,7 @@ public abstract class Model {
 
   public abstract List<Cell> getTorusNeighborhood(int x, int y);
 
-  protectedt void addIfExists(ArrayList<Cell> ret, int x, int y) {
+  protected void addIfExists(ArrayList<Cell> ret, int x, int y) {
     if (x < grid[0].length && x >= 0 && y >= 0 && y < grid.length) {
       ret.add(grid[y][x]);
     }

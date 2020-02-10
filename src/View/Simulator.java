@@ -30,7 +30,7 @@ public class Simulator {
   private static final String EXTENSION = ".xml";
   private final Group viewGroup = new Group();
   private final Group simUIGroup = new Group();
-  private Controller currentController;
+  private Controller currentController = null;
   private UserInterface UI;
   private ControlPanel myControlPanel;
   private Scene myScene;
@@ -61,9 +61,9 @@ public class Simulator {
   }
 
   public void initialize(String sim) {
-    FileReader reader = new FileReader(sim + EXTENSION);
-    mySim = reader.getString("type");
-    checkSimName(mySim, reader);
+//    FileReader reader = new FileReader(sim + EXTENSION);
+//    mySim = reader.getString("type");
+//    checkSimName(mySim, reader);
 
     KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> {
       step();
@@ -74,22 +74,27 @@ public class Simulator {
     myAnimation.play();
   }
 
-  private void step() {
-    myNewSim = UI.getSim();
-    if (mySim == null) {
-      mySim = myNewSim;
-      myNewSim = "Switch Simulation";
-    }
-    if (!myNewSim.equals("Switch Simulation") && !myNewSim.equals(mySim)) {
-      if (currentController != null) {
-        viewGroup.getChildren().clear();
-        simUIGroup.getChildren().clear();
+
+  private void step(){
+      myNewSim = UI.getSim();
+      if (myNewSim != "Switch Simulation") {
+        FileReader reader = new FileReader(myNewSim + EXTENSION);
+        myNewSim = reader.getString("type");
       }
-      UI.removeGraph();
-      myControlPanel.setPause();
-      FileReader reader = new FileReader(myNewSim + EXTENSION);
-      mySim = reader.getString("type");
-      checkSimName(mySim, reader);
+      if (mySim == null) {
+        mySim = myNewSim;
+        myNewSim = "Switch Simulation";
+      }
+      if (!myNewSim.equals("Switch Simulation") && !myNewSim.equals(mySim)) {
+        if (currentController != null) {
+          viewGroup.getChildren().clear();
+          simUIGroup.getChildren().clear();
+        }
+        UI.removeGraph();
+        myControlPanel.setPause();
+        FileReader reader2 = new FileReader(myNewSim + EXTENSION);
+        mySim = reader2.getString("type");
+        checkSimName(mySim, reader2);
     }
     if (myControlPanel.getSimLoadStatus() && mySim != null && currentController != null) {
       if (!myControlPanel.getPauseStatus() || myControlPanel.getUpdateStatus()) {
@@ -146,9 +151,6 @@ public class Simulator {
           break;
       }
     }
-//    if (! name.equals("PredatorPrey") && myGraph != null) {
-//      UI.removeGraph();
-//    }
-
   }
 }
+

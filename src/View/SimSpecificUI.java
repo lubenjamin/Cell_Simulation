@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -38,10 +40,14 @@ public class SimSpecificUI {
       s.setEditable(true);
       spinners.put(k, s);
       h.getChildren().addAll(s, b);
+      h.setSpacing(20);
       v.getChildren().add(h);
+      v.setSpacing(20);
     }
     v.setLayoutX(100);
     v.setLayoutY(100);
+    v.getStyleClass().add("vbox");
+    v.setId("vbox-custom");
     group.getChildren().add(v);
   }
 
