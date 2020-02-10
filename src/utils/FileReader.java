@@ -17,7 +17,6 @@ public class FileReader{
 
     private Element simElement;
 
-    private final String simType;
     private final String rows;
     private final String columns;
     private String errorMessage;
@@ -25,7 +24,6 @@ public class FileReader{
 
     public FileReader(String fileName) throws XMLException {
         setElement(fileName);
-        simType = getValue("type", simElement);
         rows = getValue("rows", simElement);
         columns = getValue("columns", simElement);
     }
@@ -57,23 +55,20 @@ public class FileReader{
         try {
             return Integer.parseInt(getValue(parameter, simElement));
         }catch(NullPointerException e){
-            errorMessage = parameter+" parameter is invalid";
-            throw new parameterException(parameter+" parameter is invalid", parameter);
+            popUp(parameter);
+            //throw new parameterException(errorMessage, parameter);
+            return 0;
         }
     }
+
 
     public double getDoubleValue(String parameter) {
         try {
             return Double.parseDouble(getValue(parameter, simElement));
         }catch(NullPointerException e){
-            errorMessage = parameter+" parameter is invalid";
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setHeaderText("Look, an Error Dialog");
-            alert.setContentText("Ooops, there was an error!");
-
-            Platform.runLater(alert::showAndWait);
-            throw new parameterException(parameter+" parameter is invalid", parameter);
+            popUp(parameter);
+            //throw new parameterException(errorMessage, parameter);
+            return 0;
         }
     }
 
@@ -82,20 +77,24 @@ public class FileReader{
             return getValue(parameter, simElement);
         }catch(NullPointerException e){
             errorMessage = parameter+" parameter is invalid";
-            throw new parameterException(parameter+" parameter is invalid", parameter);
+            popUp(parameter);
+            //throw new parameterException(errorMessage, parameter);
+            return null;
         }
     }
 
-
+    private void popUp(String parameter) {
+        errorMessage = parameter + " parameter is invalid";
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Parameter Error");
+        alert.setHeaderText(errorMessage);
+        Platform.runLater(alert::showAndWait);
+    }
 
     private static String getValue(String tag, Element element) {
         NodeList nodes = element.getElementsByTagName(tag).item(0).getChildNodes();
         Node node = nodes.item(0);
         return node.getNodeValue();
-    }
-
-    public String getSimType(){
-        return simType;
     }
 
     public int getRows(){
@@ -105,9 +104,4 @@ public class FileReader{
     public int getColumns(){
         return Integer.parseInt(columns);
     }
-
-    public String getErrorMessage(){
-        return errorMessage;
-    }
-
 }
