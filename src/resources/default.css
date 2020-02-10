@@ -33,32 +33,41 @@
 .chart-title {
   -fx-font-size: 10;
 }
+
 .chart-legend.default-color0 {
   -fx-stroke: #b8860b;
 }
+
 .chart-legend.default-color1 {
   -fx-stroke: #00ff00;
 }
+
 .chart {
   -fx-pref-height: 300;
   -fx-pref-width: 250;
 }
+
 .label {
   -fx-font-size: 12;
 }
+
 .spinner {
   -fx-pref-width: 60;
   -fx-font-size: 12;
 }
+
 .spinner.split-arrows-vertical .increment-arrow-button {
   -fx-padding: 1 2 1 2; /*caspian.css values are 4 8 4 8 */
 }
+
 .spinner.split-arrows-vertical .decrement-arrow-button {
   -fx-padding: 1 2 1 2; /*caspian.css values are 3 8 6 8 */
 }
+
 .spinner.split-arrows-vertical .increment-arrow-button .increment-arrow {
-  -fx-padding: 2 3 2 3;    /*caspian.css values are 2 4 2 4 */
+  -fx-padding: 2 3 2 3; /*caspian.css values are 2 4 2 4 */
 }
+
 .spinner.split-arrows-vertical .decrement-arrow-button .decrement-arrow {
   -fx-padding: 2 3 2 3; /*caspian.css values are 2 4 2 4 */
 }
