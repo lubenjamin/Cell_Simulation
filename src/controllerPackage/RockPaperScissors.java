@@ -74,7 +74,11 @@ public class RockPaperScissors extends Controller {
         possibleIndex.add(x);
       }
     }
-    if (maxVal > threshold + random.nextInt(randomChanceThresh)) {
+    int thresh = threshold;
+    if(randomChanceThresh>0){
+      thresh = threshold + random.nextInt(randomChanceThresh);
+    }
+    if (maxVal > thresh) {
       return possibleIndex.get(random.nextInt(possibleIndex.size()));
     }
     return cell.getCurrentState().getState();

@@ -62,6 +62,3 @@ to adjust for hexagonal and square grids. Implementing both hexagonal and
 square grid required the abstraction of the model and view class, aspects that
 were not previously present.    
 
-
-
-
