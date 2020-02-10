@@ -3,7 +3,7 @@ Simulation
 
 This project implements a cellular automata simulator.
 
-Names: Connor Hazen, Abhijay, Benjamin Lu
+Names: Connor Hazen, Abhijay Suhag, Benjamin Lu
 
 ### Timeline
 
@@ -16,7 +16,7 @@ Hours Spent: 15
 ### Primary Roles
 
 Simulation Logic and controllers - Connor Hazen
-UI and View = Abhijay
+UI and View = Abhijay Suhag
 FileReader and Model - Benjamin Lu
 
 
@@ -51,8 +51,10 @@ Known Bugs: If the simulation file, regardless if the correct parameters
 are in place, does not have <simulation> as the root, the program will not 
 crash but console will constantly spit errors.
 
-Extra credit:
-
 
 ### Impressions
+
+
+
+
 
