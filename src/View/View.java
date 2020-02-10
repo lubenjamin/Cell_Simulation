@@ -44,7 +44,6 @@ public class View {
     myViewGroup.getChildren().clear();
   }
   private void initCellView(Model grid, int width, int height) {
-    Group g = new Group();
     myVisualWidth = VIEW_BOUND/width;
     myVisualHeight = VIEW_BOUND/height;
     for (int i = 0; i < width; i++) {
@@ -53,12 +52,11 @@ public class View {
         cv.setX(i*(myVisualWidth+spacing));
         cv.setY(j*(myVisualHeight+spacing));
         myVisuals.add(cv);
-        g.getChildren().add(cv);
         EventHandler<MouseEvent> eventHandler = mouseEvent -> handleCellClick(grid.getCell(cv.getXPos(), cv.getYPos()), cv);
         cv.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
+        myViewGroup.getChildren().add(cv);
       }
     }
-    myViewGroup.getChildren().add(g);
   }
   private Paint displayState(Cell cell) {
     return Color.valueOf(colors.get(cell.getCurrentState().getState()));
