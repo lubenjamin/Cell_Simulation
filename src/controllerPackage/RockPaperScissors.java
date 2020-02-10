@@ -16,11 +16,29 @@ public class RockPaperScissors extends Controller {
   public RockPaperScissors(Group simGroup, FileReader reader, Group simUIGroup) {
     super(simGroup, reader, simUIGroup);
     loseTo = new HashMap<>();
-    //createLoseToMap();
-    //System.out.println(loseTo.get(0));
-    //System.out.println(loseTo.get(1));
+    createLoseToMap();
   }
 
+  private void checkCount() {
+    int x0 = 0;
+    int x1 = 0;
+    int x2 = 0;
+    for (int i = 0; i < WIDTH_CELLS * HEIGHT_CELLS; i++) {
+      int x = i % WIDTH_CELLS;
+      int y = i / WIDTH_CELLS;
+      Cell cell = currentModel.getCell(x,y);
+      if(cell.getCurrentState().getState()==0){
+        x0 ++;
+      }
+      if(cell.getCurrentState().getState()==1){
+        x1 ++;
+      }
+      if(cell.getCurrentState().getState()==2){
+        x2 ++;
+      }
+    }
+    System.out.println(x0+" "+x1+" " + x2);
+  }
 
 
   @Override
@@ -37,6 +55,8 @@ public class RockPaperScissors extends Controller {
     HashMap<String, Object> values = (HashMap<String, Object>) simUI.getValues();
     numberOfTypes = (int) values.get("numberOfTypes");
     threshold = (int) values.get("threshold");
+    maxState = numberOfTypes-1;
+    createLoseToMap();
   }
 
 
@@ -57,11 +77,8 @@ public class RockPaperScissors extends Controller {
   @Override
   protected void updateCell(int x, int y) {
     Cell cell = currentModel.getCell(x,y);
-    //int nextType = getNextType(cell);
-    //cell.setNextState(new State(nextType));
-
-    cell.setNextState(cell.getCurrentState());
-
+    int nextType = getNextType(cell);
+    cell.setNextState(new State(nextType));
   }
 
   private int getNextType(Cell cell) {
@@ -99,7 +116,7 @@ public class RockPaperScissors extends Controller {
       current.add(x+1);
     }
 
-    for(int x = 0; x<numLoseTo; x++){
+    for(int x = 0; x<numberOfTypes; x++){
       loseTo.put(x, new ArrayList<>(current));
       current.remove(0);
       currentLastNumber++;

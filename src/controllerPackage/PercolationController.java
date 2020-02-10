@@ -44,6 +44,7 @@ public class PercolationController extends Controller {
     percentBlocked = reader.getDoubleValue("percentBlocked");
     spacing = reader.getDoubleValue("spacing");
     maxState = 2;
+    modelType = reader.getString("modelType");
   }
 
   @Override
