@@ -3,7 +3,12 @@ package controllerPackage;
 import utils.Cell;
 import utils.FileReader;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 import javafx.scene.Group;
+import utils.XMLException;
+import utils.parameterException;
 
 
 public class FireController extends Controller {
@@ -13,10 +18,16 @@ public class FireController extends Controller {
   private double initialBurningTree;
   private double percentCatchFire;
 
+
   //EMPTY = 0 : TREE = 1 : BURNING : 2;
 
   public FireController(Group simGroup, FileReader reader) {
     super(simGroup, reader);
+  }
+
+  @Override
+  protected int getMaxStates() {
+    return 2;
   }
 
   @Override
@@ -30,15 +41,15 @@ public class FireController extends Controller {
     } else {
       current.setCurrentState(new State(0));
     }
+
   }
 
   @Override
   protected void setSimParams() {
-    initialTree = reader.getDoubleValue("initialTree");
-    initialBurningTree = reader.getDoubleValue("initialBurningTree");
-    percentCatchFire = reader.getDoubleValue("percentCatchFire");
-
-    spacing = reader.getDoubleValue("spacing");
+      initialTree = reader.getDoubleValue("initialTree");
+      initialBurningTree = reader.getDoubleValue("initialBurningTree");
+      percentCatchFire = reader.getDoubleValue("percentCatchFire");
+      spacing = reader.getDoubleValue("spacing");
   }
 
   @Override

@@ -23,6 +23,11 @@ public class SegregationController extends Controller {
   }
 
   @Override
+  protected int getMaxStates() {
+    return 2;
+  }
+
+  @Override
   protected void initializeCellState(Cell current) {
     if (probabilityChecker(percentOccupied)) {
       if (probabilityChecker(percentMajority)) {
@@ -33,6 +38,7 @@ public class SegregationController extends Controller {
     } else {
       current.setCurrentState(new State(0));
     }
+
   }
 
   @Override
@@ -71,7 +77,7 @@ public class SegregationController extends Controller {
    */
   private void moveUnHappy() {
     Random r = new Random();
-    while (emptySpots.size() != 0 && needMove.size() != 0) {
+    while (!needMove.isEmpty() && !emptySpots.isEmpty()) {
       Cell cellReplace = emptySpots.remove(r.nextInt(emptySpots.size()));
       Cell current = needMove.remove(r.nextInt(needMove.size()));
       cellReplace.setNextState(new State(current.getCurrentState().getState()));
@@ -80,7 +86,7 @@ public class SegregationController extends Controller {
   }
 
   private double getSatisfy(Cell current) {
-    ArrayList<Cell> neigh = currentModel.getMooreNeighborhood(current.getX(), current.getY());
+    ArrayList<Cell> neigh = (ArrayList<Cell>) currentModel.getMooreNeighborhood(current.getX(), current.getY());
     double totalNeigh = 0;
     double similar = 0;
     for (Cell c : neigh) {

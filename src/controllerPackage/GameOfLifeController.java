@@ -17,6 +17,11 @@ public class GameOfLifeController extends Controller {
   }
 
   @Override
+  protected int getMaxStates() {
+    return 1;
+  }
+
+  @Override
   protected void initializeCellState(Cell current) {
     if (probabilityChecker(initialLive)) {
       current.setCurrentState(new State(1));

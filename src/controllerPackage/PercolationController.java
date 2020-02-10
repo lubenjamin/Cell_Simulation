@@ -9,9 +9,15 @@ public class PercolationController extends Controller {
 
   private double percentBlocked;
 
+
   //EMPTY = 0 : PERC = 1 : BLOCKED : 2;
   public PercolationController(Group simGroup, FileReader reader) {
     super(simGroup, reader);
+  }
+
+  @Override
+  protected int getMaxStates() {
+    return 2;
   }
 
   @Override
@@ -21,6 +27,7 @@ public class PercolationController extends Controller {
     } else {
       current.setCurrentState(new State(0));
     }
+
   }
 
   @Override
@@ -32,7 +39,6 @@ public class PercolationController extends Controller {
   @Override
   protected void updateCell(int x, int y) {
     Cell current = currentModel.getCell(x, y);
-
     if (current.getCurrentState().getState() == 2 || current.getCurrentState().getState() == 1) {
       current.setNextState(new State(current.getCurrentState().getState()));
     } else if (checkWater(current)) {

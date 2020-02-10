@@ -1,6 +1,7 @@
 package controllerPackage;
 
 import View.View;
+import java.util.ArrayList;
 import utils.Cell;
 import utils.FileReader;
 import utils.Model;
@@ -20,13 +21,16 @@ public abstract class Controller {
   protected final int HEIGHT_CELLS;
   protected double spacing;
 
-  protected Color state0Color;
-  protected Color state1Color;
-  protected Color state2Color;
+  protected static ArrayList<String> colors;
+
+  protected static int maxState;
 
 
 
   public Controller(Group simGroup, FileReader reader) {
+
+    maxState = getMaxStates();
+    colors = new ArrayList<>();
     this.reader = reader;
     random = new Random();
     setSimParams();
@@ -34,11 +38,13 @@ public abstract class Controller {
 
     WIDTH_CELLS = reader.getColumns();
     HEIGHT_CELLS = reader.getRows();
-    currentModel = new Model(WIDTH_CELLS, HEIGHT_CELLS);
-    currentView = new View(simGroup, WIDTH_CELLS, HEIGHT_CELLS, currentModel, spacing);
+    currentModel = new Model(WIDTH_CELLS, HEIGHT_CELLS, maxState);
+    currentView = new View(simGroup, WIDTH_CELLS, HEIGHT_CELLS, currentModel, spacing, colors);
     initializeModel();
     currentView.updateAllCells();
   }
+
+  protected abstract int getMaxStates();
 
   public void updateSim() {
     updateGrid();
@@ -63,17 +69,34 @@ public abstract class Controller {
 
       current.setCurrentState(current.getNextState());
       current.setNextState(null);
-      calcNewDisplay(current);
     }
   }
 
   protected void updateGrid() {
+    checkManualEntry();
     for (int i = 0; i < WIDTH_CELLS * HEIGHT_CELLS; i++) {
       int x = i % WIDTH_CELLS;
       int y = i / WIDTH_CELLS;
       updateCell(x, y);
     }
   }
+
+  protected void checkManualEntry() {
+    if (!currentModel.manualEntry) {
+      return;
+    }
+    currentModel.manualEntry = false;
+    for (int i = 0; i < WIDTH_CELLS * HEIGHT_CELLS; i++) {
+      int x = i % WIDTH_CELLS;
+      int y = i / WIDTH_CELLS;
+      Cell current = currentModel.getCell(x,y);
+      if (current.isClickedCell()){
+        setState(current, current.getNewStateFromClick());
+      }
+    }
+  }
+
+
 
   protected void initializeModel() {
     Random a = new Random();
@@ -82,36 +105,28 @@ public abstract class Controller {
       int y = i / WIDTH_CELLS;
       Cell cell = currentModel.getCell(x, y);
       initializeCellState(cell);
-      calcNewDisplay(cell);
     }
   }
 
-  protected void calcNewDisplay(Cell cell) {
+  protected String randomColor(){
+    return Color.rgb(random.nextInt(256),random.nextInt(256), random.nextInt(256)).toString();
+  }
 
-    switch (cell.getCurrentState().getState()) {
-      case 0:
-        cell.setDisplayColor(state0Color);
-        break;
-      case 1:
-        cell.setDisplayColor(state1Color);
-        break;
-      case 2:
-        cell.setDisplayColor(state2Color);
-        break;
+  protected void setSimColor() {
+    for(int x =0; x<=maxState; x++){
+      if(!reader.checkExists("state" + x + "Color")){
+        System.out.println("missing state color: adding random color");
+        colors.add(randomColor());
+      }
+      colors.add(reader.getString("state" + x + "Color"));
 
     }
   }
 
-  protected void setSimColor(){
-    state0Color = Color.valueOf(reader.getString("state0Color"));
-    state1Color = Color.valueOf(reader.getString("state1Color"));
-    state2Color = Color.valueOf(reader.getString("state2Color"));
-  }
 
   protected boolean probabilityChecker(double compareTo) {
     double stateSelect = random.nextDouble();
     return stateSelect < compareTo;
-
   }
 
 
@@ -121,5 +136,8 @@ public abstract class Controller {
 
   protected abstract void updateCell(int x, int y);
 
+  protected void setState(Cell current, int newStateFromClick){
+    current.setCurrentState(new State(newStateFromClick));
+  }
 
 }
