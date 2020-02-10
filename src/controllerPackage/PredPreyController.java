@@ -1,10 +1,10 @@
 package controllerPackage;
 
 import View.PredPreyGraph;
-import utils.Cell;
-import utils.FileReader;
 import java.util.ArrayList;
 import javafx.scene.Group;
+import utils.Cell;
+import utils.FileReader;
 
 
 public class PredPreyController extends Controller {
@@ -26,7 +26,6 @@ public class PredPreyController extends Controller {
 
   private int numFish;
   private int numShark;
-
 
 
   public PredPreyController(Group simGroup, FileReader reader, PredPreyGraph graph) {
@@ -55,6 +54,7 @@ public class PredPreyController extends Controller {
     }
 
   }
+
   @Override
   protected void setSimParams() {
     sharkBreed = reader.getIntValue("sharkBreed");
@@ -76,13 +76,14 @@ public class PredPreyController extends Controller {
     moveFish();
 
     countSpecies();
-    myGraph.update(numShark,numFish);
+    myGraph.update(numShark, numFish);
   }
 
   @Override
   protected void updateCell(int x, int y) {
     Cell current = currentModel.getCell(x, y);
-    if (current.getCurrentState().getState() == 0 || ((PPState) current.getCurrentState()).checkLife()) {
+    if (current.getCurrentState().getState() == 0 || ((PPState) current.getCurrentState())
+        .checkLife()) {
       current.setNextState(new PPState(0));
     } else if (current.getCurrentState().getState() == 2) {
       sharkNeedMove.add(current);
@@ -141,7 +142,8 @@ public class PredPreyController extends Controller {
   }
 
   private ArrayList<Cell> getEmptyNextState(Cell current) {
-    ArrayList<Cell> neigh = (ArrayList<Cell>) currentModel.getTorusNeighborhood(current.getX(), current.getY());
+    ArrayList<Cell> neigh = (ArrayList<Cell>) currentModel
+        .getTorusNeighborhood(current.getX(), current.getY());
     ArrayList<Cell> empty = new ArrayList<>();
     for (Cell c : neigh) {
       if (c.getCurrentState().getState() == 0 && (c.getNextState() == null
@@ -153,7 +155,8 @@ public class PredPreyController extends Controller {
   }
 
   private ArrayList<Cell> getFishNeighbors(Cell current) {
-    ArrayList<Cell> neigh = (ArrayList<Cell>) currentModel.getTorusNeighborhood(current.getX(), current.getY());
+    ArrayList<Cell> neigh = (ArrayList<Cell>) currentModel
+        .getTorusNeighborhood(current.getX(), current.getY());
     ArrayList<Cell> fish = new ArrayList<>();
     for (Cell c : neigh) {
       if (c.getCurrentState().getState() == 1) {
@@ -172,17 +175,17 @@ public class PredPreyController extends Controller {
     }
   }
 
-  public void countSpecies(){
-    numFish=0;
-    numShark=0;
+  public void countSpecies() {
+    numFish = 0;
+    numShark = 0;
     for (int i = 0; i < WIDTH_CELLS * HEIGHT_CELLS; i++) {
       int x = i % WIDTH_CELLS;
       int y = i / WIDTH_CELLS;
-      Cell current = currentModel.getCell(x,y);
-      if(current.getCurrentState().getState() == 1){
-        numFish ++;
+      Cell current = currentModel.getCell(x, y);
+      if (current.getCurrentState().getState() == 1) {
+        numFish++;
       }
-      if (current.getCurrentState().getState() == 2){
+      if (current.getCurrentState().getState() == 2) {
         numShark++;
       }
     }

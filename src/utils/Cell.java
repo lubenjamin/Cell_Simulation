@@ -2,18 +2,17 @@ package utils;
 
 import controllerPackage.State;
 
-import java.util.ArrayList;
-
 public class Cell {
+
+  private final int x;
+  private final int y;
   private int newStateFromClick;
   private int maxState;
   private boolean clickedCell;
   private State currentState;
   private State nextState;
-  private final int x;
-  private final int y;
 
-  public Cell(int x,int y, int maxState){
+  public Cell(int x, int y, int maxState) {
     clickedCell = false;
     currentState = new State(0);
     nextState = null;
@@ -34,7 +33,11 @@ public class Cell {
     return nextState;
   }
 
-  public State getCurrentState(){
+  public void setNextState(State nextState) {
+    this.nextState = nextState;
+  }
+
+  public State getCurrentState() {
     return currentState;
   }
 
@@ -43,22 +46,20 @@ public class Cell {
     newStateFromClick = currentState.getState();
   }
 
-  public void setNextState(State nextState) {
-    this.nextState = nextState;
+  public void incrementState() {
+    clickedCell = true;
+    newStateFromClick = (newStateFromClick + 1) % (maxState + 1);
   }
 
-  public void incrementState(){
-    clickedCell = true;
-    newStateFromClick = (newStateFromClick + 1) % (maxState+1);
-  }
-  public boolean isClickedCell(){
-    if(clickedCell){
+  public boolean isClickedCell() {
+    if (clickedCell) {
       clickedCell = false;
       return true;
     }
     return false;
   }
-  public int getNewStateFromClick(){
+
+  public int getNewStateFromClick() {
     return newStateFromClick;
   }
 }

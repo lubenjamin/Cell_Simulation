@@ -6,22 +6,15 @@ import controllerPackage.GameOfLifeController;
 import controllerPackage.PercolationController;
 import controllerPackage.PredPreyController;
 import controllerPackage.SegregationController;
-import View.UserInterface;
-import javafx.scene.Scene;
-import javafx.scene.control.ChoiceDialog;
-import utils.Cell;
-import utils.FileReader;
+import java.io.File;
 import java.util.ArrayList;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import utils.XMLException;
-
-import javax.naming.ldap.Control;
-import java.io.File;
-import java.util.Optional;
+import utils.FileReader;
 
 
 /**
@@ -34,17 +27,17 @@ public class Simulator {
   private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 
   private static final String EXTENSION = ".xml";
-
+  private final Group viewGroup = new Group();
   private Controller currentController;
   private UserInterface UI;
   private ControlPanel myControlPanel;
-  private final Group viewGroup = new Group();
   private Scene myScene;
 
   private String mySim;
   private String myNewSim;
   private ArrayList<String> simNames;
   private Timeline myAnimation;
+  private PredPreyGraph myGraph = null;
 
 
   /**
@@ -60,34 +53,35 @@ public class Simulator {
     stage.show();
     if (!isFirstSimulation) {
       initialize(UI.getSim());
-    }
-    else {
+    } else {
       initialize(sim);
     }
   }
-  public void initialize(String sim){
-      FileReader reader = new FileReader(sim + EXTENSION);
-      mySim = reader.getString("type");
-      checkSimName(mySim, reader);
+
+  public void initialize(String sim) {
+    FileReader reader = new FileReader(sim + EXTENSION);
+    mySim = reader.getString("type");
+    checkSimName(mySim, reader);
 
     KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> {
-        step();
+      step();
     });
     myAnimation.setCycleCount(Timeline.INDEFINITE);
     myAnimation.getKeyFrames().add(frame);
     myAnimation.play();
   }
-  private void step(){
-      myNewSim = UI.getSim();
-      if (!myNewSim.equals("Switch Simulation") && !myNewSim.equals(mySim)) {
-        currentController.clear();
-        //myAnimation.stop();
-        FileReader reader = new FileReader(myNewSim + EXTENSION);
-        mySim = reader.getString("type");
-        //myControlPanel.setPause();
 
-        checkSimName(mySim, reader);
-      }
+  private void step() {
+    myNewSim = UI.getSim();
+    if (!myNewSim.equals("Switch Simulation") && !myNewSim.equals(mySim)) {
+      currentController.clear();
+      //myAnimation.stop();
+      FileReader reader = new FileReader(myNewSim + EXTENSION);
+      mySim = reader.getString("type");
+      //myControlPanel.setPause();
+
+      checkSimName(mySim, reader);
+    }
     if (myControlPanel.getSimLoadStatus() && mySim != null) {
       if (!myControlPanel.getPauseStatus() || myControlPanel.getUpdateStatus()) {
         currentController.updateSim();
@@ -115,7 +109,7 @@ public class Simulator {
       }
     }
   }
-  private PredPreyGraph myGraph = null;
+
   private void checkSimName(String name, FileReader reader) {
     mySim = name.toLowerCase();
     switch (name) {
@@ -137,7 +131,7 @@ public class Simulator {
         break;
 
     }
-    if (! name.equals("PredatorPrey") && myGraph != null) {
+    if (!name.equals("PredatorPrey") && myGraph != null) {
       UI.removeGraph();
     }
 
