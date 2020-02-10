@@ -34,7 +34,7 @@ public class HexModel extends Model{
 
     @Override
     public List<Cell> getMooreNeighborhood(int x, int y) {
-        return null;
+        return getSimpleNeighborhood(x,y);
     }
 
     @Override

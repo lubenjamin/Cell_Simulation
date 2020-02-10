@@ -29,7 +29,7 @@ public abstract class Controller {
   protected final int HEIGHT_CELLS;
   protected double spacing;
   protected SimSpecificUI simUI;
-  protected String modelType = "";
+  protected String modelType = "Square";
 
 
   public Controller(Group simGroup, FileReader reader, Group simUiGroup) {

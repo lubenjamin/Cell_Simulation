@@ -62,6 +62,7 @@ public class SegregationController extends Controller {
     satisfiedLevel = reader.getDoubleValue("satisfiedLevel");
     spacing = reader.getDoubleValue("spacing");
     maxState = 2;
+    modelType = reader.getString("modelType");
   }
 
   @Override
