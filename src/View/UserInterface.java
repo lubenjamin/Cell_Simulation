@@ -25,6 +25,7 @@ public class UserInterface {
   private final UserSelectDisplay myDisplay;
   private HBox hb = new HBox();
   private PredPreyGraph myGraph;
+  private BorderPane bp = new BorderPane();
 
   public UserInterface(Stage stage, String language, ArrayList<String> simNames, ControlPanel panel,
       boolean isFirstSimulation) {
@@ -34,9 +35,7 @@ public class UserInterface {
     myDisplay = new UserSelectDisplay(myResources, myControlPanel, mySims, isFirstSimulation);
     stage.setTitle(myResources.getString("SIMTITLE"));
   }
-
   public Scene setupUI(Group viewGroup) {
-    BorderPane bp = new BorderPane();
     hb.getChildren().add(myDisplay.getDropDown());
     hb.getChildren().add(myDisplay.getDropDown2());
     bp.setTop(hb);
@@ -46,7 +45,6 @@ public class UserInterface {
     myScene.getStylesheets().add(STYLESHEET);
     return myScene;
   }
-
   public String getSim() {
     return myDisplay.setSim();
   }

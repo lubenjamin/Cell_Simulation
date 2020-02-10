@@ -58,9 +58,9 @@ public class Simulator {
     }
   }
   public void initialize(String sim) {
-    FileReader reader = new FileReader(sim + EXTENSION);
-    mySim = reader.getString("type");
-    checkSimName(mySim, reader);
+//    FileReader reader = new FileReader(sim + EXTENSION);
+//    mySim = reader.getString("type");
+//    checkSimName(mySim, reader);
 
     KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> {
       step();
@@ -139,9 +139,5 @@ public class Simulator {
         break;
     }
     }
-//    if (! name.equals("PredatorPrey") && myGraph != null) {
-//      UI.removeGraph();
-//    }
-
   }
 }

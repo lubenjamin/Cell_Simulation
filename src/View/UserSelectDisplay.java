@@ -46,7 +46,7 @@ public class UserSelectDisplay extends Stage {
     myDropDown2 = new ComboBox<>();
     myDropDown2.setValue("Add Simulation");
     if (!b) {
-      initUserSelectDisplay();
+      //initUserSelectDisplay();
     }
     initSimSelect(event -> setSim(), event -> addSim(), mySims);
   }
@@ -83,32 +83,7 @@ public class UserSelectDisplay extends Stage {
     myDropDown.setValue(ret);
     setSim();
   }
-//    private void initUserSelectDisplay() {
-//            setTitle(myResources.getString("CHOICETITLE"));
-//            HBox v = new HBox();
-//            mySegButton = myControlPanel.makeButton("SIM1", event -> pickSim(mySegButton));
-//            myPercButton = myControlPanel.makeButton("SIM2", event -> pickSim(myPercButton));
-//            myLifeButton = myControlPanel.makeButton("SIM3", event -> pickSim(myLifeButton));
-//            myFireButton = myControlPanel.makeButton("SIM4", event -> pickSim(myFireButton));
-//            myPredButton = myControlPanel.makeButton("SIM5", event -> pickSim(myPredButton));
-//            v.getChildren().add(mySegButton);
-//            v.getChildren().add(myPercButton);
-//            v.getChildren().add(myLifeButton);
-//            v.getChildren().add(myFireButton);
-//            v.getChildren().add(myPredButton);
-//            Scene s = new Scene(v);
-//            s.getStylesheets().add(STYLESHEET);
-//            setScene(s);
-//            showAndWait();
-//    }
 
-  //    private String pickSim(Button b) {
-//        String ret = b.getText();
-//        myDropDown.setValue(ret);
-//        setSim();
-//        close();
-//        return ret;
-//    }
   private void initSimSelect(EventHandler<ActionEvent> handler, EventHandler<ActionEvent> handler2,
       ArrayList<String> simNames) {
     myDropDown.setOnAction(handler);
