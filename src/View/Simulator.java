@@ -45,6 +45,7 @@ public class Simulator {
   private String myNewSim;
   private ArrayList<String> simNames;
   private Timeline myAnimation;
+  private PredPreyGraph myGraph = null;
 
 
   /**
@@ -70,6 +71,7 @@ public class Simulator {
       mySim = reader.getString("type");
       checkSimName(mySim, reader);
 
+
     KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> {
         step();
     });
@@ -80,8 +82,14 @@ public class Simulator {
   }
   private void step(){
       myNewSim = UI.getSim();
+      if (mySim == null) {
+        mySim = myNewSim;
+        myNewSim = "Switch Simulation";
+      }
       if (!myNewSim.equals("Switch Simulation") && !myNewSim.equals(mySim)) {
-        currentController.clear();
+        if (currentController != null) {
+          currentController.clear();
+        }
         UI.removeGraph();
         myControlPanel.setPause();
         FileReader reader = new FileReader(myNewSim + EXTENSION);
@@ -115,9 +123,13 @@ public class Simulator {
       }
     }
   }
-  private PredPreyGraph myGraph = null;
+
   private void checkSimName(String name, FileReader reader) {
-    mySim = name.toLowerCase();
+    if (name == null) {
+      currentController = null;
+    }
+    else {
+      mySim = name.toLowerCase();
     switch (name) {
       case "Percolation":
         currentController = new PercolationController(viewGroup, reader);
@@ -135,7 +147,7 @@ public class Simulator {
         myGraph = UI.addPredChart();
         currentController = new PredPreyController(viewGroup, reader, myGraph);
         break;
-
+    }
     }
 //    if (! name.equals("PredatorPrey") && myGraph != null) {
 //      UI.removeGraph();
