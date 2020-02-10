@@ -10,8 +10,8 @@ public class PredPreyGraph extends Group {
     private static final int GRAPH_WIDTH=250;
     private static final int GRAPH_HEIGHT=150;
     private int time = 0;
-    private final XYChart.Series<Number,Number> series = new XYChart.Series<>();
-    private final XYChart.Series<Number,Number> series2 = new XYChart.Series<>();
+    private XYChart.Series<Number,Number> series = new XYChart.Series<>();
+    private XYChart.Series<Number,Number> series2 = new XYChart.Series<>();
 
     public PredPreyGraph() {
         NumberAxis xAxis = new NumberAxis();
@@ -26,6 +26,13 @@ public class PredPreyGraph extends Group {
         myLineChart.setCreateSymbols(false);
         myLineChart.getData().add(series);
         myLineChart.getData().add(series2);
+    }
+    public void reinit() {
+        series = new XYChart.Series<>();
+        series2 = new XYChart.Series<>();
+        myLineChart.getData().add(series);
+        myLineChart.getData().add(series2);
+        time = 0;
     }
     public void update(int predNum, int preyNum) {
         enterData("SHARK", predNum, series);

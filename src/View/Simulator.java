@@ -7,6 +7,9 @@ import controllerPackage.PercolationController;
 import controllerPackage.PredPreyController;
 import controllerPackage.SegregationController;
 import View.UserInterface;
+import javafx.scene.Scene;
+import javafx.scene.control.ChoiceDialog;
+import utils.Cell;
 import utils.FileReader;
 import java.util.ArrayList;
 import javafx.animation.KeyFrame;
@@ -18,6 +21,7 @@ import utils.XMLException;
 
 import javax.naming.ldap.Control;
 import java.io.File;
+import java.util.Optional;
 
 
 /**
@@ -35,25 +39,38 @@ public class Simulator {
   private UserInterface UI;
   private ControlPanel myControlPanel;
   private final Group viewGroup = new Group();
+  private Scene myScene;
 
   private String mySim;
   private String myNewSim;
   private ArrayList<String> simNames;
+  private Timeline myAnimation;
+
+  private boolean b;
 
   /**
    * Start of the program.
    */
-  public void initialize(Stage stage){
+  public Simulator(Stage stage, boolean b, String sim) {
     getFileNames();
-    Timeline myAnimation = new Timeline();
+    myAnimation = new Timeline();
     myControlPanel = new ControlPanel(myAnimation);
-    UI = new UserInterface(stage, "English", simNames, myControlPanel);
-    stage.setScene(UI.setupUI(viewGroup));
+    UI = new UserInterface(stage, "English", simNames, myControlPanel, b);
+    myScene = UI.setupUI(viewGroup);
+    stage.setScene(myScene);
     stage.show();
-
-    FileReader reader = new FileReader(UI.getSim() + EXTENSION);
-    mySim = reader.getSimType();
-    checkSimName(mySim, reader, false);
+    if (!b) {
+      initialize(UI.getSim());
+    }
+    else {
+      initialize(sim);
+    }
+    this.b = b;
+  }
+  public void initialize(String sim){
+      FileReader reader = new FileReader(sim + EXTENSION);
+      mySim = reader.getSimType();
+      checkSimName(mySim, reader);
 
     KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> {
         step();
@@ -63,22 +80,25 @@ public class Simulator {
     myAnimation.getKeyFrames().add(frame);
     myAnimation.play();
   }
-
   private void step(){
-    myNewSim = UI.getSim();
-    if (!myNewSim.equals(mySim)) {
-      currentController.clear();
-      myControlPanel.setPause();
-      FileReader reader = new FileReader(myNewSim + EXTENSION);
-      mySim = reader.getSimType();
-      checkSimName(mySim, reader, true);
-    }
+      myNewSim = UI.getSim();
+      if (!myNewSim.equals("Switch Simulation") && !myNewSim.equals(mySim)) {
+        currentController.clear();
+        myControlPanel.setPause();
+        FileReader reader = new FileReader(myNewSim + EXTENSION);
+        mySim = reader.getSimType();
+        checkSimName(mySim, reader);
+      }
     if (myControlPanel.getSimLoadStatus() && mySim != null) {
-      if (!myControlPanel.getPauseStatus() || (myControlPanel.getPauseStatus() && myControlPanel.getUpdateStatus())) {
+      if (!myControlPanel.getPauseStatus() || myControlPanel.getUpdateStatus()) {
         currentController.updateSim();
-       myControlPanel.resetControl();
+        myControlPanel.resetControl();
       }
       if (myControlPanel.getResetStatus()) {
+        if (myGraph != null) {
+          myGraph.clear();
+          myGraph.reinit();
+        }
         currentController.resetSim();
         myControlPanel.resetControl();
       }
@@ -96,8 +116,9 @@ public class Simulator {
       }
     }
   }
-
-  private void checkSimName(String name, FileReader reader, boolean isUpdating) {
+  private PredPreyGraph myGraph = null;
+  private void checkSimName(String name, FileReader reader) {
+    mySim = name.toLowerCase();
     switch (name) {
       case "Percolation":
         currentController = new PercolationController(viewGroup, reader);
@@ -112,12 +133,13 @@ public class Simulator {
         currentController = new GameOfLifeController(viewGroup, reader);
         break;
       case "PredatorPrey":
-        currentController = new PredPreyController(viewGroup, reader);
+        myGraph = UI.addPredChart();
+        currentController = new PredPreyController(viewGroup, reader, myGraph);
         break;
 
     }
-    if (isUpdating) {
-      mySim = name.toLowerCase();
+    if (! name.equals("PredatorPrey") && myGraph != null) {
+      UI.removeGraph();
     }
 
   }
