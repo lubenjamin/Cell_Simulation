@@ -5,6 +5,7 @@ import controllerPackage.FireController;
 import controllerPackage.GameOfLifeController;
 import controllerPackage.PercolationController;
 import controllerPackage.PredPreyController;
+import controllerPackage.RockPaperScissors;
 import controllerPackage.SegregationController;
 import java.io.File;
 import java.util.ArrayList;
@@ -58,6 +59,7 @@ public class Simulator {
       initialize(sim);
     }
   }
+
   public void initialize(String sim) {
 //    FileReader reader = new FileReader(sim + EXTENSION);
 //    mySim = reader.getString("type");
@@ -71,6 +73,8 @@ public class Simulator {
     myAnimation.getKeyFrames().add(frame);
     myAnimation.play();
   }
+
+
   private void step(){
       myNewSim = UI.getSim();
       if (myNewSim != "Switch Simulation") {
@@ -83,14 +87,15 @@ public class Simulator {
       }
       if (!myNewSim.equals("Switch Simulation") && !myNewSim.equals(mySim)) {
         if (currentController != null) {
-          currentController.clear();
+          viewGroup.getChildren().clear();
+          simUIGroup.getChildren().clear();
         }
         UI.removeGraph();
         myControlPanel.setPause();
         FileReader reader2 = new FileReader(myNewSim + EXTENSION);
         mySim = reader2.getString("type");
         checkSimName(mySim, reader2);
-      }
+    }
     if (myControlPanel.getSimLoadStatus() && mySim != null && currentController != null) {
       if (!myControlPanel.getPauseStatus() || myControlPanel.getUpdateStatus()) {
         currentController.updateSim();
@@ -122,25 +127,30 @@ public class Simulator {
   private void checkSimName(String name, FileReader reader) {
     if (name == null) {
       currentController = null;
-    }
-    switch (name) {
-      case "Percolation":
-        currentController = new PercolationController(viewGroup, reader, simUIGroup);
-        break;
-      case "Segregation":
-        currentController = new SegregationController(viewGroup, reader, simUIGroup);
-        break;
-      case "Fire":
-        currentController = new FireController(viewGroup, reader, simUIGroup);
-        break;
-      case "GameOfLife":
-        currentController = new GameOfLifeController(viewGroup, reader, simUIGroup);
-        break;
-      case "PredatorPrey":
-        myGraph = UI.addPredChart();
-        currentController = new PredPreyController(viewGroup, reader, simUIGroup, myGraph);
-        break;
-    }
+    } else {
+      mySim = name.toLowerCase();
+      switch (name) {
+        case "Percolation":
+          currentController = new PercolationController(viewGroup, reader, simUIGroup);
+          break;
+        case "Segregation":
+          currentController = new SegregationController(viewGroup, reader, simUIGroup);
+          break;
+        case "Fire":
+          currentController = new FireController(viewGroup, reader, simUIGroup);
+          break;
+        case "GameOfLife":
+          currentController = new GameOfLifeController(viewGroup, reader, simUIGroup);
+          break;
+        case "PredatorPrey":
+          myGraph = UI.addPredChart();
+          currentController = new PredPreyController(viewGroup, reader, simUIGroup, myGraph);
+          break;
+        case "RockPaperScissors":
+          currentController = new RockPaperScissors(viewGroup, reader, simUIGroup);
+          break;
+      }
     }
   }
+}
 

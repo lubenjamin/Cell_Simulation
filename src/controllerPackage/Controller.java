@@ -31,27 +31,23 @@ public abstract class Controller {
 
 
   public Controller(Group simGroup, FileReader reader, Group simUiGroup) {
-
     colors = new ArrayList<>();
     this.reader = reader;
     random = new Random();
+    WIDTH_CELLS = reader.getColumns();
+    HEIGHT_CELLS = reader.getRows();
+
     setSimParams();
     setSimColor();
 
-    WIDTH_CELLS = reader.getColumns();
-    HEIGHT_CELLS = reader.getRows();
     currentModel = new SquareModel(WIDTH_CELLS, HEIGHT_CELLS, maxState);
     currentView = new View(simGroup, WIDTH_CELLS, HEIGHT_CELLS, currentModel, spacing, colors);
+
+
     initializeModel();
     currentView.updateAllCells();
-
-    HashMap<String, Object> a = getSimParamsForUi();
-    simUI = new SimSpecificUI(simUiGroup, a);
+    simUI = new SimSpecificUI(simUiGroup, getSimParamsForUi());
   }
-
-  protected abstract HashMap<String, Object> getSimParamsForUi();
-
-  protected abstract void setSimParamsFromUI();
 
   public void updateSim() {
     updateGrid();
@@ -63,12 +59,6 @@ public abstract class Controller {
     setSimParamsFromUI();
     initializeModel();
     currentView.updateAllCells();
-  }
-
-
-
-  public void clear() {
-    currentView.clear();
   }
 
   private void switchGridStates() {
@@ -107,7 +97,6 @@ public abstract class Controller {
     }
   }
 
-
   protected void initializeModel() {
     Random a = new Random();
     for (int i = 0; i < WIDTH_CELLS * HEIGHT_CELLS; i++) {
@@ -133,10 +122,13 @@ public abstract class Controller {
     }
   }
 
-
   protected boolean probabilityChecker(double compareTo) {
     double stateSelect = random.nextDouble();
     return stateSelect < compareTo;
+  }
+
+  protected void setState(Cell current, int newStateFromClick) {
+    current.setCurrentState(new State(newStateFromClick));
   }
 
 
@@ -146,12 +138,8 @@ public abstract class Controller {
 
   protected abstract void updateCell(int x, int y);
 
-  protected void setState(Cell current, int newStateFromClick) {
-    current.setCurrentState(new State(newStateFromClick));
-  }
+  protected abstract HashMap<String, Object> getSimParamsForUi();
 
-  protected void trial(){
-
-  }
+  protected abstract void setSimParamsFromUI();
 
 }
