@@ -7,7 +7,7 @@ import java.util.List;
 
 public abstract class Model {
 
-  private final Cell[][] grid;
+  protected final Cell[][] grid;
   public boolean manualEntry;
 
   public Model(int widthCells, int heightCells, int maxState) {
@@ -35,9 +35,13 @@ public abstract class Model {
 
   public abstract List<Cell> getMooreNeighborhood(int x, int y);
 
-  private void addIfExists(ArrayList<Cell> ret, int x, int y) {
+  public abstract List<Cell> getTorusNeighborhood(int x, int y);
+
+  protectedt void addIfExists(ArrayList<Cell> ret, int x, int y) {
     if (x < grid[0].length && x >= 0 && y >= 0 && y < grid.length) {
       ret.add(grid[y][x]);
     }
   }
+
+
 }
