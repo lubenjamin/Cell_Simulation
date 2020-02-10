@@ -86,7 +86,7 @@ public class Simulator {
         mySim = reader.getString("type");
         checkSimName(mySim, reader);
       }
-    if (myControlPanel.getSimLoadStatus() && mySim != null) {
+    if (myControlPanel.getSimLoadStatus() && mySim != null && currentController != null) {
       if (!myControlPanel.getPauseStatus() || myControlPanel.getUpdateStatus()) {
         currentController.updateSim();
         myControlPanel.resetControl();

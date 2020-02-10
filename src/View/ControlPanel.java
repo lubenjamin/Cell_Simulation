@@ -36,7 +36,7 @@ public class ControlPanel extends Group {
   private boolean isReset;
   private boolean isStep;
   private boolean isSimLoaded;
-  
+
     public ControlPanel(Timeline animation) {
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
         this.myAnimation = animation;
