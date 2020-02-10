@@ -3,7 +3,12 @@ package controllerPackage;
 import utils.Cell;
 import utils.FileReader;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 import javafx.scene.Group;
+import utils.XMLException;
+import utils.parameterException;
 
 
 public class FireController extends Controller {
@@ -35,11 +40,11 @@ public class FireController extends Controller {
 
   @Override
   protected void setSimParams() {
-    initialTree = reader.getDoubleValue("initialTree");
-    initialBurningTree = reader.getDoubleValue("initialBurningTree");
-    percentCatchFire = reader.getDoubleValue("percentCatchFire");
+      initialTree = reader.getDoubleValue("initialTree");
+      initialBurningTree = reader.getDoubleValue("initialBurningTree");
+      percentCatchFire = reader.getDoubleValue("percentCatchFire");
 
-    spacing = reader.getDoubleValue("spacing");
+      spacing = reader.getDoubleValue("spacing");
   }
 
   @Override
