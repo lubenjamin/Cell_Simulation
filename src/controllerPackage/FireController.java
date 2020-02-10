@@ -26,17 +26,22 @@ public class FireController extends Controller {
   }
 
   @Override
+  protected int getMaxStates() {
+    return 2;
+  }
+
+  @Override
   protected void initializeCellState(Cell current) {
     if (probabilityChecker(initialTree)) {
       if (probabilityChecker(initialBurningTree)) {
-        current.setCurrentState(new State(state2));
+        current.setCurrentState(new State(2));
       } else {
-        current.setCurrentState(new State(state1));
+        current.setCurrentState(new State(1));
       }
     } else {
-      current.setCurrentState(new State(state0));
+      current.setCurrentState(new State(0));
     }
-    super.giveCellStates(current);
+
   }
 
   @Override
@@ -44,7 +49,6 @@ public class FireController extends Controller {
       initialTree = reader.getDoubleValue("initialTree");
       initialBurningTree = reader.getDoubleValue("initialBurningTree");
       percentCatchFire = reader.getDoubleValue("percentCatchFire");
-
       spacing = reader.getDoubleValue("spacing");
   }
 
@@ -52,16 +56,16 @@ public class FireController extends Controller {
   protected void updateCell(int x, int y) {
     Cell current = currentModel.getCell(x, y);
 
-    if (current.getCurrentState().getState() == state0 || current.getCurrentState().getState() == state2) {
-      current.setNextState(new State(state0));
+    if (current.getCurrentState().getState() == 0 || current.getCurrentState().getState() == 2) {
+      current.setNextState(new State(0));
       return;
     }
 
     int numFire = getNumFire(current);
     if (numFire > 0 && probabilityChecker(percentCatchFire)) {
-      current.setNextState(new State(state2));
+      current.setNextState(new State(2));
     } else {
-      current.setNextState(new State(state1));
+      current.setNextState(new State(1));
     }
   }
 
@@ -69,7 +73,7 @@ public class FireController extends Controller {
     ArrayList<Cell> neigh = (ArrayList<Cell>) currentModel.getSimpleNeighborhood(current.getX(), current.getY());
     int numOnFire = 0;
     for (Cell c : neigh) {
-      if (c.getCurrentState().getState() == state2) {
+      if (c.getCurrentState().getState() == 2) {
         numOnFire++;
       }
     }
