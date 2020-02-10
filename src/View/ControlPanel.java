@@ -37,87 +37,77 @@ public class ControlPanel extends Group {
   private boolean isStep;
   private boolean isSimLoaded;
 
-  public ControlPanel(Timeline animation) {
-    myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
-    this.myAnimation = animation;
-    this.isPaused = true;
-    this.panel = new HBox();
-    getChildren().add(initControlPanel());
-  }
-
-  public Button makeButton(String property, EventHandler<ActionEvent> handler) {
-    // represent all supported image suffixes
-    final String IMAGEFILE_SUFFIXES = String
-        .format(".*\\.(%s)", String.join("|", ImageIO.getReaderFileSuffixes()));
-    Button result = new Button();
-    String label = myResources.getString(property);
-    if (label.matches(IMAGEFILE_SUFFIXES)) {
-      result.setGraphic(new ImageView(
-          new Image(getClass().getResourceAsStream(DEFAULT_RESOURCE_FOLDER + label))));
-    } else {
-      result.setText(label);
+    public ControlPanel(Timeline animation) {
+        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
+        this.myAnimation = animation;
+        this.isPaused = true;
+        this.panel = new HBox();
+        getChildren().add(initControlPanel());
     }
-    result.setOnAction(handler);
-    return result;
-  }
-
-  private Node initControlPanel() {
-    HBox result = new HBox();
-    myPlayButton = makeButton("PLAYCOMMAND", event -> setPlay());
-    myPauseButton = makeButton("PAUSECOMMAND", event -> setPause());
-    myResetButton = makeButton("RESETCOMMAND", event -> checkReset());
-    myStepButton = makeButton("UPDATECOMMAND", event -> checkUpdate());
-    mySlider = makeSlider(event -> handleSlider());
-    result.getChildren().add(myPlayButton);
-    result.getChildren().add(myPauseButton);
-    result.getChildren().add(myStepButton);
-    result.getChildren().add(myResetButton);
-    panel.getChildren().add(result);
-    panel.getChildren().add(mySlider);
-    return panel;
-  }
-
-  private Slider makeSlider(EventHandler<MouseEvent> handler) {
-    Slider mySlider = new Slider();
-    mySlider.setOnMouseReleased(handler);
-    mySlider.setMin(1);
-    mySlider.setMax(50);
-    mySlider.setValue(15);
-    mySlider.setShowTickLabels(true);
-    mySlider.setShowTickMarks(true);
-    mySlider.setMajorTickUnit(5);
-    mySlider.setMinorTickCount(1);
-    mySlider.setBlockIncrement(10);
-    myAnimation.setRate(mySlider.getValue());
-    return mySlider;
-  }
-
-  private void handleSlider() {
-    myAnimation.setRate(mySlider.getValue());
-  }
-
-  public void setPause() {
-    isPaused = true;
-    myAnimation.pause();
-  }
-
-  private void setPlay() {
-    if (isSimLoaded) {
-      isPaused = false;
-      myAnimation.play();
+    public Button makeButton (String property, EventHandler<ActionEvent> handler) {
+        // represent all supported image suffixes
+        final String IMAGEFILE_SUFFIXES = String.format(".*\\.(%s)", String.join("|", ImageIO.getReaderFileSuffixes()));
+        Button result = new Button();
+        String label = myResources.getString(property);
+        if (label.matches(IMAGEFILE_SUFFIXES)) {
+            result.setGraphic(new ImageView(new Image(getClass().getResourceAsStream(DEFAULT_RESOURCE_FOLDER + label))));
+        }
+        else {
+            result.setText(label);
+        }
+        result.setOnAction(handler);
+        return result;
     }
-  }
-
-  private void checkReset() {
-    if (isSimLoaded) {
-      isReset = true;
-      isPaused = true;
+    private Node initControlPanel() {
+        HBox result = new HBox();
+        myPlayButton = makeButton("PLAYCOMMAND", event -> setPlay());
+        myPauseButton = makeButton("PAUSECOMMAND", event -> setPause());
+        myResetButton = makeButton("RESETCOMMAND", event -> checkReset());
+        myStepButton = makeButton("UPDATECOMMAND", event -> checkUpdate());
+        mySlider = makeSlider(event -> handleSlider());
+        result.getChildren().add(myPlayButton);
+        result.getChildren().add(myPauseButton);
+        result.getChildren().add(myStepButton);
+        result.getChildren().add(myResetButton);
+        panel.getChildren().add(result);
+        panel.getChildren().add(mySlider);
+        return panel;
     }
-  }
+    private Slider makeSlider(EventHandler<MouseEvent> handler) {
+        Slider mySlider = new Slider();
+        mySlider.setOnMouseReleased(handler);
+        mySlider.setMin(1);
+        mySlider.setMax(50);
+        mySlider.setValue(15);
+        mySlider.setShowTickLabels(true);
+        mySlider.setShowTickMarks(true);
+        mySlider.setMajorTickUnit(5);
+        mySlider.setMinorTickCount(1);
+        mySlider.setBlockIncrement(10);
+        myAnimation.setRate(mySlider.getValue());
+        return mySlider;
+    }
+    private void handleSlider() {
+        myAnimation.setRate(mySlider.getValue());
+    }
+    public void setPause() {
+        isPaused = true;
+    }
+    private void setPlay() {
+        if (isSimLoaded) {
+            isPaused = false;
+        }
+    }
+    private void checkReset() {
+        if (isSimLoaded) {
+            isReset = true;
+            isPaused = true;
+        }
+    }
+    private void checkUpdate() {
+        isStep = true;
+    }
 
-  private void checkUpdate() {
-    isStep = true;
-  }
 
   public boolean getSimLoadStatus() {
     return isSimLoaded;
