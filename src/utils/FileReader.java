@@ -17,14 +17,12 @@ public class FileReader{
 
     private Element simElement;
 
-    private final String simType;
     private final String rows;
     private final String columns;
     private String errorMessage;
 
     public FileReader(String fileName) throws XMLException {
         setElement(fileName);
-        simType = getValue("type", simElement);
         rows = getValue("rows", simElement);
         columns = getValue("columns", simElement);
     }
@@ -57,7 +55,8 @@ public class FileReader{
             return Integer.parseInt(getValue(parameter, simElement));
         }catch(NullPointerException e){
             popUp(parameter);
-            throw new parameterException(errorMessage, parameter);
+            //throw new parameterException(errorMessage, parameter);
+            return 0;
         }
     }
 
@@ -67,7 +66,8 @@ public class FileReader{
             return Double.parseDouble(getValue(parameter, simElement));
         }catch(NullPointerException e){
             popUp(parameter);
-            throw new parameterException(errorMessage, parameter);
+            //throw new parameterException(errorMessage, parameter);
+            return 0;
         }
     }
 
@@ -77,7 +77,8 @@ public class FileReader{
         }catch(NullPointerException e){
             errorMessage = parameter+" parameter is invalid";
             popUp(parameter);
-            throw new parameterException(errorMessage, parameter);
+            //throw new parameterException(errorMessage, parameter);
+            return null;
         }
     }
 
@@ -95,10 +96,6 @@ public class FileReader{
         return node.getNodeValue();
     }
 
-    public String getSimType(){
-        return simType;
-    }
-
     public int getRows(){
         return Integer.parseInt(rows);
     }
@@ -106,9 +103,4 @@ public class FileReader{
     public int getColumns(){
         return Integer.parseInt(columns);
     }
-
-    public String getErrorMessage(){
-        return errorMessage;
-    }
-
 }
