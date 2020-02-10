@@ -29,10 +29,11 @@ public abstract class Controller {
   protected final int HEIGHT_CELLS;
   protected double spacing;
   protected SimSpecificUI simUI;
-  protected String modelType = "Square";
+  protected String modelType;
 
 
   public Controller(Group simGroup, FileReader reader, Group simUiGroup) {
+    modelType = "";
     colors = new ArrayList<>();
     this.reader = reader;
     random = new Random();
@@ -43,10 +44,7 @@ public abstract class Controller {
     setSimColor();
 
     createModel();
-
-
     currentView = new View(simGroup, WIDTH_CELLS, HEIGHT_CELLS, currentModel, spacing, colors);
-
 
     initializeModel();
     currentView.updateAllCells();
