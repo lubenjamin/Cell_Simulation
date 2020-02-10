@@ -25,10 +25,6 @@ public class FireController extends Controller {
     super(simGroup, reader);
   }
 
-  @Override
-  protected int getMaxStates() {
-    return 2;
-  }
 
   @Override
   protected void initializeCellState(Cell current) {
@@ -50,6 +46,8 @@ public class FireController extends Controller {
       initialBurningTree = reader.getDoubleValue("initialBurningTree");
       percentCatchFire = reader.getDoubleValue("percentCatchFire");
       spacing = reader.getDoubleValue("spacing");
+
+      maxState = 2;
   }
 
   @Override

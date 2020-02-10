@@ -64,11 +64,7 @@ public class PredPreyController extends Controller {
     percentOccupied = reader.getDoubleValue("percentOccupied");
     percentFish = reader.getDoubleValue("percentFish");
     spacing = reader.getDoubleValue("spacing");
-  }
-
-  @Override
-  protected int getMaxStates() {
-    return 2;
+    maxState = 2;
   }
 
   @Override
