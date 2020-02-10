@@ -64,6 +64,7 @@ public class Simulator {
     myAnimation.play();
   }
 
+
   private void step() {
     myNewSim = UI.getSim();
     if (!myNewSim.equals(BASECASE) && !myNewSim.equals(mySim)) {
