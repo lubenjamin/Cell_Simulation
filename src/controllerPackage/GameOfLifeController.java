@@ -13,8 +13,8 @@ public class GameOfLifeController extends Controller {
 
   //DEAD = 0 : ALIVE = 1
 
-  public GameOfLifeController(Group simGroup, FileReader reader) {
-    super(simGroup, reader);
+  public GameOfLifeController(Group simGroup, FileReader reader, Group simUIGroup) {
+    super(simGroup, reader, simUIGroup);
   }
 
   @Override

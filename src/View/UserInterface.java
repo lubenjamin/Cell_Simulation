@@ -36,13 +36,15 @@ public class UserInterface {
     myDisplay = new UserSelectDisplay(myResources, myControlPanel, mySims, isFirstSimulation);
   }
 
-  public Scene setupUI(Group viewGroup) {
+  public Scene setupUI(Group viewGroup, Group simGroup) {
     BorderPane bp = new BorderPane();
     hb.getChildren().add(myDisplay.getDropDown());
     hb.getChildren().add(myDisplay.getDropDown2());
     bp.setTop(hb);
+    bp.setLeft(simGroup);
     bp.setCenter(viewGroup);
     bp.setBottom(myControlPanel);
+
     Scene myScene = new Scene(bp, WIDTH, HEIGHT);
     myScene.getStylesheets().add(STYLESHEET);
     return myScene;

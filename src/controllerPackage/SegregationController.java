@@ -19,8 +19,8 @@ public class SegregationController extends Controller {
   private ArrayList<Cell> needMove;
 
   //EMPTY = 0 : MAJORITY = 1 : MINORITY : 2;
-  public SegregationController(Group simGroup, FileReader reader) {
-    super(simGroup, reader);
+  public SegregationController(Group simGroup, FileReader reader, Group simUIGroup) {
+    super(simGroup, reader, simUIGroup);
   }
 
   @Override

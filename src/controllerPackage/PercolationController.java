@@ -12,8 +12,8 @@ public class PercolationController extends Controller {
 
 
   //EMPTY = 0 : PERC = 1 : BLOCKED : 2;
-  public PercolationController(Group simGroup, FileReader reader) {
-    super(simGroup, reader);
+  public PercolationController(Group simGroup, FileReader reader, Group simUIGroup) {
+    super(simGroup, reader, simUIGroup);
   }
 
   @Override

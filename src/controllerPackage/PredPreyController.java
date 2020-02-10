@@ -29,8 +29,9 @@ public class PredPreyController extends Controller {
   private int numShark;
 
 
-  public PredPreyController(Group simGroup, FileReader reader, PredPreyGraph graph) {
-    super(simGroup, reader);
+  public PredPreyController(Group simGroup, FileReader reader, Group simUIGroup,
+      PredPreyGraph graph) {
+    super(simGroup, reader, simUIGroup);
     this.myGraph = graph;
   }
 
