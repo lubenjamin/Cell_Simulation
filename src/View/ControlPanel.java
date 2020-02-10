@@ -101,12 +101,10 @@ public class ControlPanel extends Group {
     }
     public void setPause() {
         isPaused = true;
-        myAnimation.pause();
     }
     private void setPlay() {
         if (isSimLoaded) {
             isPaused = false;
-            myAnimation.play();
         }
     }
     private void checkReset() {

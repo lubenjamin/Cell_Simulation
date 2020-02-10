@@ -67,12 +67,13 @@ public class Simulator {
   }
   public void initialize(String sim){
       FileReader reader = new FileReader(sim + EXTENSION);
-      mySim = reader.getSimType();
+      mySim = reader.getString("type");
       checkSimName(mySim, reader);
 
     KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> {
         step();
     });
+
     myAnimation.setCycleCount(Timeline.INDEFINITE);
     myAnimation.getKeyFrames().add(frame);
     myAnimation.play();
@@ -81,11 +82,10 @@ public class Simulator {
       myNewSim = UI.getSim();
       if (!myNewSim.equals("Switch Simulation") && !myNewSim.equals(mySim)) {
         currentController.clear();
-        //myAnimation.stop();
+        UI.removeGraph();
+        myControlPanel.setPause();
         FileReader reader = new FileReader(myNewSim + EXTENSION);
-        mySim = reader.getSimType();
-        //myControlPanel.setPause();
-
+        mySim = reader.getString("type");
         checkSimName(mySim, reader);
       }
     if (myControlPanel.getSimLoadStatus() && mySim != null) {
@@ -137,9 +137,9 @@ public class Simulator {
         break;
 
     }
-    if (! name.equals("PredatorPrey") && myGraph != null) {
-      UI.removeGraph();
-    }
+//    if (! name.equals("PredatorPrey") && myGraph != null) {
+//      UI.removeGraph();
+//    }
 
   }
 }

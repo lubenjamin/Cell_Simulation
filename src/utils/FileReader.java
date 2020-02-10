@@ -21,6 +21,7 @@ public class FileReader{
     private final String rows;
     private final String columns;
     private String errorMessage;
+    private boolean isSimLoaded;
 
     public FileReader(String fileName) throws XMLException {
         setElement(fileName);
