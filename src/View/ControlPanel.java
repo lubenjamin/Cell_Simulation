@@ -67,10 +67,6 @@ public class ControlPanel extends Group {
         result.setOnAction(handler);
         return result;
     }
-    public PredPreyGraph addPredPreyGraph() {
-        myGraph = new PredPreyGraph();
-        return myGraph;
-    }
     private Node initControlPanel() {
         HBox result = new HBox();
         myPlayButton = makeButton("PLAYCOMMAND", event -> setPlay());

@@ -51,7 +51,7 @@ public class UserInterface {
         return myDisplay.setSim();
     }
     public PredPreyGraph addPredChart() {
-        myGraph = myControlPanel.addPredPreyGraph();
+        myGraph = new PredPreyGraph();
         hb.getChildren().add(myGraph);
         return myGraph;
     }
