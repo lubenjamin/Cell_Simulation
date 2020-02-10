@@ -9,7 +9,7 @@ public class CellVisual extends Polygon {
   final int myXPos;
   final int myYPos;
   final Paint myColor;
-  private final static double r = 20; // the inner radius from hexagon center to outer corner
+  private final static double r = 4; // the inner radius from hexagon center to outer corner
   private final static double n = Math.sqrt(r * r * 0.75); // the inner radius from hexagon center to middle of the axis
   private  double width;
   private double height;

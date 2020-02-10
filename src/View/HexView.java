@@ -18,16 +18,16 @@ public class HexView extends View {
     public void initCellView(Model grid, int width, int height) {
         //myVisualWidth = VIEW_BOUND / width;
         //myVisualHeight = VIEW_BOUND / height;
-        double r = 20; // the inner radius from hexagon center to outer corner
+        double r = 4; // the inner radius from hexagon center to outer corner
         double n = Math.sqrt(r * r * 0.75); // the inner radius from hexagon center to middle of the axis
         myVisualWidth = 2*n;
         myVisualHeight = 2*r;
         int xStartOffset = 20;
         int yStartOffset = 20;
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
-                double xCoord = i * (myVisualWidth + (j % 2) * n + xStartOffset);
-                double yCoord = j * (myVisualHeight *.75 + yStartOffset);
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                double xCoord = i * myVisualWidth + (j % 2) * n + xStartOffset;
+                double yCoord = j * myVisualHeight *.75 + yStartOffset;
                 CellVisual cv = new CellVisual(myVisualWidth, myVisualHeight,
                         super.displayState(grid.getCell(i, j)),i, j);
                 cv.setHexShape(xCoord, yCoord);

@@ -40,12 +40,16 @@ pop-ups triggered on faulty file data.
 
 ### Notes/Assumptions
 
-Assumptions or Simplifications: 
+Assumptions or Simplifications: Simulation files must have the correct 
+parameters in order to actually show the simulation. No other assumptions 
+needs to be made in order to operate the simulation. 
 
 Interesting data files: fire_missing_type.xml and gameoflife_missing_initial_lives.xml 
 both demonstrate error and exception handling. 
 
-Known Bugs:
+Known Bugs: If the simulation file, regardless if the correct parameters
+are in place, does not have <simulation> as the root, the program will not 
+crash but console will constantly spit errors.
 
 Extra credit:
 
