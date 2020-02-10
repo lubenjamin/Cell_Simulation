@@ -38,6 +38,7 @@ public class RockPaperScissors extends Controller {
     maxState = numberOfTypes - 1;
     createLoseToMap();
   }
+
   @Override
   protected void setSimParams() {
     numberOfTypes = reader.getIntValue("numberOfTypes");
@@ -64,18 +65,18 @@ public class RockPaperScissors extends Controller {
     int[] countOfLosingNeighbors = getCountOfNeighbors(cell);
     int maxVal = 0;
     ArrayList<Integer> possibleIndex = new ArrayList<>();
-    for(int x =0; x<countOfLosingNeighbors.length; x++){
+    for (int x = 0; x < countOfLosingNeighbors.length; x++) {
       if (countOfLosingNeighbors[x] > maxVal) {
         possibleIndex.clear();
         possibleIndex.add(x);
         maxVal = countOfLosingNeighbors[x];
       }
-      if(countOfLosingNeighbors[x]==maxVal){
+      if (countOfLosingNeighbors[x] == maxVal) {
         possibleIndex.add(x);
       }
     }
     int thresh = threshold;
-    if(randomChanceThresh>0){
+    if (randomChanceThresh > 0) {
       thresh = threshold + random.nextInt(randomChanceThresh);
     }
     if (maxVal > thresh) {
@@ -85,7 +86,8 @@ public class RockPaperScissors extends Controller {
   }
 
   private int[] getCountOfNeighbors(Cell cell) {
-    ArrayList<Cell> neigh = (ArrayList<Cell>) currentModel.getMooreNeighborhood(cell.getX(), cell.getY());
+    ArrayList<Cell> neigh = (ArrayList<Cell>) currentModel
+        .getMooreNeighborhood(cell.getX(), cell.getY());
     ArrayList<Integer> statesLoseList = loseTo.get(cell.getCurrentState().getState());
     int[] ret = new int[numberOfTypes];
 
@@ -117,24 +119,24 @@ public class RockPaperScissors extends Controller {
     }
   }
 
-  private int whichPie(int x, int y){
+  private int whichPie(int x, int y) {
 
-    double xC = x-WIDTH_CELLS/2.0;
-    double yC = HEIGHT_CELLS/2.0-y;
-    double length = Math.sqrt(yC*yC + xC*xC);
+    double xC = x - WIDTH_CELLS / 2.0;
+    double yC = HEIGHT_CELLS / 2.0 - y;
+    double length = Math.sqrt(yC * yC + xC * xC);
     double angle;
-    if(xC == 0){
+    if (xC == 0) {
       xC = 1;
     }
-    angle = Math.acos( xC/length);
-    if(yC<0){
-      angle = -1* angle;
+    angle = Math.acos(xC / length);
+    if (yC < 0) {
+      angle = -1 * angle;
     }
-    if(angle<0){
-      angle = angle + Math.PI*2;
+    if (angle < 0) {
+      angle = angle + Math.PI * 2;
     }
-    double sections = Math.PI*2.0/numberOfTypes;
-    return (int) (angle/sections);
+    double sections = Math.PI * 2.0 / numberOfTypes;
+    return (int) (angle / sections);
 
   }
 }
