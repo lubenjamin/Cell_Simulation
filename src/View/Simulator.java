@@ -28,6 +28,7 @@ public class Simulator {
 
   private static final String EXTENSION = ".xml";
   private final Group viewGroup = new Group();
+  private final Group simUIGroup = new Group();
   private Controller currentController;
   private UserInterface UI;
   private ControlPanel myControlPanel;
@@ -48,7 +49,7 @@ public class Simulator {
     myAnimation = new Timeline();
     myControlPanel = new ControlPanel(myAnimation);
     UI = new UserInterface(stage, "English", simNames, myControlPanel, isFirstSimulation);
-    myScene = UI.setupUI(viewGroup);
+    myScene = UI.setupUI(viewGroup, simUIGroup);
     stage.setScene(myScene);
     stage.show();
     if (!isFirstSimulation) {
@@ -122,20 +123,20 @@ public class Simulator {
       mySim = name.toLowerCase();
     switch (name) {
       case "Percolation":
-        currentController = new PercolationController(viewGroup, reader);
+        currentController = new PercolationController(viewGroup, reader, simUIGroup);
         break;
       case "Segregation":
-        currentController = new SegregationController(viewGroup, reader);
+        currentController = new SegregationController(viewGroup, reader, simUIGroup);
         break;
       case "Fire":
-        currentController = new FireController(viewGroup, reader);
+        currentController = new FireController(viewGroup, reader, simUIGroup);
         break;
       case "GameOfLife":
-        currentController = new GameOfLifeController(viewGroup, reader);
+        currentController = new GameOfLifeController(viewGroup, reader, simUIGroup);
         break;
       case "PredatorPrey":
         myGraph = UI.addPredChart();
-        currentController = new PredPreyController(viewGroup, reader, myGraph);
+        currentController = new PredPreyController(viewGroup, reader, simUIGroup, myGraph);
         break;
     }
     }
