@@ -59,6 +59,7 @@ public class FireController extends Controller {
     percentCatchFire = reader.getDoubleValue("percentCatchFire");
     spacing = reader.getDoubleValue("spacing");
 
+    modelType = reader.getString("modelType");
     maxState = 2;
   }
 

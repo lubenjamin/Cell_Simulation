@@ -16,7 +16,7 @@ public class View {
   private final Model myModel;
   private final Group myViewGroup;
   private final ArrayList<CellVisual> myVisuals = new ArrayList<>();
-  private final ArrayList<String> colors;
+  private ArrayList<String> colors;
   private double myVisualWidth;
   private double myVisualHeight;
   private int currState = 0;
@@ -71,5 +71,9 @@ public class View {
     }
     cell.incrementState();
     cv.setFill(Color.valueOf(colors.get(cell.getNewStateFromClick())));
+  }
+
+  public void replaceColors(ArrayList<String> colors) {
+    this.colors = colors;
   }
 }
