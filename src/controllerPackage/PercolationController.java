@@ -37,7 +37,6 @@ public class PercolationController extends Controller {
     } else {
       current.setCurrentState(new State(0));
     }
-
   }
 
   @Override

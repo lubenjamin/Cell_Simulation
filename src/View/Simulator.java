@@ -5,6 +5,7 @@ import controllerPackage.FireController;
 import controllerPackage.GameOfLifeController;
 import controllerPackage.PercolationController;
 import controllerPackage.PredPreyController;
+import controllerPackage.RockPaperScissors;
 import controllerPackage.SegregationController;
 import java.io.File;
 import java.util.ArrayList;
@@ -58,6 +59,7 @@ public class Simulator {
       initialize(sim);
     }
   }
+
   public void initialize(String sim) {
     FileReader reader = new FileReader(sim + EXTENSION);
     mySim = reader.getString("type");
@@ -71,22 +73,24 @@ public class Simulator {
     myAnimation.getKeyFrames().add(frame);
     myAnimation.play();
   }
-  private void step(){
-      myNewSim = UI.getSim();
-      if (mySim == null) {
-        mySim = myNewSim;
-        myNewSim = "Switch Simulation";
+
+  private void step() {
+    myNewSim = UI.getSim();
+    if (mySim == null) {
+      mySim = myNewSim;
+      myNewSim = "Switch Simulation";
+    }
+    if (!myNewSim.equals("Switch Simulation") && !myNewSim.equals(mySim)) {
+      if (currentController != null) {
+        viewGroup.getChildren().clear();
+        simUIGroup.getChildren().clear();
       }
-      if (!myNewSim.equals("Switch Simulation") && !myNewSim.equals(mySim)) {
-        if (currentController != null) {
-          currentController.clear();
-        }
-        UI.removeGraph();
-        myControlPanel.setPause();
-        FileReader reader = new FileReader(myNewSim + EXTENSION);
-        mySim = reader.getString("type");
-        checkSimName(mySim, reader);
-      }
+      UI.removeGraph();
+      myControlPanel.setPause();
+      FileReader reader = new FileReader(myNewSim + EXTENSION);
+      mySim = reader.getString("type");
+      checkSimName(mySim, reader);
+    }
     if (myControlPanel.getSimLoadStatus() && mySim != null && currentController != null) {
       if (!myControlPanel.getPauseStatus() || myControlPanel.getUpdateStatus()) {
         currentController.updateSim();
@@ -118,27 +122,29 @@ public class Simulator {
   private void checkSimName(String name, FileReader reader) {
     if (name == null) {
       currentController = null;
-    }
-    else {
+    } else {
       mySim = name.toLowerCase();
-    switch (name) {
-      case "Percolation":
-        currentController = new PercolationController(viewGroup, reader, simUIGroup);
-        break;
-      case "Segregation":
-        currentController = new SegregationController(viewGroup, reader, simUIGroup);
-        break;
-      case "Fire":
-        currentController = new FireController(viewGroup, reader, simUIGroup);
-        break;
-      case "GameOfLife":
-        currentController = new GameOfLifeController(viewGroup, reader, simUIGroup);
-        break;
-      case "PredatorPrey":
-        myGraph = UI.addPredChart();
-        currentController = new PredPreyController(viewGroup, reader, simUIGroup, myGraph);
-        break;
-    }
+      switch (name) {
+        case "Percolation":
+          currentController = new PercolationController(viewGroup, reader, simUIGroup);
+          break;
+        case "Segregation":
+          currentController = new SegregationController(viewGroup, reader, simUIGroup);
+          break;
+        case "Fire":
+          currentController = new FireController(viewGroup, reader, simUIGroup);
+          break;
+        case "GameOfLife":
+          currentController = new GameOfLifeController(viewGroup, reader, simUIGroup);
+          break;
+        case "PredatorPrey":
+          myGraph = UI.addPredChart();
+          currentController = new PredPreyController(viewGroup, reader, simUIGroup, myGraph);
+          break;
+        case "RockPaperScissors":
+          currentController = new RockPaperScissors(viewGroup, reader, simUIGroup);
+          break;
+      }
     }
 //    if (! name.equals("PredatorPrey") && myGraph != null) {
 //      UI.removeGraph();
