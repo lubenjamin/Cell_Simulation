@@ -29,7 +29,7 @@ public class Simulator {
   private static final String EXTENSION = ".xml";
   private final Group viewGroup = new Group();
   private final Group simUIGroup = new Group();
-  private Controller currentController;
+  private Controller currentController = null;
   private UserInterface UI;
   private ControlPanel myControlPanel;
   private Scene myScene;
@@ -73,6 +73,10 @@ public class Simulator {
   }
   private void step(){
       myNewSim = UI.getSim();
+      if (myNewSim != "Switch Simulation") {
+        FileReader reader = new FileReader(myNewSim + EXTENSION);
+        myNewSim = reader.getString("type");
+      }
       if (mySim == null) {
         mySim = myNewSim;
         myNewSim = "Switch Simulation";
@@ -83,9 +87,9 @@ public class Simulator {
         }
         UI.removeGraph();
         myControlPanel.setPause();
-        FileReader reader = new FileReader(myNewSim + EXTENSION);
-        mySim = reader.getString("type");
-        checkSimName(mySim, reader);
+        FileReader reader2 = new FileReader(myNewSim + EXTENSION);
+        mySim = reader2.getString("type");
+        checkSimName(mySim, reader2);
       }
     if (myControlPanel.getSimLoadStatus() && mySim != null && currentController != null) {
       if (!myControlPanel.getPauseStatus() || myControlPanel.getUpdateStatus()) {
@@ -119,8 +123,6 @@ public class Simulator {
     if (name == null) {
       currentController = null;
     }
-    else {
-      mySim = name.toLowerCase();
     switch (name) {
       case "Percolation":
         currentController = new PercolationController(viewGroup, reader, simUIGroup);
@@ -141,4 +143,4 @@ public class Simulator {
     }
     }
   }
-}
+

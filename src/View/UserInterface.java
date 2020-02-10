@@ -2,6 +2,9 @@ package View;
 
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -11,7 +14,7 @@ import javafx.stage.Stage;
 public class UserInterface {
 
   private static final int HEIGHT = 600;
-  private static final int WIDTH = 600;
+  private static final int WIDTH = 850;
 
   private static final String RESOURCES = "resources";
   private static final String DEFAULT_RESOURCE_PACKAGE = RESOURCES + ".";
@@ -24,6 +27,7 @@ public class UserInterface {
   private final ControlPanel myControlPanel;
   private final UserSelectDisplay myDisplay;
   private HBox hb = new HBox();
+  private HBox hb2 = new HBox();
   private PredPreyGraph myGraph;
   private BorderPane bp = new BorderPane();
 
@@ -36,20 +40,21 @@ public class UserInterface {
     stage.setTitle(myResources.getString("SIMTITLE"));
     myDisplay = new UserSelectDisplay(myResources, myControlPanel, mySims, isFirstSimulation);
   }
-<<<<<<< HEAD
-  public Scene setupUI(Group viewGroup) {
-=======
 
   public Scene setupUI(Group viewGroup, Group simGroup) {
-    BorderPane bp = new BorderPane();
->>>>>>> 24e7fa1f0bde3c6cc594e9dd9e8ea526a98c6a0e
+    hb2.setAlignment(Pos.CENTER);
+    hb.setSpacing(450);
     hb.getChildren().add(myDisplay.getDropDown());
     hb.getChildren().add(myDisplay.getDropDown2());
     bp.setTop(hb);
+    bp.setRight(hb2);
     bp.setLeft(simGroup);
     bp.setCenter(viewGroup);
     bp.setBottom(myControlPanel);
-
+    BorderPane.setAlignment(simGroup, Pos.CENTER);
+    BorderPane.setMargin(simGroup, new Insets(12, 12, 12, 12));
+    BorderPane.setAlignment(myControlPanel, Pos.CENTER);
+    BorderPane.setMargin(myControlPanel, new Insets(12, 12, 12, 12));
     Scene myScene = new Scene(bp, WIDTH, HEIGHT);
     myScene.getStylesheets().add(STYLESHEET);
     return myScene;
@@ -60,12 +65,12 @@ public class UserInterface {
 
   public PredPreyGraph addPredChart() {
     myGraph = new PredPreyGraph();
-    hb.getChildren().add(myGraph);
+    hb2.getChildren().add(myGraph);
     return myGraph;
   }
 
   public void removeGraph() {
-    hb.getChildren().remove(myGraph);
+    hb2.getChildren().remove(myGraph);
   }
 
 

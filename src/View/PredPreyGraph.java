@@ -7,8 +7,8 @@ import javafx.scene.chart.XYChart;
 
 public class PredPreyGraph extends Group {
 
-  private static final int GRAPH_WIDTH = 250;
-  private static final int GRAPH_HEIGHT = 150;
+  private static final int GRAPH_WIDTH = 300;
+  private static final int GRAPH_HEIGHT = 300;
   private final LineChart<Number, Number> myLineChart;
   private int time = 0;
   private XYChart.Series<Number, Number> series = new XYChart.Series<>();

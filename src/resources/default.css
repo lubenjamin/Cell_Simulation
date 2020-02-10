@@ -33,8 +33,22 @@
 .chart-title {
   -fx-font-size: 10;
 }
-.spinner.split-arrows-vertical {
-  -fx-pref-width: 5;
+.chart-legend.default-color0 {
+  -fx-stroke: #b8860b;
+}
+.chart-legend.default-color1 {
+  -fx-stroke: #00ff00;
+}
+.chart {
+  -fx-pref-height: 300;
+  -fx-pref-width: 250;
+}
+.label {
+  -fx-font-size: 12;
+}
+.spinner {
+  -fx-pref-width: 60;
+  -fx-font-size: 12;
 }
 .spinner.split-arrows-vertical .increment-arrow-button {
   -fx-padding: 1 2 1 2; /*caspian.css values are 4 8 4 8 */
