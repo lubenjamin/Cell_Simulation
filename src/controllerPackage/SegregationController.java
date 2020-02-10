@@ -1,10 +1,10 @@
 package controllerPackage;
 
-import utils.Cell;
-import utils.FileReader;
 import java.util.ArrayList;
 import java.util.Random;
 import javafx.scene.Group;
+import utils.Cell;
+import utils.FileReader;
 
 
 public class SegregationController extends Controller {
@@ -83,7 +83,8 @@ public class SegregationController extends Controller {
   }
 
   private double getSatisfy(Cell current) {
-    ArrayList<Cell> neigh = (ArrayList<Cell>) currentModel.getMooreNeighborhood(current.getX(), current.getY());
+    ArrayList<Cell> neigh = (ArrayList<Cell>) currentModel
+        .getMooreNeighborhood(current.getX(), current.getY());
     double totalNeigh = 0;
     double similar = 0;
     for (Cell c : neigh) {

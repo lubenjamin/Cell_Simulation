@@ -19,7 +19,7 @@ public class Model {
   private void initializeGrid(int maxState) {
     for (int y = 0; y < grid.length; y++) {
       for (int x = 0; x < grid[0].length; x++) {
-        grid[y][x] = new Cell(x,y, maxState);
+        grid[y][x] = new Cell(x, y, maxState);
       }
     }
   }
@@ -64,8 +64,6 @@ public class Model {
 
     ret.add(grid[newY][newX]);
   }
-
-
 
 
   public List<Cell> getMooreNeighborhood(int x, int y) {

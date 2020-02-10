@@ -1,14 +1,9 @@
 package controllerPackage;
 
+import java.util.ArrayList;
+import javafx.scene.Group;
 import utils.Cell;
 import utils.FileReader;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-import javafx.scene.Group;
-import utils.XMLException;
-import utils.parameterException;
 
 
 public class FireController extends Controller {
@@ -17,7 +12,6 @@ public class FireController extends Controller {
   private double initialTree;
   private double initialBurningTree;
   private double percentCatchFire;
-
 
   //EMPTY = 0 : TREE = 1 : BURNING : 2;
 
@@ -42,12 +36,12 @@ public class FireController extends Controller {
 
   @Override
   protected void setSimParams() {
-      initialTree = reader.getDoubleValue("initialTree");
-      initialBurningTree = reader.getDoubleValue("initialBurningTree");
-      percentCatchFire = reader.getDoubleValue("percentCatchFire");
-      spacing = reader.getDoubleValue("spacing");
+    initialTree = reader.getDoubleValue("initialTree");
+    initialBurningTree = reader.getDoubleValue("initialBurningTree");
+    percentCatchFire = reader.getDoubleValue("percentCatchFire");
+    spacing = reader.getDoubleValue("spacing");
 
-      maxState = 2;
+    maxState = 2;
   }
 
   @Override
@@ -68,7 +62,8 @@ public class FireController extends Controller {
   }
 
   private int getNumFire(Cell current) {
-    ArrayList<Cell> neigh = (ArrayList<Cell>) currentModel.getSimpleNeighborhood(current.getX(), current.getY());
+    ArrayList<Cell> neigh = (ArrayList<Cell>) currentModel
+        .getSimpleNeighborhood(current.getX(), current.getY());
     int numOnFire = 0;
     for (Cell c : neigh) {
       if (c.getCurrentState().getState() == 2) {

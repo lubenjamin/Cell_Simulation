@@ -1,8 +1,8 @@
 package controllerPackage;
 
+import javafx.scene.Group;
 import utils.Cell;
 import utils.FileReader;
-import javafx.scene.Group;
 
 
 public class PercolationController extends Controller {

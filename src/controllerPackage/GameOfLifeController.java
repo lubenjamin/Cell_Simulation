@@ -1,9 +1,9 @@
 package controllerPackage;
 
-import utils.Cell;
-import utils.FileReader;
 import java.util.ArrayList;
 import javafx.scene.Group;
+import utils.Cell;
+import utils.FileReader;
 
 
 public class GameOfLifeController extends Controller {
@@ -30,7 +30,7 @@ public class GameOfLifeController extends Controller {
   protected void setSimParams() {
     initialLive = reader.getDoubleValue("initialLive");
     spacing = reader.getDoubleValue("spacing");
-    maxState =1;
+    maxState = 1;
   }
 
   @Override
@@ -48,7 +48,8 @@ public class GameOfLifeController extends Controller {
 
   private int getNumAlive(Cell current) {
     int numAlive = 0;
-    ArrayList<Cell> neigh = (ArrayList<Cell>) currentModel.getMooreNeighborhood(current.getX(), current.getY());
+    ArrayList<Cell> neigh = (ArrayList<Cell>) currentModel
+        .getMooreNeighborhood(current.getX(), current.getY());
     for (Cell c : neigh) {
       if (c.getCurrentState().getState() == 1) {
         numAlive++;
