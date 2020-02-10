@@ -29,7 +29,6 @@ public abstract class Controller {
 
   public Controller(Group simGroup, FileReader reader) {
 
-    maxState = getMaxStates();
     colors = new ArrayList<>();
     this.reader = reader;
     random = new Random();
@@ -44,7 +43,6 @@ public abstract class Controller {
     currentView.updateAllCells();
   }
 
-  protected abstract int getMaxStates();
 
   public void updateSim() {
     updateGrid();

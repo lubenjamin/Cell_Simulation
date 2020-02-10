@@ -16,10 +16,6 @@ public class GameOfLifeController extends Controller {
     super(simGroup, reader);
   }
 
-  @Override
-  protected int getMaxStates() {
-    return 1;
-  }
 
   @Override
   protected void initializeCellState(Cell current) {
@@ -34,6 +30,7 @@ public class GameOfLifeController extends Controller {
   protected void setSimParams() {
     initialLive = reader.getDoubleValue("initialLive");
     spacing = reader.getDoubleValue("spacing");
+    maxState =1;
   }
 
   @Override

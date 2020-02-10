@@ -22,10 +22,6 @@ public class SegregationController extends Controller {
     super(simGroup, reader);
   }
 
-  @Override
-  protected int getMaxStates() {
-    return 2;
-  }
 
   @Override
   protected void initializeCellState(Cell current) {
@@ -47,6 +43,7 @@ public class SegregationController extends Controller {
     percentMajority = reader.getDoubleValue("percentMajority");
     satisfiedLevel = reader.getDoubleValue("satisfiedLevel");
     spacing = reader.getDoubleValue("spacing");
+    maxState = 2;
   }
 
   @Override
