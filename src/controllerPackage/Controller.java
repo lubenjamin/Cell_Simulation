@@ -58,6 +58,8 @@ public abstract class Controller {
   public void resetSim() {
     setSimParamsFromUI();
     initializeModel();
+    setSimColor();
+    currentView.replaceColors(colors);
     currentView.updateAllCells();
   }
 
@@ -112,13 +114,15 @@ public abstract class Controller {
   }
 
   protected void setSimColor() {
+    colors.clear();
     for (int x = 0; x <= maxState; x++) {
       if (!reader.checkExists("state" + x + "Color")) {
         System.out.println("missing state color: adding random color");
         colors.add(randomColor());
       }
-      colors.add(reader.getString("state" + x + "Color"));
-
+      else{
+        colors.add(reader.getString("state" + x + "Color"));
+      }
     }
   }
 

@@ -3,7 +3,7 @@
     <type>RockPaperScissors</type>
     <rows>100</rows>
     <columns>100</columns>
-    <numberOfTypes>3</numberOfTypes>
+    <numberOfTypes>5</numberOfTypes>
     <threshold>3</threshold>
     <state0Color>0x056a3a</state0Color>
     <state1Color>0x000000</state1Color>
