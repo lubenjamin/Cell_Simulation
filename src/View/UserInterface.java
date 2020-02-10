@@ -2,7 +2,6 @@ package View;
 
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -31,7 +30,8 @@ public class UserInterface {
   private PredPreyGraph myGraph;
   private BorderPane bp = new BorderPane();
 
-  public UserInterface(Stage stage, String language, ArrayList<String> simNames, ControlPanel panel) {
+  public UserInterface(Stage stage, String language, ArrayList<String> simNames,
+      ControlPanel panel) {
     this.mySims = simNames;
     myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
     this.myControlPanel = panel;
@@ -58,6 +58,7 @@ public class UserInterface {
     myScene.getStylesheets().add(STYLESHEET);
     return myScene;
   }
+
   public String getSim() {
     return myDisplay.setSim();
   }

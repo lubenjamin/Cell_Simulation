@@ -28,15 +28,13 @@ public class UserSelectDisplay extends Stage {
   private final ResourceBundle myResources;
   private final ComboBox<String> myDropDown;
   //private final ComboBox<String> myDropDown2;
-
-  private Button mySimAddButton = new Button();
-
-
   private final ControlPanel myControlPanel;
   private final ArrayList<String> mySims;
+  private Button mySimAddButton = new Button();
   private File myFirstSim;
 
-  public UserSelectDisplay(ResourceBundle resources, ControlPanel controls, ArrayList<String> sims) {
+  public UserSelectDisplay(ResourceBundle resources, ControlPanel controls,
+      ArrayList<String> sims) {
     this.myResources = resources;
     this.myControlPanel = controls;
     this.mySims = sims;
@@ -53,13 +51,14 @@ public class UserSelectDisplay extends Stage {
   }
 
   private void addSim() {
-      Stage stage = new Stage();
-      new Simulator(stage);
+    Stage stage = new Stage();
+    new Simulator(stage);
   }
 
   public ComboBox<String> getDropDown() {
     return myDropDown;
   }
+
   public Button getSimAddButton() {
     return mySimAddButton;
   }
@@ -80,7 +79,7 @@ public class UserSelectDisplay extends Stage {
     //myDropDown2.setOnAction(handler2);
     for (String s : simNames) {
       myDropDown.getItems().add(s);
-     // myDropDown2.getItems().add(s);
+      // myDropDown2.getItems().add(s);
     }
   }
 

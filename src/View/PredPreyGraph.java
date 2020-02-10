@@ -30,6 +30,7 @@ public class PredPreyGraph extends Group {
   }
 
   public void reinit() {
+    clear();
     series = new XYChart.Series<>();
     series2 = new XYChart.Series<>();
     myLineChart.getData().add(series);

@@ -57,6 +57,7 @@ public class PredPreyController extends Controller {
     percentFish = (double) values.get("percentFish");
     sharkStarve = (int) values.get("sharkStarve");
   }
+
   @Override
   protected void setState(Cell current, int newStateFromClick) {
     current.setCurrentState(new PPState(newStateFromClick));

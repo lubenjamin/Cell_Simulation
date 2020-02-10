@@ -66,12 +66,10 @@ public class FireController extends Controller {
   @Override
   protected void updateCell(int x, int y) {
     Cell current = currentModel.getCell(x, y);
-
     if (current.getCurrentState().getState() == 0 || current.getCurrentState().getState() == 2) {
       current.setNextState(new State(0));
       return;
     }
-
     int numFire = getNumFire(current);
     if (numFire > 0 && probabilityChecker(percentCatchFire)) {
       current.setNextState(new State(2));
