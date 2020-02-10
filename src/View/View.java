@@ -35,25 +35,25 @@ public abstract class View {
       cv.setFill(displayState(myModel.getCell(cv.getXPos(), cv.getYPos())));
     }
   }
-
-  private void initCellView(Model grid, int width, int height) {
-    myVisualWidth = VIEW_BOUND / width;
-    myVisualHeight = VIEW_BOUND / height;
-    for (int i = 0; i < width; i++) {
-      for (int j = 0; j < height; j++) {
-        CellVisual cv = new CellVisual(myVisualWidth, myVisualHeight,
-            displayState(grid.getCell(i, j)), i, j);
-        cv.setSquareShape(i * (myVisualWidth + spacing), j * (myVisualHeight + spacing));
-//        cv.setX(i * (myVisualWidth + spacing));
-//        cv.setY(j * (myVisualHeight + spacing));
-        myVisuals.add(cv);
-        EventHandler<MouseEvent> eventHandler = mouseEvent -> handleCellClick(
-            grid.getCell(cv.getXPos(), cv.getYPos()), cv);
-        cv.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
-        myViewGroup.getChildren().add(cv);
-      }
-    }
-  }
+//
+//  private void initCellView(Model grid, int width, int height) {
+//    myVisualWidth = VIEW_BOUND / width;
+//    myVisualHeight = VIEW_BOUND / height;
+//    for (int i = 0; i < width; i++) {
+//      for (int j = 0; j < height; j++) {
+//        CellVisual cv = new CellVisual(myVisualWidth, myVisualHeight,
+//            displayState(grid.getCell(i, j)), i, j);
+//        cv.setSquareShape(i * (myVisualWidth + spacing), j * (myVisualHeight + spacing));
+////        cv.setX(i * (myVisualWidth + spacing));
+////        cv.setY(j * (myVisualHeight + spacing));
+//        myVisuals.add(cv);
+//        EventHandler<MouseEvent> eventHandler = mouseEvent -> handleCellClick(
+//            grid.getCell(cv.getXPos(), cv.getYPos()), cv);
+//        cv.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
+//        myViewGroup.getChildren().add(cv);
+//      }
+//    }
+//  }
 
   protected Paint displayState(Cell cell) {
     return Color.valueOf(colors.get(cell.getCurrentState().getState()));

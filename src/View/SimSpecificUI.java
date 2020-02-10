@@ -26,8 +26,6 @@ public class SimSpecificUI {
     }
     v.setLayoutX(100);
     v.setLayoutY(100);
-    v.getStyleClass().add("vbox");
-    v.setId("vbox-custom");
     group.getChildren().add(v);
   }
 

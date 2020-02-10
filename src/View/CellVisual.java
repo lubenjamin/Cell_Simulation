@@ -41,7 +41,10 @@ public class CellVisual extends Polygon {
               x + n, y - r * 0.5
       );
   }
-  public void setSquareShape(double x, double y) {
-    getPoints().addAll(x, y);
+  public void setSquareShape(double x, double y, double h, double w) {
+    double p = Math.sqrt(h*h+w*w);
+    getPoints().addAll
+            (x-w*w/p, y-h*h/p, x+w*w/p, y-h*h/p, x+w*w/p, y+h*h/p, x-w*w/p, y+h*h/p);
+
   }
 }
