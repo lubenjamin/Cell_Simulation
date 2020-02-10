@@ -1,5 +1,6 @@
 package controllerPackage;
 
+import java.util.HashMap;
 import javafx.scene.Group;
 import utils.Cell;
 import utils.FileReader;
@@ -10,6 +11,16 @@ public class RockPaperScissors extends Controller {
 
   public RockPaperScissors(Group simGroup, FileReader reader) {
     super(simGroup, reader);
+  }
+
+  @Override
+  protected HashMap<String, Object> getSimParamsForUi() {
+    return null;
+  }
+
+  @Override
+  protected void setSimParamsFromUI() {
+
   }
 
   @Override

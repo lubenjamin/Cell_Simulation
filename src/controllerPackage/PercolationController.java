@@ -1,5 +1,6 @@
 package controllerPackage;
 
+import java.util.HashMap;
 import javafx.scene.Group;
 import utils.Cell;
 import utils.FileReader;
@@ -13,6 +14,19 @@ public class PercolationController extends Controller {
   //EMPTY = 0 : PERC = 1 : BLOCKED : 2;
   public PercolationController(Group simGroup, FileReader reader) {
     super(simGroup, reader);
+  }
+
+  @Override
+  protected HashMap<String, Object> getSimParamsForUi() {
+    HashMap<String, Object> ret = new HashMap<>();
+    ret.put("percentBlocked", percentBlocked);
+    return ret;
+  }
+
+  @Override
+  protected void setSimParamsFromUI() {
+    HashMap<String, Object> values = (HashMap<String, Object>) simUI.getValues();
+    percentBlocked = (double) values.get("percentBlocked");
   }
 
 

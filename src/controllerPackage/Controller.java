@@ -1,7 +1,12 @@
 package controllerPackage;
 
+
 import View.View;
+import View.SimSpecificUI;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
@@ -21,6 +26,7 @@ public abstract class Controller {
   protected final int WIDTH_CELLS;
   protected final int HEIGHT_CELLS;
   protected double spacing;
+  protected SimSpecificUI simUI;
 
 
   public Controller(Group simGroup, FileReader reader) {
@@ -37,8 +43,14 @@ public abstract class Controller {
     currentView = new View(simGroup, WIDTH_CELLS, HEIGHT_CELLS, currentModel, spacing, colors);
     initializeModel();
     currentView.updateAllCells();
+
+    HashMap<String, Object> a = getSimParamsForUi();
+    simUI = new SimSpecificUI(simGroup, a);
   }
 
+  protected abstract HashMap<String, Object> getSimParamsForUi();
+
+  protected abstract void setSimParamsFromUI();
 
   public void updateSim() {
     updateGrid();
@@ -47,10 +59,12 @@ public abstract class Controller {
   }
 
   public void resetSim() {
+    setSimParamsFromUI();
     initializeModel();
     currentView.updateAllCells();
-
   }
+
+
 
   public void clear() {
     currentView.clear();
@@ -133,6 +147,10 @@ public abstract class Controller {
 
   protected void setState(Cell current, int newStateFromClick) {
     current.setCurrentState(new State(newStateFromClick));
+  }
+
+  protected void trial(){
+
   }
 
 }
