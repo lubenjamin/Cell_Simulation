@@ -3,7 +3,7 @@
 
 ## Team Roles and Responsibilities
 
- * Team Member #1
+ * Benjamin Lu
 
  * Team Member #2
 
