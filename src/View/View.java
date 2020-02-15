@@ -68,9 +68,11 @@ public class View {
       for (int j = 0; j < height; j++) {
         CellVisual cv = new CellVisual(myVisualWidth, myVisualHeight,
                 displayState(grid.getCell(i, j)), i, j);
+
         cv.setX(i * (myVisualWidth + spacing));
         cv.setY(j * (myVisualHeight + spacing));
         myVisuals.add(cv);
+
         EventHandler<MouseEvent> eventHandler = mouseEvent -> handleCellClick(
                 grid.getCell(cv.getXPos(), cv.getYPos()), cv);
         cv.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
@@ -80,10 +82,6 @@ public class View {
   }
 
 
-  private Paint displayState(Cell cell) {
-    return Color.valueOf(colors.get(cell.getCurrentState().getState()));
-  }
-
   private void handleCellClick(Cell cell, CellVisual cv) {
     myModel.manualEntry = true;
     currState++;
@@ -92,6 +90,10 @@ public class View {
     }
     cell.incrementState();
     cv.setFill(Color.valueOf(colors.get(cell.getNewStateFromClick())));
+  }
+
+  private Paint displayState(Cell cell) {
+    return Color.valueOf(colors.get(cell.getCurrentState().getState()));
   }
 }
 

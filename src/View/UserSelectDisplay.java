@@ -5,33 +5,28 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+/**
+ * this class depicts good use of modularity as it divides up the UI classes job of adding and loading sims into
+ * a separate class similar to ControlPanel
+ */
 public class UserSelectDisplay extends Stage {
 
   private static final String STYLESHEET = "resources/default.css";
 
-//    private Button mySegButton = new Button();
-//    private Button myPercButton = new Button();
-//    private Button myLifeButton = new Button();
-//    private Button myFireButton = new Button();
-//    private Button myPredButton = new Button();
-
   private static final String RESOURCES = "resources";
-  private static final String DEFAULT_RESOURCE_PACKAGE = RESOURCES + ".";
-  private static final String DEFAULT_RESOURCE_FOLDER = "/" + RESOURCES + "/";
-
 
   private final ResourceBundle myResources;
   private final ComboBox<String> myDropDown;
-  //private final ComboBox<String> myDropDown2;
   private final ControlPanel myControlPanel;
   private final ArrayList<String> mySims;
-  private Button mySimAddButton = new Button();
-  private File myFirstSim;
+  private Button mySimAddButton;
+
 
   /**
    * create an object specializing in simulation laoding
@@ -68,7 +63,7 @@ public class UserSelectDisplay extends Stage {
   /**
    * @return a populated dropdown box housing all of the viable simulation files
    */
-  public ComboBox<String> getDropDown() {
+  public Node getDropDown() {
     return myDropDown;
   }
 
@@ -76,17 +71,15 @@ public class UserSelectDisplay extends Stage {
    * return a button that alllows for addition of new simulations
    * @return
    */
-  public Button getSimAddButton() {
+  public Node getSimAddButton() {
     return mySimAddButton;
   }
 
   private void initSimSelect(EventHandler<ActionEvent> handler, EventHandler<ActionEvent> handler2,
       ArrayList<String> simNames) {
     myDropDown.setOnAction(handler);
-    //myDropDown2.setOnAction(handler2);
     for (String s : simNames) {
       myDropDown.getItems().add(s);
-      // myDropDown2.getItems().add(s);
     }
   }
 

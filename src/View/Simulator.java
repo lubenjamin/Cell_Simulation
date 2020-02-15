@@ -18,26 +18,34 @@ import javafx.util.Duration;
 import utils.FileReader;
 
 
-
+/**
+ * This code is essentially the 'main' of the program. It initializes many of the core objects needed
+ * for the program to work. The variables and method names make functions and variable purposes clear and easy to read
+ * This class also is a part of what is needed to extend the project and add new simulations. To add a new sim, part of the
+ * process would be adding a new case to the switch in the checkSimName method
+ */
 public class Simulator {
 
-  public final int FRAMES_PER_SECOND = 1;
+  private final int FRAMES_PER_SECOND = 1;
   private final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 
   private final String EXTENSION = ".xml";
   private final String BASECASE = "Switch Simulation";
+
   private final Group viewGroup = new Group();
   private final Group simUIGroup = new Group();
+
   private Controller currentController = null;
   private UserInterface UI;
   private ControlPanel myControlPanel;
   private Scene myScene;
+  private Timeline myAnimation;
+  private PredPreyGraph myGraph = null;
 
   private String mySim;
   private String myNewSim;
   private ArrayList<String> simNames;
-  private Timeline myAnimation;
-  private PredPreyGraph myGraph = null;
+
 
 
   /**
@@ -52,6 +60,7 @@ public class Simulator {
     UI = new UserInterface(stage, "English", simNames, myControlPanel);
 
     myScene = UI.setupUI(viewGroup, simUIGroup);
+
     stage.setScene(myScene);
     stage.show();
 
