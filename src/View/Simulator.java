@@ -21,12 +21,11 @@ import utils.FileReader;
 
 public class Simulator {
 
+  public final int FRAMES_PER_SECOND = 1;
+  private final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 
-  public static final int FRAMES_PER_SECOND = 1;
-  private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
-
-  private static final String EXTENSION = ".xml";
-  private static final String BASECASE = "Switch Simulation";
+  private final String EXTENSION = ".xml";
+  private final String BASECASE = "Switch Simulation";
   private final Group viewGroup = new Group();
   private final Group simUIGroup = new Group();
   private Controller currentController = null;
