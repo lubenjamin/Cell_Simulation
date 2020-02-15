@@ -7,7 +7,14 @@ import javafx.scene.Group;
 import utils.Cell;
 import utils.FileReader;
 
-
+/**
+ * This class creates the Segregation simulation.
+ *
+ * It uses 3 states, empty, majority, and minority.
+ *
+ * The specific params are initial percent occupied, ratio of majority minority,
+ * and level for satisfaction.
+ */
 public class SegregationController extends Controller {
 
 

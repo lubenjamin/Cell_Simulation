@@ -5,7 +5,15 @@ import javafx.scene.Group;
 import utils.Cell;
 import utils.FileReader;
 
-
+/**
+ * This class creates the Percolation simulation.
+ *
+ * It uses 3 states, empty, percolated, and blocked.
+ *
+ * The specific params are initial percent blocked.
+ *
+ * The percolation starts from the northern border.
+ */
 public class PercolationController extends Controller {
 
   private double percentBlocked;

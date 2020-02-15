@@ -6,6 +6,15 @@ import javafx.scene.Group;
 import utils.Cell;
 import utils.FileReader;
 
+
+/**
+ * This class creates the Rock Paper simulation.
+ *
+ * It uses any off number of states.
+ *
+ * The specific params are number of options, (3 for normal game), threshold for being beaten,
+ * and random chance to be added to threshold.
+ */
 public class RockPaperScissors extends Controller {
 
   private int numberOfTypes;
