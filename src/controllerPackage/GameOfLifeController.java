@@ -6,7 +6,13 @@ import javafx.scene.Group;
 import utils.Cell;
 import utils.FileReader;
 
-
+/**
+ * This class creates the GOL simulation.
+ *
+ * It uses 2 states, dead, alive.
+ *
+ * The specific params are initial percent alive.
+ */
 public class GameOfLifeController extends Controller {
 
   private double initialLive;

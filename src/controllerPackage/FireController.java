@@ -6,7 +6,14 @@ import javafx.scene.Group;
 import utils.Cell;
 import utils.FileReader;
 
-
+/**
+ * This class creates the Fire simulation.
+ *
+ * It uses 3 states, empty, tree, and burning.
+ *
+ * The specific params are initial percent trees, initial on fire trees,
+ * and chance of tree catching fire if neighbor is alight.
+ */
 public class FireController extends Controller {
 
 
@@ -36,7 +43,6 @@ public class FireController extends Controller {
     initialBurningTree = (double) values.get("initialBurningTree");
     percentCatchFire = (double) values.get("percentCatchFire");
   }
-
 
   @Override
   protected void initializeCellState(Cell current) {

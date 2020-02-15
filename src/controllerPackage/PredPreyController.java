@@ -7,7 +7,16 @@ import javafx.scene.Group;
 import utils.Cell;
 import utils.FileReader;
 
-
+/**
+ * This class creates the Pred Prey simulation.
+ *
+ * It uses 3 states, Kelp, Fish, and Shark.
+ *
+ * The specific params are time for shark breed, fish breed,
+ * amount of energy gained from fish, and time for sharks to starve.
+ *
+ * Additionally, the percent occupies and percent fish determine starting ratios.
+ */
 public class PredPreyController extends Controller {
 
 
@@ -59,7 +68,7 @@ public class PredPreyController extends Controller {
   }
 
   @Override
-  protected void setState(Cell current, int newStateFromClick) {
+  protected void setCurrentState(Cell current, int newStateFromClick) {
     current.setCurrentState(new PPState(newStateFromClick));
   }
 
