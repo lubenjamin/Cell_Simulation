@@ -63,16 +63,6 @@ public class UserSelectDisplay extends Stage {
     return mySimAddButton;
   }
 
-  private void initUserSelectDisplay() {
-    FileChooser chooser = new FileChooser();
-    chooser.setTitle("Load a new XML file");
-    chooser.setInitialDirectory(new File("./data/"));
-    myFirstSim = chooser.showOpenDialog(this);
-    String ret = myFirstSim.getName().split(".xml")[0];
-    myDropDown.setValue(ret);
-    setSim();
-  }
-
   private void initSimSelect(EventHandler<ActionEvent> handler, EventHandler<ActionEvent> handler2,
       ArrayList<String> simNames) {
     myDropDown.setOnAction(handler);
