@@ -8,7 +8,9 @@ import javafx.scene.control.Spinner;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-
+/**
+ * This class is used to create UI elements specific to each simulation.
+ */
 public class SimSpecificUI {
 
   private HashMap<String, Spinner> spinners;
@@ -16,6 +18,18 @@ public class SimSpecificUI {
   public SimSpecificUI(Group group, Map<String, Object> varNames) {
     spinners = new HashMap<>();
     makeSpinners(group, varNames);
+  }
+
+  /**
+   * This returns the associate values for each key. These keys are from the passed in map to contructor.
+   * @return
+   */
+  public Map<String, Object> getValues() {
+    HashMap<String, Object> ret = new HashMap<>();
+    for (String k : spinners.keySet()) {
+      ret.put(k, spinners.get(k).getValue());
+    }
+    return ret;
   }
 
   private void makeSpinners(Group group, Map<String, Object> varNames) {
@@ -47,13 +61,7 @@ public class SimSpecificUI {
     return h;
   }
 
-  public Map<String, Object> getValues() {
-    HashMap<String, Object> ret = new HashMap<>();
-    for (String k : spinners.keySet()) {
-      ret.put(k, spinners.get(k).getValue());
-    }
-    return ret;
-  }
+
 
 
 }

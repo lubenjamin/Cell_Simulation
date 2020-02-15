@@ -3,13 +3,29 @@ package utils;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The HexModel class is a subclass of model
+ * HexModel will be rendered as a grid of hexs within the view
+ * Main unique aspect of this class is how neighbors are found
+ */
 public class HexModel extends Model {
 
+  /**
+   * Constructor for the HexModel
+   * @param widthCells
+   * @param heightCells
+   * @param maxState
+   */
   public HexModel(int widthCells, int heightCells, int maxState) {
     super(widthCells, heightCells, maxState);
   }
 
-
+  /**
+   * Finds the neighbors of a specific hex, only one type of neighbor finding
+   * @param x coordinate of the cell wanting to find neighbors of
+   * @param y coordinate of the cell wanting to find neighbors of
+   * @return list of neighboring hexs
+   */
   public List<Cell> getSimpleNeighborhood(int x, int y) {
     ArrayList<Cell> ret = new ArrayList<>();
     if (y % 2 == 0) {
