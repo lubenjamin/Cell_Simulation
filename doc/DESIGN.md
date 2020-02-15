@@ -1,5 +1,4 @@
 # Simulation Design Final
-### Benjamin Lu (bll32)
 
 ## Team Roles and Responsibilities
 
