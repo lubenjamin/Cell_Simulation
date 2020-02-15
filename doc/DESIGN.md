@@ -19,15 +19,15 @@
 
 #### Core Classes
 
-#####Model
+##### Model
 
 Model is one of the essential core classes for the simulation to run. 
 Model initializes the grid of cell objects. However there are no getters
 for the entire grid, other classes are only allowed to access individual
 cells as well as neighbors of a specific cell. 
 
-#####FileReader
-
+##### FileReader
+ 
 FileReader serves as the first step in starting a simulation. XML files
 contain the simulation type and parameters associated with that simulation.
 FileReader is able to return the value of any parameter if that parameter
