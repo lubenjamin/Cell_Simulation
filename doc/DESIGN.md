@@ -3,7 +3,7 @@
 
 ## Team Roles and Responsibilities
 
- * Team Member #1
+ * Connor Hazen
 
  * Team Member #2
 
@@ -19,11 +19,18 @@
 
 #### Core Classes
 
+#####Controller
+
+#####View
+
+#####Cell
+
+##### ?
+
 
 ## Assumptions that Affect the Design
 
 #### Features Affected by Assumptions
-
 
 ## New Features HowTo
 
