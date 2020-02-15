@@ -1,5 +1,22 @@
 package controllerPackage;
 
+/**
+ * MASTERPIECE: I think this code is a very good progression into good coding practices.
+ * In conjunction with the subclasses, it provides a easy framework for creating new simulations
+ * while still retaining its flexibility.
+ *
+ * This simple and complex simulations have the necessary tools to implement their processes without
+ * doing more than necessary.
+ *
+ * There are 3 abstracted classes required for setting simulation parameters,
+ * and 2 for simulation running.
+ *
+ * This means the simple simulations like fire can be implemented with very little work.
+ *
+ * Yet, the numerous abstract methods allow complex simulations like predator prey to
+ * be implemented with relative ease.
+ */
+
 
 import View.SimSpecificUI;
 import View.View;
@@ -13,8 +30,6 @@ import utils.FileReader;
 import utils.HexModel;
 import utils.Model;
 import utils.SquareModel;
-
-
 /**
  * @author connorhazen
  * The controller Class is used to create each simulation.
@@ -143,8 +158,6 @@ public abstract class Controller {
    */
   protected abstract void setSimParamsFromUI();
 
-
-
   /**
    * This method switches current state with next state for each cell.
    */
@@ -183,7 +196,6 @@ public abstract class Controller {
       }
     }
   }
-
   private String randomColor() {
     return Color.rgb(random.nextInt(256), random.nextInt(256), random.nextInt(256)).toString();
   }

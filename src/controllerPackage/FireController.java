@@ -1,4 +1,10 @@
 package controllerPackage;
+/**
+ * MASTERPEICE:
+ * I think this is a good example of the ideas I discussed in the super class.
+ * It shows how the various methods work together to create a full simulation with
+ * relative 
+ */
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -64,7 +70,6 @@ public class FireController extends Controller {
     initialBurningTree = reader.getDoubleValue("initialBurningTree");
     percentCatchFire = reader.getDoubleValue("percentCatchFire");
     spacing = reader.getDoubleValue("spacing");
-
     modelType = reader.getString("modelType");
     maxState = 2;
   }
@@ -76,7 +81,7 @@ public class FireController extends Controller {
       current.setNextState(new State(0));
       return;
     }
-    int numFire = getNumFire(current);
+    int numFire = getNumNeighborsOnFire(current);
     if (numFire > 0 && probabilityChecker(percentCatchFire)) {
       current.setNextState(new State(2));
     } else {
@@ -84,7 +89,7 @@ public class FireController extends Controller {
     }
   }
 
-  private int getNumFire(Cell current) {
+  private int getNumNeighborsOnFire(Cell current) {
     ArrayList<Cell> neigh = (ArrayList<Cell>) currentModel
         .getSimpleNeighborhood(current.getX(), current.getY());
     int numOnFire = 0;
