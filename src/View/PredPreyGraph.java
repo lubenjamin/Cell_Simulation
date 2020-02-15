@@ -14,6 +14,9 @@ public class PredPreyGraph extends Group {
   private XYChart.Series<Number, Number> series = new XYChart.Series<>();
   private XYChart.Series<Number, Number> series2 = new XYChart.Series<>();
 
+  /**
+   * create a linechart object that records population states
+   */
   public PredPreyGraph() {
     NumberAxis xAxis = new NumberAxis();
     NumberAxis yAxis = new NumberAxis();
@@ -29,6 +32,9 @@ public class PredPreyGraph extends Group {
     myLineChart.getData().add(series2);
   }
 
+  /**
+   * reinitialize the graph back to original state with new data series
+   */
   public void reinit() {
     clear();
     series = new XYChart.Series<>();
@@ -38,12 +44,21 @@ public class PredPreyGraph extends Group {
     time = 0;
   }
 
+  /**
+   * update the graph with population totals of sharks and fish retrieved from sim controller
+   * and increment timer
+   * @param predNum
+   * @param preyNum
+   */
   public void update(int predNum, int preyNum) {
     enterData("SHARK", predNum, series);
     enterData("FISH", preyNum, series2);
     time++;
   }
 
+  /**
+   * clear the current graph of all data
+   */
   public void clear() {
     myLineChart.getData().removeAll(myLineChart.getData());
   }

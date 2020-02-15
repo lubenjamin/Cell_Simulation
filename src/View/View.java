@@ -21,6 +21,15 @@ public class View {
   private double myVisualHeight;
   private int currState = 0;
 
+  /**
+   * create object responsible for visualizing cells 
+   * @param viewGroup
+   * @param widthCells
+   * @param heightCells
+   * @param currentModel
+   * @param spacing
+   * @param colors
+   */
   public View(Group viewGroup, int widthCells, int heightCells, Model currentModel, double spacing,
       ArrayList<String> colors) {
     this.colors = colors;
@@ -31,6 +40,9 @@ public class View {
     initCellView(currentModel, widthCells, heightCells);
   }
 
+  /**
+   * for each cell visual object retreived from model, update based on new state calculated from game logic
+   */
   public void updateAllCells() {
     for (CellVisual cv : myVisuals) {
       cv.setFill(displayState(myModel.getCell(cv.getXPos(), cv.getYPos())));
@@ -70,6 +82,10 @@ public class View {
     cv.setFill(Color.valueOf(colors.get(cell.getNewStateFromClick())));
   }
 
+  /**
+   * reset visuals to default colors
+   * @param colors
+   */
   public void replaceColors(ArrayList<String> colors) {
     this.colors = colors;
   }

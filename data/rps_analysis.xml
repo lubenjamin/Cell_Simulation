@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<simulation>
+    <type>RockPaperScissors</type>
+    <rows>50</rows>
+    <columns>50</columns>
+    <numberOfTypes>5</numberOfTypes>
+    <threshold>2</threshold>
+    <randomChanceThresh>2</randomChanceThresh>
+    <state0Color>0x056a3a</state0Color>
+    <state1Color>0x000000</state1Color>
+    <state2Color>0x0000db</state2Color>
+    <spacing>.05</spacing>
+</simulation>
+

@@ -33,6 +33,12 @@ public class UserSelectDisplay extends Stage {
   private Button mySimAddButton = new Button();
   private File myFirstSim;
 
+  /**
+   * create an object specializing in simulation laoding
+   * @param resources
+   * @param controls
+   * @param sims
+   */
   public UserSelectDisplay(ResourceBundle resources, ControlPanel controls,
       ArrayList<String> sims) {
     this.myResources = resources;
@@ -44,6 +50,10 @@ public class UserSelectDisplay extends Stage {
     initSimSelect(event -> setSim(), event -> addSim(), mySims);
   }
 
+  /**
+   * retrieve simulation text chosen by user from dropdown and return the string
+   * @return string representing simulation file name
+   */
   public String setSim() {
     String st = myDropDown.getValue();
     myControlPanel.setSimLoad(true);
@@ -55,10 +65,17 @@ public class UserSelectDisplay extends Stage {
     new Simulator(stage);
   }
 
+  /**
+   * @return a populated dropdown box housing all of the viable simulation files
+   */
   public ComboBox<String> getDropDown() {
     return myDropDown;
   }
 
+  /**
+   * return a button that alllows for addition of new simulations
+   * @return
+   */
   public Button getSimAddButton() {
     return mySimAddButton;
   }

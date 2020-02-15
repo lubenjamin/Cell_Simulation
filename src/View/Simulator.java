@@ -18,9 +18,7 @@ import javafx.util.Duration;
 import utils.FileReader;
 
 
-/**
- * Feel free to completely change this code or delete it entirely.
- */
+
 public class Simulator {
 
 
@@ -45,6 +43,8 @@ public class Simulator {
 
   /**
    * Start of the program.
+   * initialze timeline and controlpanel
+   * scan data folder for xml files
    */
   public Simulator(Stage stage) {
     getFileNames();

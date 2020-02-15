@@ -37,6 +37,11 @@ public class ControlPanel extends Group {
   private boolean isStep;
   private boolean isSimLoaded;
 
+  /**
+   * create a control panel object that houses basic animation functionality of UI
+   * start initially paused
+   * @param animation
+   */
   public ControlPanel(Timeline animation) {
     myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
     this.myAnimation = animation;
@@ -45,6 +50,12 @@ public class ControlPanel extends Group {
     getChildren().add(initControlPanel());
   }
 
+  /**
+   * create a button object with a label retreived from a .properties file
+   * @param property - name of label in .properties file
+   * @param handler - corresponds with function of button
+   * @return a new button object wiht customized label and function
+   */
   public Button makeButton(String property, EventHandler<ActionEvent> handler) {
     // represent all supported image suffixes
     final String IMAGEFILE_SUFFIXES = String
@@ -96,6 +107,9 @@ public class ControlPanel extends Group {
     myAnimation.setRate(mySlider.getValue());
   }
 
+  /**
+   * set the simulation state to pause
+   */
   public void setPause() {
     isPaused = true;
   }
@@ -117,28 +131,46 @@ public class ControlPanel extends Group {
     isStep = true;
   }
 
-
+  /**
+   * @return boolean representing whether or not a simulation has been loaded
+   */
   public boolean getSimLoadStatus() {
     return isSimLoaded;
   }
 
+  /**
+   * @return boolean representing whether or not simulation is paused
+   */
   public boolean getPauseStatus() {
     return this.isPaused;
   }
 
+  /**
+   * @return boolean representing if a reset command has been issued by user
+   */
   public boolean getResetStatus() {
     return this.isReset;
   }
 
+  /**
+   * @return boolean representing if a stepping command has been issued by user
+   */
   public boolean getUpdateStatus() {
     return this.isStep;
   }
 
+  /**
+   * reset controlpanel back to default reset and step states
+   */
   public void resetControl() {
     this.isReset = false;
     this.isStep = false;
   }
 
+  /**
+   * set control panel with boolean representing whether or not a sim has been loaded
+   * @param b
+   */
   public void setSimLoad(boolean b) {
     this.isSimLoaded = b;
   }

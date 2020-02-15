@@ -30,6 +30,13 @@ public class UserInterface {
   private PredPreyGraph myGraph;
   private BorderPane bp = new BorderPane();
 
+  /**
+   * create a UI object that houses all animation function and simulation loading functionality
+   * @param stage
+   * @param language
+   * @param simNames
+   * @param panel
+   */
   public UserInterface(Stage stage, String language, ArrayList<String> simNames,
       ControlPanel panel) {
     this.mySims = simNames;
@@ -40,6 +47,13 @@ public class UserInterface {
     myDisplay = new UserSelectDisplay(myResources, myControlPanel, mySims);
   }
 
+  /**
+   * initialize main visuals of UI including hbox and vbox housing buttons, sliders,
+   * and a spot for sim specific ui
+   * @param viewGroup
+   * @param simGroup
+   * @return
+   */
   public Scene setupUI(Group viewGroup, Group simGroup) {
     hb2.setAlignment(Pos.CENTER);
     hb.setSpacing(450);
@@ -59,16 +73,26 @@ public class UserInterface {
     return myScene;
   }
 
+  /**
+   * @return the sim chosen by user through the dropdownbox
+   */
   public String getSim() {
     return myDisplay.setSim();
   }
 
+  /**
+   * add a predpreygraph object to the hbox group to be visualized
+   * @return a physical graph object to be used in simulator
+   */
   public PredPreyGraph addPredChart() {
     myGraph = new PredPreyGraph();
     hb2.getChildren().add(myGraph);
     return myGraph;
   }
 
+  /**
+   * remove predpreygraph object from the UI hbox
+   */
   public void removeGraph() {
     hb2.getChildren().remove(myGraph);
   }
